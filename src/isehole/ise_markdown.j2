@@ -48,17 +48,13 @@
 {%- elif  "/api/v1/policy/device-admin/shell-profiles" in api %}
 {%- elif  "/api/v1/policy/network-access/authorization-profiles" in api %}
 {%- elif  "/api/v1/policy/network-access/condition" in api %}
-{%-     if  "/api/v1/policy/network-access/condition/authentication" in api %}
-{%-     elif  "/api/v1/policy/network-access/condition/authorization" in api %}
-{%-     elif  "/api/v1/policy/network-access/condition/policyset" in api %}
-{%-     else %}
-{%-     endif %}
+{%- elif  "/api/v1/policy/network-access/condition/authentication" in api %}
+{%- elif  "/api/v1/policy/network-access/condition/authorization" in api %}
+{%- elif  "/api/v1/policy/network-access/condition/policyset" in api %}
 {%- elif  "/api/v1/policy/network-access/dictionaries" in api %}
-{%-     if  "/api/v1/policy/network-access/dictionaries/authentication" in api %}
-{%-     elif  "/api/v1/policy/network-access/dictionaries/authorization" in api %}
-{%-     elif  "/api/v1/policy/network-access/dictionaries/policyset" in api %}
-{%-     else %}
-{%-     endif %}
+{%- elif  "/api/v1/policy/network-access/dictionaries/authentication" in api %}
+{%- elif  "/api/v1/policy/network-access/dictionaries/authorization" in api %}
+{%- elif  "/api/v1/policy/network-access/dictionaries/policyset" in api %}
 {%- elif  "/api/v1/policy/network-access/identity-stores" in api %}
 {%- elif  "/api/v1/policy/network-access/policy-set" in api %}
 {%- elif  "/api/v1/policy/network-access/security-groups" in api %}

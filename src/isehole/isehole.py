@@ -399,17 +399,17 @@ class ISEHole():
                 async with aiofiles.open('Network Access Conditions/JSON/Network Access Conditions.json', mode='w') as f:
                     await f.write(json.dumps(payload, indent=4, sort_keys=True))
 
-            # if "/api/v1/policy/network-access/condition/authentication" in api:
-            #     async with aiofiles.open('Network Access Condition Authentication/JSON/Network Access Condition Authentication.json', mode='w') as f:
-            #         await f.write(json.dumps(payload, indent=4, sort_keys=True))
+            if "/api/v1/policy/network-access/condition/authentication" in api:
+                async with aiofiles.open('Network Access Condition Authentication/JSON/Network Access Condition Authentication.json', mode='w') as f:
+                    await f.write(json.dumps(payload, indent=4, sort_keys=True))
     
-            # if "/api/v1/policy/network-access/condition/authorization" in api:
-            #     async with aiofiles.open('Network Access Condition Authorization/JSON/Network Access Condition Authorization.json', mode='w') as f:
-            #         await f.write(json.dumps(payload, indent=4, sort_keys=True))
+            if "/api/v1/policy/network-access/condition/authorization" in api:
+                async with aiofiles.open('Network Access Condition Authorization/JSON/Network Access Condition Authorization.json', mode='w') as f:
+                    await f.write(json.dumps(payload, indent=4, sort_keys=True))
 
-            # if "/api/v1/policy/network-access/condition/policyset" in api:
-            #     async with aiofiles.open('Network Access Condition Policy Sets/JSON/Network Access Condition Policy Sets.json', mode='w') as f:
-            #         await f.write(json.dumps(payload, indent=4, sort_keys=True))
+            if "/api/v1/policy/network-access/condition/policyset" in api:
+                async with aiofiles.open('Network Access Condition Policy Sets/JSON/Network Access Condition Policy Sets.json', mode='w') as f:
+                    await f.write(json.dumps(payload, indent=4, sort_keys=True))
 
             if "/api/v1/policy/network-access/dictionaries" in api:
                 async with aiofiles.open('Network Access Dictionaries/JSON/Network Access Dictionaries.json', mode='w') as f:
