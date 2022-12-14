@@ -61,7 +61,6 @@ class ISEHole():
                        "Network Access Dictionary Policy Sets",
                        "Network Access Dictionaries",
                        "Network Access Identity Stores",
-                       "Network Access Policy Authorization",
                        "Network Access Policy Sets",
                        "Network Access Security Groups",
                        "Network Access Service Names",
@@ -397,37 +396,20 @@ class ISEHole():
                     await f.write(json.dumps(payload, indent=4, sort_keys=True))
 
             if "/api/v1/policy/network-access/condition" in api:
-                if "/api/v1/policy/network-access/condition/authentication" in api:
-                    async with aiofiles.open('Network Access Condition Authentication/JSON/Network Access Condition Authentication.json', mode='w') as f:
-                        await f.write(payload)
+                async with aiofiles.open('Network Access Conditions/JSON/Network Access Conditions.json', mode='w') as f:
+                    await f.write(json.dumps(payload, indent=4, sort_keys=True))
 
-                elif "/api/v1/policy/network-access/condition/authorization" in api:
-                    async with aiofiles.open('Network Access Condition Authorization/JSON/Network Access Condition Authorization.json', mode='w') as f:
-                        await f.write(payload)
+            # if "/api/v1/policy/network-access/condition/authentication" in api:
+            #     async with aiofiles.open('Network Access Condition Authentication/JSON/Network Access Condition Authentication.json', mode='w') as f:
+            #         await f.write(json.dumps(payload, indent=4, sort_keys=True))
+    
+            # if "/api/v1/policy/network-access/condition/authorization" in api:
+            #     async with aiofiles.open('Network Access Condition Authorization/JSON/Network Access Condition Authorization.json', mode='w') as f:
+            #         await f.write(json.dumps(payload, indent=4, sort_keys=True))
 
-                elif "/api/v1/policy/network-access/condition/policyset" in api:
-                    async with aiofiles.open('Network Access Condition Policy Sets/JSON/Network Access Condition Policy Sets.json', mode='w') as f:
-                        await f.write(payload)                
-                else:
-                    async with aiofiles.open('Network Access Conditions/JSON/Network Access Conditions.json', mode='w') as f:
-                        await f.write(payload)
-
-            if "/api/v1/policy/network-access/dictionaries" in api:
-                if "/api/v1/policy/network-access/dictionaries/authentication" in api:
-                    async with aiofiles.open('Network Access Dictionary Authentication/JSON/Network Access Dictionary Authentication.json', mode='w') as f:
-                        await f.write(payload)
-                
-                elif "/api/v1/policy/network-access/dictionaries/authorization" in api:
-                    async with aiofiles.open('Network Access Dictionary Authorization/JSON/Network Access Dictionary Authorization.json', mode='w') as f:
-                        await f.write(payload)
-
-                elif "/api/v1/policy/network-access/dictionaries/policyset" in api:
-                    async with aiofiles.open('Network Access Dictionary Policy Sets/JSON/Network Access Dictionary Policy Sets.json', mode='w') as f:
-                        await f.write(payload)
-
-                else:
-                    async with aiofiles.open('Network Access Dictionaries/JSON/Network Access Dictionaries.json', mode='w') as f:
-                        await f.write(payload)
+            # if "/api/v1/policy/network-access/condition/policyset" in api:
+            #     async with aiofiles.open('Network Access Condition Policy Sets/JSON/Network Access Condition Policy Sets.json', mode='w') as f:
+            #         await f.write(json.dumps(payload, indent=4, sort_keys=True))
 
             if "/api/v1/policy/network-access/dictionaries" in api:
                 async with aiofiles.open('Network Access Dictionaries/JSON/Network Access Dictionaries.json', mode='w') as f:
@@ -669,37 +651,36 @@ class ISEHole():
                     await f.write(clean_yaml)
 
             if "/api/v1/policy/network-access/condition" in api:
-                if "/api/v1/policy/network-access/condition/authentication" in api:
-                    async with aiofiles.open('Network Access Condition Authentication/YAML/Network Access Condition Authentication.yaml', mode='w') as f:
-                        await f.write(payload)
+                async with aiofiles.open('Network Access Conditions/YAML/Network Access Conditions.yaml', mode='w') as f:
+                    await f.write(clean_yaml)
 
-                elif "/api/v1/policy/network-access/condition/authorization" in api:
-                    async with aiofiles.open('Network Access Condition Authorization/YAML/Network Access Condition Authorization.yaml', mode='w') as f:
-                        await f.write(payload)
+            if "/api/v1/policy/network-access/condition/authentication" in api:
+                async with aiofiles.open('Network Access Condition Authentication/YAML/Network Access Condition Authentication.yaml', mode='w') as f:
+                    await f.write(clean_yaml)
 
-                elif "/api/v1/policy/network-access/condition/policyset" in api:
-                    async with aiofiles.open('Network Access Condition Policy Sets/YAML/Network Access Condition Policy Sets.yaml', mode='w') as f:
-                        await f.write(payload)                
-                else:
-                    async with aiofiles.open('Network Access Conditions/YAML/Network Access Conditions.yaml', mode='w') as f:
-                        await f.write(payload)
+            if "/api/v1/policy/network-access/condition/authorization" in api:
+                async with aiofiles.open('Network Access Condition Authorization/YAML/Network Access Condition Authorization.yaml', mode='w') as f:
+                    await f.write(clean_yaml)
+
+            if "/api/v1/policy/network-access/condition/policyset" in api:
+                async with aiofiles.open('Network Access Condition Policy Sets/YAML/Network Access Condition Policy Sets.yaml', mode='w') as f:
+                    await f.write(clean_yaml)
 
             if "/api/v1/policy/network-access/dictionaries" in api:
-                if "/api/v1/policy/network-access/dictionaries/authentication" in api:
-                    async with aiofiles.open('Network Access Dictionary Authentication/YAML/Network Access Dictionary Authentication.yaml', mode='w') as f:
-                        await f.write(payload)
-                
-                elif "/api/v1/policy/network-access/dictionaries/authorization" in api:
-                    async with aiofiles.open('Network Access Dictionary Authorization/YAML/Network Access Dictionary Authorization.yaml', mode='w') as f:
-                        await f.write(payload)
+                async with aiofiles.open('Network Access Dictionaries/YAML/Network Access Dictionaries.yaml', mode='w') as f:
+                    await f.write(clean_yaml)
 
-                elif "/api/v1/policy/network-access/dictionaries/policyset" in api:
-                    async with aiofiles.open('Network Access Dictionary Policy Sets/YAML/Network Access Dictionary Policy Sets.yaml', mode='w') as f:
-                        await f.write(payload)
+            if "/api/v1/policy/network-access/dictionaries/authentication" in api:
+                async with aiofiles.open('Network Access Dictionary Authentication/YAML/Network Access Dictionary Authentication.yaml', mode='w') as f:
+                    await f.write(clean_yaml)
 
-                else:
-                    async with aiofiles.open('Network Access Dictionaries/YAML/Network Access Dictionaries.yaml', mode='w') as f:
-                        await f.write(payload)
+            if "/api/v1/policy/network-access/dictionaries/authorization" in api:
+                async with aiofiles.open('Network Access Dictionary Authorization/YAML/Network Access Dictionary Authorization.yaml', mode='w') as f:
+                    await f.write(clean_yaml)
+
+            if "/api/v1/policy/network-access/dictionaries/policyset" in api:
+                async with aiofiles.open('Network Access Dictionary Policy Sets/YAML/Network Access Dictionary Policy Sets.yaml', mode='w') as f:
+                    await f.write(clean_yaml)
 
             if "/api/v1/policy/network-access/identity-stores" in api:
                 async with aiofiles.open('Network Access Identity Stores/YAML/Network Access Identity Stores.yaml', mode='w') as f:
@@ -929,37 +910,36 @@ class ISEHole():
                     await f.write(csv_output)
 
             if "/api/v1/policy/network-access/condition" in api:
-                if "/api/v1/policy/network-access/condition/authentication" in api:
-                    async with aiofiles.open('Network Access Condition Authentication/CSV/Network Access Condition Authentication.csv', mode='w') as f:
-                        await f.write(payload)
+                async with aiofiles.open('Network Access Conditions/CSV/Network Access Conditions.csv', mode='w') as f:
+                    await f.write(csv_output)
 
-                elif "/api/v1/policy/network-access/condition/authorization" in api:
-                    async with aiofiles.open('Network Access Condition Authorization/CSV/Network Access Condition Authorization.csv', mode='w') as f:
-                        await f.write(payload)
+            if "/api/v1/policy/network-access/condition/authentication" in api:
+                async with aiofiles.open('Network Access Condition Authentication/CSV/Network Access Condition Authentication.csv', mode='w') as f:
+                    await f.write(csv_output)
 
-                elif "/api/v1/policy/network-access/condition/policyset" in api:
-                    async with aiofiles.open('Network Access Condition Policy Sets/CSV/Network Access Condition Policy Sets.csv', mode='w') as f:
-                        await f.write(payload)                
-                else:
-                    async with aiofiles.open('Network Access Conditions/CSV/Network Access Conditions.csv', mode='w') as f:
-                        await f.write(payload)
+            if "/api/v1/policy/network-access/condition/authorization" in api:
+                async with aiofiles.open('Network Access Condition Authorization/CSV/Network Access Condition Authorization.csv', mode='w') as f:
+                    await f.write(csv_output)
+
+            if "/api/v1/policy/network-access/condition/policyset" in api:
+                async with aiofiles.open('Network Access Condition Policy Sets/CSV/Network Access Condition Policy Sets.csv', mode='w') as f:
+                    await f.write(csv_output)
 
             if "/api/v1/policy/network-access/dictionaries" in api:
-                if "/api/v1/policy/network-access/dictionaries/authentication" in api:
-                    async with aiofiles.open('Network Access Dictionary Authentication/CSV/Network Access Dictionary Authentication.csv', mode='w') as f:
-                        await f.write(payload)
-                
-                elif "/api/v1/policy/network-access/dictionaries/authorization" in api:
-                    async with aiofiles.open('Network Access Dictionary Authorization/CSV/Network Access Dictionary Authorization.csv', mode='w') as f:
-                        await f.write(payload)
+                async with aiofiles.open('Network Access Dictionaries/CSV/Network Access Dictionaries.csv', mode='w') as f:
+                    await f.write(csv_output)
 
-                elif "/api/v1/policy/network-access/dictionaries/policyset" in api:
-                    async with aiofiles.open('Network Access Dictionary Policy Sets/CSV/Network Access Dictionary Policy Sets.csv', mode='w') as f:
-                        await f.write(payload)
+            if "/api/v1/policy/network-access/dictionaries/authentication" in api:
+                async with aiofiles.open('Network Access Dictionary Authentication/CSV/Network Access Dictionary Authentication.csv', mode='w') as f:
+                    await f.write(csv_output)
 
-                else:
-                    async with aiofiles.open('Network Access Dictionaries/CSV/Network Access Dictionaries.csv', mode='w') as f:
-                        await f.write(payload)
+            if "/api/v1/policy/network-access/dictionaries/authorization" in api:
+                async with aiofiles.open('Network Access Dictionary Authorization/CSV/Network Access Dictionary Authorization.csv', mode='w') as f:
+                    await f.write(csv_output)
+
+            if "/api/v1/policy/network-access/dictionaries/policyset" in api:
+                async with aiofiles.open('Network Access Dictionary Policy Sets/CSV/Network Access Dictionary Policy Sets.csv', mode='w') as f:
+                    await f.write(csv_output)
 
             if "/api/v1/policy/network-access/identity-stores" in api:
                 async with aiofiles.open('Network Access Identity Stores/CSV/Network Access Identity Stores.csv', mode='w') as f:
@@ -1189,37 +1169,36 @@ class ISEHole():
                     await f.write(markdown_output)
 
             if "/api/v1/policy/network-access/condition" in api:
-                if "/api/v1/policy/network-access/condition/authentication" in api:
-                    async with aiofiles.open('Network Access Condition Authentication/Markdown/Network Access Condition Authentication.md', mode='w') as f:
-                        await f.write(payload)
+                async with aiofiles.open('Network Access Conditions/Markdown/Network Access Conditions.md', mode='w') as f:
+                    await f.write(markdown_output)
 
-                elif "/api/v1/policy/network-access/condition/authorization" in api:
-                    async with aiofiles.open('Network Access Condition Authorization/Markdown/Network Access Condition Authorization.md', mode='w') as f:
-                        await f.write(payload)
+            if "/api/v1/policy/network-access/condition/authentication" in api:
+                async with aiofiles.open('Network Access Condition Authentication/Markdown/Network Access Condition Authentication.md', mode='w') as f:
+                    await f.write(markdown_output)
 
-                elif "/api/v1/policy/network-access/condition/policyset" in api:
-                    async with aiofiles.open('Network Access Condition Policy Sets/Markdown/Network Access Condition Policy Sets.md', mode='w') as f:
-                        await f.write(payload)                
-                else:
-                    async with aiofiles.open('Network Access Conditions/Markdown/Network Access Conditions.md', mode='w') as f:
-                        await f.write(payload)
+            if "/api/v1/policy/network-access/condition/authorization" in api:
+                async with aiofiles.open('Network Access Condition Authorization/Markdown/Network Access Condition Authorization.md', mode='w') as f:
+                    await f.write(markdown_output)
+
+            if "/api/v1/policy/network-access/condition/policyset" in api:
+                async with aiofiles.open('Network Access Condition Policy Sets/Markdown/Network Access Condition Policy Sets.md', mode='w') as f:
+                    await f.write(markdown_output)
 
             if "/api/v1/policy/network-access/dictionaries" in api:
-                if "/api/v1/policy/network-access/dictionaries/authentication" in api:
-                    async with aiofiles.open('Network Access Dictionary Authentication/Markdown/Network Access Dictionary Authentication.md', mode='w') as f:
-                        await f.write(payload)
-                
-                elif "/api/v1/policy/network-access/dictionaries/authorization" in api:
-                    async with aiofiles.open('Network Access Dictionary Authorization/Markdown/Network Access Dictionary Authorization.md', mode='w') as f:
-                        await f.write(payload)
+                async with aiofiles.open('Network Access Dictionaries/Markdown/Network Access Dictionaries.md', mode='w') as f:
+                    await f.write(markdown_output)
 
-                elif "/api/v1/policy/network-access/dictionaries/policyset" in api:
-                    async with aiofiles.open('Network Access Dictionary Policy Sets/Markdown/Network Access Dictionary Policy Sets.md', mode='w') as f:
-                        await f.write(payload)
+            if "/api/v1/policy/network-access/dictionaries/authentication" in api:
+                async with aiofiles.open('Network Access Dictionary Authentication/Markdown/Network Access Dictionary Authentication.md', mode='w') as f:
+                    await f.write(markdown_output)
 
-                else:
-                    async with aiofiles.open('Network Access Dictionaries/Markdown/Network Access Dictionaries.md', mode='w') as f:
-                        await f.write(payload)
+            if "/api/v1/policy/network-access/dictionaries/authorization" in api:
+                async with aiofiles.open('Network Access Dictionary Authorization/Markdown/Network Access Dictionary Authorization.md', mode='w') as f:
+                    await f.write(markdown_output)
+
+            if "/api/v1/policy/network-access/dictionaries/policyset" in api:
+                async with aiofiles.open('Network Access Dictionary Policy Sets/Markdown/Network Access Dictionary Policy Sets.md', mode='w') as f:
+                    await f.write(markdown_output)
 
             if "/api/v1/policy/network-access/identity-stores" in api:
                 async with aiofiles.open('Network Access Identity Stores/Markdown/Network Access Identity Stores.md', mode='w') as f:
@@ -1450,37 +1429,36 @@ class ISEHole():
                     await f.write(html_output)
 
             if "/api/v1/policy/network-access/condition" in api:
-                if "/api/v1/policy/network-access/condition/authentication" in api:
-                    async with aiofiles.open('Network Access Condition Authentication/HTML/Network Access Condition Authentication.html', mode='w') as f:
-                        await f.write(payload)
+                async with aiofiles.open('Network Access Conditions/HTML/Network Access Conditions.html', mode='w') as f:
+                    await f.write(html_output)
 
-                elif "/api/v1/policy/network-access/condition/authorization" in api:
-                    async with aiofiles.open('Network Access Condition Authorization/HTML/Network Access Condition Authorization.html', mode='w') as f:
-                        await f.write(payload)
+            if "/api/v1/policy/network-access/condition/authentication" in api:
+                async with aiofiles.open('Network Access Condition Authentication/HTML/Network Access Condition Authentication.html', mode='w') as f:
+                    await f.write(html_output)
 
-                elif "/api/v1/policy/network-access/condition/policyset" in api:
-                    async with aiofiles.open('Network Access Condition Policy Sets/HTML/Network Access Condition Policy Sets.html', mode='w') as f:
-                        await f.write(payload)                
-                else:
-                    async with aiofiles.open('Network Access Conditions/HTML/Network Access Conditions.html', mode='w') as f:
-                        await f.write(payload)
+            if "/api/v1/policy/network-access/condition/authorization" in api:
+                async with aiofiles.open('Network Access Condition Authorization/HTML/Network Access Condition Authorization.html', mode='w') as f:
+                    await f.write(html_output)
+
+            if "/api/v1/policy/network-access/condition/policyset" in api:
+                async with aiofiles.open('Network Access Condition Policy Sets/HTML/Network Access Condition Policy Sets.html', mode='w') as f:
+                    await f.write(html_output)
 
             if "/api/v1/policy/network-access/dictionaries" in api:
-                if "/api/v1/policy/network-access/dictionaries/authentication" in api:
-                    async with aiofiles.open('Network Access Dictionary Authentication/HTML/Network Access Dictionary Authentication.html', mode='w') as f:
-                        await f.write(payload)
-                
-                elif "/api/v1/policy/network-access/dictionaries/authorization" in api:
-                    async with aiofiles.open('Network Access Dictionary Authorization/HTML/Network Access Dictionary Authorization.html', mode='w') as f:
-                        await f.write(payload)
+                async with aiofiles.open('Network Access Dictionaries/HTML/Network Access Dictionaries.html', mode='w') as f:
+                    await f.write(html_output)
 
-                elif "/api/v1/policy/network-access/dictionaries/policyset" in api:
-                    async with aiofiles.open('Network Access Dictionary Policy Sets/HTML/Network Access Dictionary Policy Sets.html', mode='w') as f:
-                        await f.write(payload)
+            if "/api/v1/policy/network-access/dictionaries/authentication" in api:
+                async with aiofiles.open('Network Access Dictionary Authentication/HTML/Network Access Dictionary Authentication.html', mode='w') as f:
+                    await f.write(html_output)
 
-                else:
-                    async with aiofiles.open('Network Access Dictionaries/HTML/Network Access Dictionaries.html', mode='w') as f:
-                        await f.write(payload)
+            if "/api/v1/policy/network-access/dictionaries/authorization" in api:
+                async with aiofiles.open('Network Access Dictionary Authorization/HTML/Network Access Dictionary Authorization.html', mode='w') as f:
+                    await f.write(html_output)
+
+            if "/api/v1/policy/network-access/dictionaries/policyset" in api:
+                async with aiofiles.open('Network Access Dictionary Policy Sets/HTML/Network Access Dictionary Policy Sets.html', mode='w') as f:
+                    await f.write(html_output)
 
             if "/api/v1/policy/network-access/identity-stores" in api:
                 async with aiofiles.open('Network Access Identity Stores/HTML/Network Access Identity Stores.html', mode='w') as f:
@@ -1711,37 +1689,36 @@ class ISEHole():
                     await f.write(mindmap_output)
 
             if "/api/v1/policy/network-access/condition" in api:
-                if "/api/v1/policy/network-access/condition/authentication" in api:
-                    async with aiofiles.open('Network Access Condition Authentication/Mindmap/Network Access Condition Authentication.md', mode='w') as f:
-                        await f.write(mindmap_output)
+                async with aiofiles.open('Network Access Conditions/Mindmap/Network Access Conditions.md', mode='w') as f:
+                    await f.write(mindmap_output)
 
-                elif "/api/v1/policy/network-access/condition/authorization" in api:
-                    async with aiofiles.open('Network Access Condition Authorization/Mindmap/Network Access Condition Authorization.md', mode='w') as f:
-                        await f.write(mindmap_output)
+            if "/api/v1/policy/network-access/condition/authentication" in api:
+                async with aiofiles.open('Network Access Condition Authentication/Mindmap/Network Access Condition Authentication.md', mode='w') as f:
+                    await f.write(mindmap_output)
 
-                elif "/api/v1/policy/network-access/condition/policyset" in api:
-                    async with aiofiles.open('Network Access Condition Policy Sets/Mindmap/Network Access Condition Policy Sets.md', mode='w') as f:
-                        await f.write(mindmap_output)                
-                else:
-                    async with aiofiles.open('Network Access Conditions/Mindmap/Network Access Conditions.md', mode='w') as f:
-                        await f.write(mindmap_output)
+            if "/api/v1/policy/network-access/condition/authorization" in api:
+                async with aiofiles.open('Network Access Condition Authorization/Mindmap/Network Access Condition Authorization.md', mode='w') as f:
+                    await f.write(mindmap_output)
+
+            if "/api/v1/policy/network-access/condition/policyset" in api:
+                async with aiofiles.open('Network Access Condition Policy Sets/Mindmap/Network Access Condition Policy Sets.md', mode='w') as f:
+                    await f.write(mindmap_output)
 
             if "/api/v1/policy/network-access/dictionaries" in api:
-                if "/api/v1/policy/network-access/dictionaries/authentication" in api:
-                    async with aiofiles.open('Network Access Dictionary Authentication/Mindmap/Network Access Dictionary Authentication.md', mode='w') as f:
-                        await f.write(mindmap_output)
-                
-                elif "/api/v1/policy/network-access/dictionaries/authorization" in api:
-                    async with aiofiles.open('Network Access Dictionary Authorization/Mindmap/Network Access Dictionary Authorization.md', mode='w') as f:
-                        await f.write(mindmap_output)
+                async with aiofiles.open('Network Access Dictionaries/Mindmap/Network Access Dictionaries.md', mode='w') as f:
+                    await f.write(mindmap_output)
 
-                elif "/api/v1/policy/network-access/dictionaries/policyset" in api:
-                    async with aiofiles.open('Network Access Dictionary Policy Sets/Mindmap/Network Access Dictionary Policy Sets.md', mode='w') as f:
-                        await f.write(mindmap_output)
+            if "/api/v1/policy/network-access/dictionaries/authentication" in api:
+                async with aiofiles.open('Network Access Dictionary Authentication/Mindmap/Network Access Dictionary Authentication.md', mode='w') as f:
+                    await f.write(mindmap_output)
 
-                else:
-                    async with aiofiles.open('Network Access Dictionaries/Mindmap/Network Access Dictionaries.md', mode='w') as f:
-                        await f.write(mindmap_output)
+            if "/api/v1/policy/network-access/dictionaries/authorization" in api:
+                async with aiofiles.open('Network Access Dictionary Authorization/Mindmap/Network Access Dictionary Authorization.md', mode='w') as f:
+                    await f.write(mindmap_output)
+
+            if "/api/v1/policy/network-access/dictionaries/policyset" in api:
+                async with aiofiles.open('Network Access Dictionary Policy Sets/Mindmap/Network Access Dictionary Policy Sets.md', mode='w') as f:
+                    await f.write(mindmap_output)
 
             if "/api/v1/policy/network-access/identity-stores" in api:
                 async with aiofiles.open('Network Access Identity Stores/Mindmap/Network Access Identity Stores.md', mode='w') as f:
@@ -1760,7 +1737,8 @@ class ISEHole():
                     await f.write(mindmap_output)
 
     async def all_files(self, parsed_json):
-        await asyncio.gather(self.json_file(parsed_json),self.yaml_file(parsed_json), self.csv_file(parsed_json), self.markdown_file(parsed_json), self.html_file(parsed_json), self.mindmap_file(parsed_json))
+        await asyncio.gather(self.json_file(parsed_json))
+        #,self.yaml_file(parsed_json), self.csv_file(parsed_json), self.markdown_file(parsed_json), self.html_file(parsed_json), self.mindmap_file(parsed_json))
 
 @click.command()
 @click.option('--url',
