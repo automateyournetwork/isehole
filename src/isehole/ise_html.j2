@@ -1,5 +1,66 @@
-{%- include 'datatable_header.j2' %}
-{%- if "" in api %}
-
-{%- endif %}
-{%- include 'datatable_footer.j2' %}
+{%- if  "/ers/config/allowedprotocols" in api %}
+{%- elif  "/ers/config/adminuser" in api %}
+{%- elif  "/ers/config/activedirectory" in api %}
+{%- elif  "/ers/config/authorizationprofile" in api %}
+{%- elif  "/ers/config/downloadableacl" in api %}
+{%- elif  "/ers/config/endpoint" in api %}
+{%- elif  "/ers/config/endpointgroup" in api %}
+{%- elif  "/ers/config/identitygroup" in api %}
+{%- elif  "/ers/config/idstoresequence" in api %}
+{%- elif  "/ers/config/internaluser" in api %}
+{%- elif  "/ers/config/networkdevice" in api %}
+{%- elif  "/ers/config/networkdevicegroup" in api %}
+{%- elif  "/ers/config/node" in api %}
+{%- elif  "/ers/config/portal" in api %}
+{%- elif  "/ers/config/profilerprofile" in api %}
+{%- elif  "/ers/config/sgt" in api %}
+{%- elif  "/ers/config/sgacl" in api %}
+{%- elif  "/ers/config/selfregportal" in api %}
+{%- elif  "/ers/config/sponsorgroup" in api %}
+{%- elif  "/ers/config/sponsorportal" in api %}
+{%- elif  "/ers/config/sponsoredguestportal" in api %}
+{%- elif  "/api/v1/backup-restore/config/last-backup-status" in api %}
+{%- elif  "/api/v1/certs/certificate-signing-request" in api %}
+{%- elif  "/api/v1/certs/system-certificate" in api %}
+{%- elif  "/api/v1/certs/trusted-certificate" in api %}
+{%- elif  "/api/v1/deployment/node" in api %}
+{%- elif  "/api/v1/deployment/pan-ha" in api %}
+{%- elif  "/api/v1/profile/" in api %}
+{%- elif  "/api/v1/license/system/connection-type" in api %}
+{%- elif  "/api/v1/license/system/feature-to-tier-mapping" in api %}
+{%- elif  "/api/v1/license/system/register" in api %}
+{%- elif  "/api/v1/license/system/smart-state" in api %}
+{%- elif  "/api/v1/license/system/tier-state" in api %}
+{%- elif  "/api/v1/patch" in api %}
+{%- elif  "/api/v1/hotpatch" in api %}
+{%- elif  "/api/v1/repository" in api %}
+{%- elif  "/api/v1/system-settings/proxy" in api %}
+{%- elif  "/api/v1/system-settings/telemetry/transport-gateway" in api %}
+{%- elif  "/api/v1/trustsec/sgacl/nbarapp/" in api %}
+{%- elif  "/api/v1/policy/device-admin/command-sets" in api %}
+{%- elif  "/api/v1/policy/device-admin/condition" in api %}
+{%- elif  "/api/v1/policy/device-admin/dictionaries/authentication" in api %}
+{%- elif  "/api/v1/policy/device-admin/dictionaries/authorization" in api %}
+{%- elif  "/api/v1/policy/device-admin/dictionaries/policyset" in api %}
+{%- elif  "/api/v1/policy/device-admin/identity-stores" in api %}
+{%- elif  "/api/v1/policy/device-admin/policy-set" in api %}
+{%- elif  "/api/v1/policy/device-admin/service-names" in api %}
+{%- elif  "/api/v1/policy/device-admin/shell-profiles" in api %}
+{%- elif  "/api/v1/policy/network-access/authorization-profiles" in api %}
+{%- elif  "/api/v1/policy/network-access/condition" in api %}
+{%-     if  "/api/v1/policy/network-access/condition/authentication" in api %}
+{%-     elif  "/api/v1/policy/network-access/condition/authorization" in api %}
+{%-     elif  "/api/v1/policy/network-access/condition/policyset" in api %}
+{%-     else %}
+{%-     endif %}
+{%- elif  "/api/v1/policy/network-access/dictionaries" in api %}
+{%-     if  "/api/v1/policy/network-access/dictionaries/authentication" in api %}
+{%-     elif  "/api/v1/policy/network-access/dictionaries/authorization" in api %}
+{%-     elif  "/api/v1/policy/network-access/dictionaries/policyset" in api %}
+{%-     else %}
+{%-     endif %}
+{%- elif  "/api/v1/policy/network-access/identity-stores" in api %}
+{%- elif  "/api/v1/policy/network-access/policy-set" in api %}
+{%- elif  "/api/v1/policy/network-access/security-groups" in api %}
+{%- elif  "/api/v1/policy/network-access/service-names" in api %}
+{%- endif  %}
