@@ -1737,8 +1737,7 @@ class ISEHole():
                     await f.write(mindmap_output)
 
     async def all_files(self, parsed_json):
-        await asyncio.gather(self.json_file(parsed_json))
-        #,self.yaml_file(parsed_json), self.csv_file(parsed_json), self.markdown_file(parsed_json), self.html_file(parsed_json), self.mindmap_file(parsed_json))
+        await asyncio.gather(self.json_file(parsed_json), self.yaml_file(parsed_json), self.csv_file(parsed_json), self.markdown_file(parsed_json), self.html_file(parsed_json), self.mindmap_file(parsed_json))
 
 @click.command()
 @click.option('--url',
