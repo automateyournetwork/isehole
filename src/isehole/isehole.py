@@ -107,27 +107,27 @@ class ISEHole():
 
     def ise_api_list(self):
         self.nohttpurl = self.ise.replace("https://","")
-        self.list = ["/ers/config/allowedprotocols",
-                    "/ers/config/adminuser",
-                    "/ers/config/activedirectory",
-                    "/ers/config/authorizationprofile",
-                    "/ers/config/downloadableacl",
-                    "/ers/config/endpoint",
-                    "/ers/config/endpointgroup",
-                    "/ers/config/identitygroup",
-                    "/ers/config/idstoresequence",
-                    "/ers/config/internaluser",
-                    "/ers/config/networkdevice",
-                    "/ers/config/networkdevicegroup",
-                    "/ers/config/node",
-                    "/ers/config/portal",
-                    "/ers/config/profilerprofile",
-                    "/ers/config/sgt",
-                    "/ers/config/sgacl",
-                    "/ers/config/selfregportal",
-                    "/ers/config/sponsorgroup",
-                    "/ers/config/sponsorportal",
-                    "/ers/config/sponsoredguestportal",
+        self.list = ["/ers/config/allowedprotocols?size=50",
+                    "/ers/config/adminuser?size=50",
+                    "/ers/config/activedirectory?size=50",
+                    "/ers/config/authorizationprofile?size=50",
+                    "/ers/config/downloadableacl?size=50",
+                    "/ers/config/endpoint?size=50",
+                    "/ers/config/endpointgroup?size=50",
+                    "/ers/config/identitygroup?size=50",
+                    "/ers/config/idstoresequence?size=50",
+                    "/ers/config/internaluser?size=50",
+                    "/ers/config/networkdevice?size=50",
+                    "/ers/config/networkdevicegroup?size=50",
+                    "/ers/config/node?size=50",
+                    "/ers/config/portal?size=50",
+                    "/ers/config/profilerprofile?size=50",
+                    "/ers/config/sgt?size=50",
+                    "/ers/config/sgacl?size=50",
+                    "/ers/config/selfregportal?size=50",
+                    "/ers/config/sponsorgroup?size=50",
+                    "/ers/config/sponsorportal?size=50",
+                    "/ers/config/sponsoredguestportal?size=50",
                     "/api/v1/backup-restore/config/last-backup-status",
                     "/api/v1/certs/certificate-signing-request",
                     f"/api/v1/certs/system-certificate/{ self.nohttpurl }",
@@ -173,6 +173,19 @@ class ISEHole():
     ]
         return self.list
 
+    async def get_pages(self, response_dict):
+        headers = {
+            'Accept': 'application/json',
+            'Content-Type': 'application/json',
+        }        
+        async with aiohttp.ClientSession() as session:
+            while 'nextPage' in json.dumps(response_dict):
+                next_page = response_dict['SearchResult']['nextPage']['href']
+                async with session.get(f"{next_page}",headers=headers, auth=aiohttp.BasicAuth(self.username, self.password), verify_ssl=False) as resp:
+                    response_dict = await resp.json()
+                    print(next_page)
+            return response_dict
+
     async def get_api(self, api_url):
         headers = {
             'Accept': 'application/json',
@@ -180,9 +193,15 @@ class ISEHole():
         }
         async with aiohttp.ClientSession() as session:
             async with session.get(f"{self.ise}{api_url}",headers=headers, auth=aiohttp.BasicAuth(self.username, self.password), verify_ssl=False) as resp:
+                response_list = []
                 response_dict = await resp.json()
+                response_list.append(response_dict)
+                if 'SearchResult' in json.dumps(response_dict):
+                    if 'nextPage' in json.dumps(response_dict):
+                        response_dict = await asyncio.gather(self.get_pages(response_dict))
+                        response_list.append(response_dict) 
                 print(f"{api_url} Status Code {resp.status}")
-                return (api_url,response_dict)
+                return (api_url,response_list)
 
     async def main(self):
         api_list = self.ise_api_list()
@@ -1737,7 +1756,8 @@ class ISEHole():
                     await f.write(mindmap_output)
 
     async def all_files(self, parsed_json):
-        await asyncio.gather(self.json_file(parsed_json), self.yaml_file(parsed_json), self.csv_file(parsed_json), self.markdown_file(parsed_json), self.html_file(parsed_json), self.mindmap_file(parsed_json))
+        await asyncio.gather(self.json_file(parsed_json))
+        #,self.yaml_file(parsed_json), self.csv_file(parsed_json), self.markdown_file(parsed_json), self.html_file(parsed_json), self.mindmap_file(parsed_json))
 
 @click.command()
 @click.option('--url',
