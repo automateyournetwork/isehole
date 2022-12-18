@@ -1,15 +1,97 @@
 {%- if  "/ers/config/allowedprotocols" in api %}
+# Allowed Protocols
+{%-     for result in data_to_template %}
+## Name: {{ result.AllowedProtocols.name }}
+### ID: {{ result.AllowedProtocols.id }}
+### Allow
+#### CHAP: {{ result.AllowedProtocols.allowChap }}
+#### EAP
+##### FAST: {{ result.AllowedProtocols.allowEapFast }}
+##### MD5: {{ result.AllowedProtocols.allowEapMd5 }}
+##### TLS: {{ result.AllowedProtocols.allowEapTls }}
+##### TTLS: {{ result.AllowedProtocols.allowEapTtls }}
+##### Preferred Protocol: {{ result.AllowedProtocols.allowPreferredEapProtocol }}
+##### Weak Ciphers: {{ result.AllowedProtocols.allowWeakCiphersForEap }}
+#### LEAP: {{ result.AllowedProtocols.allowLeap }}
+#### MS CHAP
+##### v1: {{ result.AllowedProtocols.allowMsChapV1 }}
+##### v2: {{ result.AllowedProtocols.allowMsChapV2 }}
+#### PAP ASCII: {{ result.AllowedProtocols.allowPapAscii }}
+#### PEAP: {{ result.AllowedProtocols.allowPeap }}
+#### TEAP: {{ result.AllowedProtocols.allowTeap }}
+### Description: {{ result.AllowedProtocols.description }}
+### EAP TTLS L Bit: {{ result.AllowedProtocols.eapTlsLBit }}
+### Process Host Lookup: {{ result.AllowedProtocols.processHostLookup }}
+### Require Message Auth: {{ result.AllowedProtocols.requireMessageAuth }}
+{%-     endfor %}
 {%- elif  "/ers/config/adminuser" in api %}
+# Admin Users
+{%-     for result in data_to_template %}
+## Name: {{ result.AdminUser.name }}
+### Admin Groups: {{ result.AdminUser.adminGroups }}
+### Change Password: {{ result.AdminUser.changePassword }}
+### Custom Attributes: {{ result.AdminUser.customAttributes }}
+### Description: {{ result.AdminUser.description }}
+### Enabled: {{ result.AdminUser.enabled }}
+### External User: {{ result.AdminUser.externalUser }}
+### ID: {{ result.AdminUser.id }}
+### Inactive Account Never Disabled: {{ result.AdminUser.inactiveAccountNeverDisabled }}
+### Include System Alarms In Email: {{ result.AdminUser.includeSystemAlarmsInEmail }}
+{%-     endfor %}
 {%- elif  "/ers/config/activedirectory" in api %}
 {%- elif  "/ers/config/authorizationprofile" in api %}
+# Authorization Profiles
+{%-     for result in data_to_template %}
+## Name: {{ result.AuthorizationProfile.name }}
+### ID: {{ result.AuthorizationProfile.id }}
+### Access Type: {{ result.AuthorizationProfile.accessType }}
+{%-         if result.AuthorizationProfile.advancedAttributes %}
+### Advanced Attributes
+{%-             for attribute in result.AuthorizationProfile.advancedAttributes %}
+#### Left Hand Side Dictionary Attributes:
+##### Value Type: {{ attribute.leftHandSideDictionaryAttribue.AdvancedAttributeValueType }}
+##### Name: {{ attribute.leftHandSideDictionaryAttribue.attributeName }}
+##### Dictionary Name: {{ attribute.leftHandSideDictionaryAttribue.dictionaryName }}
+#### Right Hand Side Dictionary Attributes:
+##### Type: {{ attribute.rightHandSideAttribueValue.AdvancedAttributeValueType }}
+##### Value: {{ attribute.rightHandSideAttribueValue.value | default("N/A") }}
+##### Name: {{ attribute.rightHandSideAttribueValue.attributeName | default("N/A") }}
+##### Dictionary Name: {{ attribute.rightHandSideAttribueValue.dictionaryName | default("N/A") }}
+{%-             endfor %}
+{%-          endif %}
+### Agentless Posture: {{ result.AuthorizationProfile.agentlessPosture }}
+### AuthZ Profile Type: {{ result.AuthorizationProfile.authzProfileType }}
+### DACL NameL {{ result.AuthorizationProfile.daclName | default("N/A") }}
+### Description: {{ result.AuthorizationProfile.description }}
+### Easy Wired Session Candidate: {{ result.AuthorizationProfile.easywiredSessionCandidate }}
+### Profile Name: {{ result.AuthorizationProfile.profileName }}
+### Service Template: {{ result.AuthorizationProfile.serviceTemplate }}
+### Track Movement: {{ result.AuthorizationProfile.trackMovement }}
+### Voice Domain Permission: {{ result.AuthorizationProfile.voiceDomainPermission | default("N/A") }}
+{%-         if result.AuthorizationProfile.webRedirection %}
+### Web Redirection:
+#### Type:{{ result.AuthorizationProfile.webRedirection.WebRedirectionType }}
+#### ACL: {{ result.AuthorizationProfile.webRedirection.acl }}
+#### Portal Name: {{ result.AuthorizationProfile.webRedirection.portalName }}
+{%-         endif %}
+{%-     endfor %}
 {%- elif  "/ers/config/downloadableacl" in api %}
+# Download ACL
+{%-     for dacl in data_to_template %}
+## Name: {{ dacl.DownloadableAcl.name }}
+### ID: {{ dacl.DownloadableAcl.id }}
+### DACL: {{ dacl.DownloadableAcl.dacl }}
+### DACL Type: {{ dacl.DownloadableAcl.daclType }}
+### Description: {{ dacl.DownloadableAcl.description }}
+{%-     endfor %}
 {%- elif  "/ers/config/endpoint" in api %}
 {%- elif  "/ers/config/endpointgroup" in api %}
 {%- elif  "/ers/config/identitygroup" in api %}
 {%- elif  "/ers/config/idstoresequence" in api %}
 {%- elif  "/ers/config/internaluser" in api %}
 {%- elif  "/ers/config/networkdevice" in api %}
-{%- elif  "/ers/config/networkdevicegroup" in api %}
+{%-     if  "/ers/config/networkdevicegroup" in api %}
+{%-     endif %}
 {%- elif  "/ers/config/node" in api %}
 {%- elif  "/ers/config/portal" in api %}
 {%- elif  "/ers/config/profilerprofile" in api %}
@@ -21,9 +103,37 @@
 {%- elif  "/ers/config/sponsoredguestportal" in api %}
 {%- elif  "/api/v1/backup-restore/config/last-backup-status" in api %}
 {%- elif  "/api/v1/certs/certificate-signing-request" in api %}
+# Certificate Signing Requests
+{%-     for cert in data_to_template %}
+## Hostname: {{ cert.response.hostName }}
+### ID: {{ cert.response.id }}
+### CSR Contents: {{ cert.response.csrContents | replace("\n","\n#### ") }}
+### Friendly Name: {{ cert.response.friendlyName }}
+### Group Tag: {{ cert.response.groupTag }}
+### Key Size: {{ cert.response.keySize }}
+### Signature Algorithm: {{ cert.response.signatureAlgorithm }}
+### Subject: {{ cert.response.subject }}
+### Timestamp: {{ cert.response.timeStamp }}
+### Used For: {{ cert.response.usedFor }}
+{%-     endfor %}
 {%- elif  "/api/v1/certs/system-certificate" in api %}
 {%- elif  "/api/v1/certs/trusted-certificate" in api %}
 {%- elif  "/api/v1/deployment/node" in api %}
+# Deployment Nodes
+{%-     for node in data_to_template['response'] %}
+## Hostname: {{ node.hostname }}
+### FQDN: {{ node.fqdn }}
+### IP Address: {{ node.ipAddress }}
+### Node Status: {{ node.nodeStatus }}
+### Role
+{%-         for role in node['roles'] %}
+#### {{ role }}
+{%-         endfor %}
+### Services
+{%-         for service in node['services'] %}
+#### {{ service }}
+{%-         endfor %}
+{%-     endfor %}
 {%- elif  "/api/v1/deployment/pan-ha" in api %}
 {%- elif  "/api/v1/profile/" in api %}
 {%- elif  "/api/v1/license/system/connection-type" in api %}
@@ -38,9 +148,61 @@
 {%- elif  "/api/v1/system-settings/telemetry/transport-gateway" in api %}
 {%- elif  "/api/v1/trustsec/sgacl/nbarapp/" in api %}
 {%- elif  "/api/v1/policy/device-admin/command-sets" in api %}
+# Command Sets
+{%-     for set in data_to_template %}
+## Name: {{ set.name }}
+### ID: {{ set.id }}
+{%-     endfor %}
 {%- elif  "/api/v1/policy/device-admin/condition" in api %}
+# Conditions
+{%-     for condition in data_to_template %}
+## Name: {{ condition.response.name }}
+### ID: {{ condition.response.id }}
+### Attirbutes
+#### Name: {{ condition.response.attributeName }}
+#### Value: {{ condition.response.attributeValue }}
+### Condition Type: {{ condition.response.conditionType }}
+### Description: {{ condition.response.description }}
+### Dictionary
+#### Name: {{ condition.response.dictionaryName }}
+#### Value: {{ condition.response.dictionaryValue }}
+### Is Negate: {{ condition.response.isNegate }}
+### Operator: {{ condition.response.operator }}
+{%-     endfor %}
 {%- elif  "/api/v1/policy/device-admin/dictionaries/authentication" in api %}
+# Device Admin Dictionaries Authentication
+{%-     for response in data_to_template['response'] %}
+## Name: {{ response.name }}
+### Allow Value
+{%-         for allow_value in response['allowedValues'] %}
+#### Is Default: {{ allow_value.isDefault }}
+#### Key: {{ allow_value.key }}
+#### Value: {{ allow_value.value }}
+{%-         endfor %}
+### Data Type: {{ response.dataType }}
+### Description: {{ response.description }}
+### Dictionary Name: {{ response.dictionaryName }}
+### Direction Type: {{ response.directionType }}
+### ID: {{ response.id }}
+### Internal Name: {{ response.internalName }}
+{%-     endfor %}
 {%- elif  "/api/v1/policy/device-admin/dictionaries/authorization" in api %}
+# Device Admin Dictionaries Authorization
+{%-     for response in data_to_template['response'] %}
+## Name: {{ response.name }}
+### Allow Value
+{%-         for allow_value in response['allowedValues'] %}
+#### Is Default: {{ allow_value.isDefault }}
+#### Key: {{ allow_value.key }}
+#### Value: {{ allow_value.value }}
+{%-         endfor %}
+### Data Type: {{ response.dataType }}
+### Description: {{ response.description }}
+### Dictionary Name: {{ response.dictionaryName }}
+### Direction Type: {{ response.directionType }}
+### ID: {{ response.id }}
+### Internal Name: {{ response.internalName }}
+{%-     endfor %}
 {%- elif  "/api/v1/policy/device-admin/dictionaries/policyset" in api %}
 {%- elif  "/api/v1/policy/device-admin/identity-stores" in api %}
 {%- elif  "/api/v1/policy/device-admin/policy-set" in api %}

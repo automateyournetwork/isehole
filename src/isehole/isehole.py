@@ -1,6 +1,5 @@
 import os
 import json
-import requests
 import aiohttp
 import asyncio
 import aiofiles
@@ -107,27 +106,27 @@ class ISEHole():
 
     def ise_api_list(self):
         self.nohttpurl = self.ise.replace("https://","")
-        self.list = ["/ers/config/allowedprotocols?size=50",
-                    "/ers/config/adminuser?size=50",
-                    "/ers/config/activedirectory?size=50",
-                    "/ers/config/authorizationprofile?size=50",
-                    "/ers/config/downloadableacl?size=50",
-                    "/ers/config/endpoint?size=50",
-                    "/ers/config/endpointgroup?size=50",
-                    "/ers/config/identitygroup?size=50",
-                    "/ers/config/idstoresequence?size=50",
-                    "/ers/config/internaluser?size=50",
-                    "/ers/config/networkdevice?size=50",
-                    "/ers/config/networkdevicegroup?size=50",
-                    "/ers/config/node?size=50",
-                    "/ers/config/portal?size=50",
-                    "/ers/config/profilerprofile?size=50",
-                    "/ers/config/sgt?size=50",
-                    "/ers/config/sgacl?size=50",
-                    "/ers/config/selfregportal?size=50",
-                    "/ers/config/sponsorgroup?size=50",
-                    "/ers/config/sponsorportal?size=50",
-                    "/ers/config/sponsoredguestportal?size=50",
+        self.list = ["/ers/config/allowedprotocols?size=100",
+                    "/ers/config/adminuser?size=100",
+                    "/ers/config/activedirectory?size=100",
+                    "/ers/config/authorizationprofile?size=100",
+                    "/ers/config/downloadableacl?size=100",
+                    "/ers/config/endpoint?size=100",
+                    "/ers/config/endpointgroup?size=100",
+                    #"/ers/config/identitygroup?size=100",
+                    "/ers/config/idstoresequence?size=100",
+                    #"/ers/config/internaluser?size=100",
+                    "/ers/config/networkdevice?size=100",
+                    "/ers/config/networkdevicegroup?size=100",
+                    "/ers/config/node?size=100",
+                    "/ers/config/portal?size=100",
+                    #"/ers/config/profilerprofile?size=100",
+                    "/ers/config/sgt?size=100",
+                    "/ers/config/sgacl?size=100",
+                    "/ers/config/selfregportal?size=100",
+                    "/ers/config/sponsorgroup?size=100",
+                    "/ers/config/sponsorportal?size=100",
+                    "/ers/config/sponsoredguestportal?size=100",
                     "/api/v1/backup-restore/config/last-backup-status",
                     "/api/v1/certs/certificate-signing-request",
                     f"/api/v1/certs/system-certificate/{ self.nohttpurl }",
@@ -179,12 +178,45 @@ class ISEHole():
             'Content-Type': 'application/json',
         }        
         async with aiohttp.ClientSession() as session:
+            all_page_results = []
+            all_page_results.append(self.first_response_dict)
             while 'nextPage' in json.dumps(response_dict):
                 next_page = response_dict['SearchResult']['nextPage']['href']
                 async with session.get(f"{next_page}",headers=headers, auth=aiohttp.BasicAuth(self.username, self.password), verify_ssl=False) as resp:
                     response_dict = await resp.json()
+                    all_page_results.append(response_dict)
                     print(next_page)
-            return response_dict
+            return all_page_results
+
+    async def get_ers_details(self, response_list):
+        headers = {
+            'Accept': 'application/json',
+            'Content-Type': 'application/json',
+        }        
+        async with aiohttp.ClientSession() as session:
+            details_list = []
+            for result in response_list:
+                for href in result['SearchResult']['resources']:  
+                    async with session.get(f"{href['link']['href']}",headers=headers, auth=aiohttp.BasicAuth(self.username, self.password), verify_ssl=False) as resp:
+                        response_dict = await resp.json()
+                        print(href['link']['href'])
+                        details_list.append(response_dict)
+            return details_list
+
+    async def get_open_details(self, response_list):
+        headers = {
+            'Accept': 'application/json',
+            'Content-Type': 'application/json',
+        }        
+        async with aiohttp.ClientSession() as session:
+            details_list = []
+            for result in response_list:
+                for href in result['response']:  
+                    async with session.get(f"{href['link']['href']}",headers=headers, auth=aiohttp.BasicAuth(self.username, self.password), verify_ssl=False) as resp:
+                        response_dict = await resp.json()
+                        print(href['link']['href'])
+                        details_list.append(response_dict)
+            return details_list
 
     async def get_api(self, api_url):
         headers = {
@@ -194,12 +226,25 @@ class ISEHole():
         async with aiohttp.ClientSession() as session:
             async with session.get(f"{self.ise}{api_url}",headers=headers, auth=aiohttp.BasicAuth(self.username, self.password), verify_ssl=False) as resp:
                 response_list = []
-                response_dict = await resp.json()
-                response_list.append(response_dict)
-                if 'SearchResult' in json.dumps(response_dict):
-                    if 'nextPage' in json.dumps(response_dict):
-                        response_dict = await asyncio.gather(self.get_pages(response_dict))
-                        response_list.append(response_dict) 
+                details_list = []
+                self.first_response_dict = await resp.json()
+                if 'SearchResult' in json.dumps(self.first_response_dict):
+                    if 'nextPage' in json.dumps(self.first_response_dict):
+                        response_dict = await asyncio.gather(self.get_pages(self.first_response_dict))
+                        response_list.append(response_dict)
+                        response_list = response_list[0][0]
+                    else:
+                        response_list.append(self.first_response_dict)
+                    detail_dict = await asyncio.gather(self.get_ers_details(response_list))
+                    details_list.append(detail_dict)
+                    response_list=details_list[0][0]
+                else:
+                    response_list.append(self.first_response_dict)
+                    if 'href' in json.dumps(self.first_response_dict):
+                        detail_dict = await asyncio.gather(self.get_open_details(response_list))
+                        details_list.append(detail_dict)
+                        response_list=details_list[0]
+                    response_list = response_list[0]
                 print(f"{api_url} Status Code {resp.status}")
                 return (api_url,response_list)
 
@@ -251,12 +296,12 @@ class ISEHole():
                     await f.write(json.dumps(payload, indent=4, sort_keys=True))
 
             if "/ers/config/networkdevice" in api:
-                async with aiofiles.open('Network Devices/JSON/Network Devices.json', mode='w') as f:
-                    await f.write(json.dumps(payload, indent=4, sort_keys=True))
-
-            if "/ers/config/networkdevicegroup" in api:
-                async with aiofiles.open('Network Device Groups/JSON/Network Device Groups.json', mode='w') as f:
-                    await f.write(json.dumps(payload, indent=4, sort_keys=True))
+                if "/ers/config/networkdevicegroup" in api:
+                    async with aiofiles.open('Network Device Groups/JSON/Network Device Groups.json', mode='w') as f:
+                        await f.write(json.dumps(payload, indent=4, sort_keys=True))
+                else:
+                    async with aiofiles.open('Network Devices/JSON/Network Devices.json', mode='w') as f:
+                        await f.write(json.dumps(payload, indent=4, sort_keys=True))
 
             if "/ers/config/node" in api:
                 async with aiofiles.open('Nodes/JSON/Nodes.json', mode='w') as f:
@@ -506,12 +551,12 @@ class ISEHole():
                     await f.write(clean_yaml)
 
             if "/ers/config/networkdevice" in api:
-                async with aiofiles.open('Network Devices/YAML/Network Devices.yaml', mode='w') as f:
-                    await f.write(clean_yaml)
-
-            if "/ers/config/networkdevicegroup" in api:
-                async with aiofiles.open('Network Device Groups/YAML/Network Device Groups.yaml', mode='w') as f:
-                    await f.write(clean_yaml)
+                if "/ers/config/networkdevicegroup" in api:
+                    async with aiofiles.open('Network Device Groups/YAML/Network Device Groups.yaml', mode='w') as f:
+                        await f.write(clean_yaml)
+                else:
+                    async with aiofiles.open('Network Devices/YAML/Network Devices.yaml', mode='w') as f:
+                        await f.write(clean_yaml)
 
             if "/ers/config/node" in api:
                 async with aiofiles.open('Nodes/YAML/Nodes.yaml', mode='w') as f:
@@ -765,12 +810,12 @@ class ISEHole():
                     await f.write(csv_output)
 
             if "/ers/config/networkdevice" in api:
-                async with aiofiles.open('Network Devices/CSV/Network Devices.csv', mode='w') as f:
-                    await f.write(csv_output)
-
-            if "/ers/config/networkdevicegroup" in api:
-                async with aiofiles.open('Network Device Groups/CSV/Network Device Groups.csv', mode='w') as f:
-                    await f.write(csv_output)
+                if "/ers/config/networkdevicegroup" in api:
+                    async with aiofiles.open('Network Device Groups/CSV/Network Device Groups.csv', mode='w') as f:
+                        await f.write(csv_output)
+                else:
+                    async with aiofiles.open('Network Devices/CSV/Network Devices.csv', mode='w') as f:
+                        await f.write(csv_output)
 
             if "/ers/config/node" in api:
                 async with aiofiles.open('Nodes/CSV/Nodes.csv', mode='w') as f:
@@ -1024,12 +1069,12 @@ class ISEHole():
                     await f.write(markdown_output)
 
             if "/ers/config/networkdevice" in api:
-                async with aiofiles.open('Network Devices/Markdown/Network Devices.md', mode='w') as f:
-                    await f.write(markdown_output)
-
-            if "/ers/config/networkdevicegroup" in api:
-                async with aiofiles.open('Network Device Groups/Markdown/Network Device Groups.md', mode='w') as f:
-                    await f.write(markdown_output)
+                if "/ers/config/networkdevicegroup" in api:
+                    async with aiofiles.open('Network Device Groups/Markdown/Network Device Groups.md', mode='w') as f:
+                        await f.write(markdown_output)
+                else:
+                    async with aiofiles.open('Network Devices/Markdown/Network Devices.md', mode='w') as f:
+                        await f.write(markdown_output)
 
             if "/ers/config/node" in api:
                 async with aiofiles.open('Nodes/Markdown/Nodes.md', mode='w') as f:
@@ -1284,12 +1329,12 @@ class ISEHole():
                     await f.write(html_output)
 
             if "/ers/config/networkdevice" in api:
-                async with aiofiles.open('Network Devices/HTML/Network Devices.html', mode='w') as f:
-                    await f.write(html_output)
-
-            if "/ers/config/networkdevicegroup" in api:
-                async with aiofiles.open('Network Device Groups/HTML/Network Device Groups.html', mode='w') as f:
-                    await f.write(html_output)
+                if "/ers/config/networkdevicegroup" in api:
+                    async with aiofiles.open('Network Device Groups/HTML/Network Device Groups.html', mode='w') as f:
+                        await f.write(html_output)
+                else:
+                    async with aiofiles.open('Network Devices/HTML/Network Devices.html', mode='w') as f:
+                        await f.write(html_output)
 
             if "/ers/config/node" in api:
                 async with aiofiles.open('Nodes/HTML/Nodes.html', mode='w') as f:
@@ -1544,12 +1589,12 @@ class ISEHole():
                     await f.write(mindmap_output)
 
             if "/ers/config/networkdevice" in api:
-                async with aiofiles.open('Network Devices/Mindmap/Network Devices.md', mode='w') as f:
-                    await f.write(mindmap_output)
-
-            if "/ers/config/networkdevicegroup" in api:
-                async with aiofiles.open('Network Device Groups/Mindmap/Network Device Groups.md', mode='w') as f:
-                    await f.write(mindmap_output)
+                if "/ers/config/networkdevicegroup" in api:
+                    async with aiofiles.open('Network Device Groups/Mindmap/Network Device Groups.md', mode='w') as f:
+                        await f.write(mindmap_output)
+                else:
+                    async with aiofiles.open('Network Devices/Mindmap/Network Devices.md', mode='w') as f:
+                        await f.write(mindmap_output)
 
             if "/ers/config/node" in api:
                 async with aiofiles.open('Nodes/Mindmap/Nodes.md', mode='w') as f:
@@ -1756,7 +1801,7 @@ class ISEHole():
                     await f.write(mindmap_output)
 
     async def all_files(self, parsed_json):
-        await asyncio.gather(self.json_file(parsed_json),self.yaml_file(parsed_json), self.csv_file(parsed_json), self.markdown_file(parsed_json), self.html_file(parsed_json), self.mindmap_file(parsed_json))
+        await asyncio.gather(self.json_file(parsed_json), self.yaml_file(parsed_json), self.csv_file(parsed_json), self.markdown_file(parsed_json), self.html_file(parsed_json), self.mindmap_file(parsed_json))
 
 @click.command()
 @click.option('--url',

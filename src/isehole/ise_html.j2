@@ -1,15 +1,218 @@
+{%- include 'datatable_header.j2' %}
 {%- if  "/ers/config/allowedprotocols" in api %}
+<h1>Allowed Protocols</h1>
+<table id = "datatable">
+<thead>
+  <tr>
+    <th>Name</th>
+    <th>Allow Chap</th>
+    <th>Allow EAP Fast</th>
+    <th>Allow EAP MD5</th>
+    <th>Allow EAP TLS</th>
+    <th>Allow EAP TTLS</th>
+    <th>Allow LEAP</th>
+    <th>Allow MS CHAP v1</th>
+    <th>Allow MS CHAP v2</th>
+    <th>Allow PAP ASCII</th>
+    <th>Allow PEAP</th>
+    <th>Allow Preferred EAP Protocol</th>
+    <th>Allow TEAP</th>
+    <th>Allow Weak Ciphers For EAP</th>
+    <th>Description</th>
+    <th>EAP TLS L Bit</th>
+    <th>ID</th>
+    <th>Process Host Lookup</th>
+    <th>Require Message Auth</th>
+  </tr>
+</thead>  
+<tbody>
+{%-     for result in data_to_template %}
+    <tr>
+        <td>{{ result.AllowedProtocols.name }}</td>
+        <td>{{ result.AllowedProtocols.allowChap }}</td>
+        <td>{{ result.AllowedProtocols.allowEapFast }}</td>
+        <td>{{ result.AllowedProtocols.allowEapMd5 }}</td>
+        <td>{{ result.AllowedProtocols.allowEapTls }}</td>
+        <td>{{ result.AllowedProtocols.allowEapTtls }}</td>
+        <td>{{ result.AllowedProtocols.allowLeap }}</td>
+        <td>{{ result.AllowedProtocols.allowMsChapV1 }}</td>
+        <td>{{ result.AllowedProtocols.allowMsChapV2 }}</td>
+        <td>{{ result.AllowedProtocols.allowPapAscii }}</td>
+        <td>{{ result.AllowedProtocols.allowPeap }}</td>
+        <td>{{ result.AllowedProtocols.allowPreferredEapProtocol }}</td>
+        <td>{{ result.AllowedProtocols.allowTeap }}</td>
+        <td>{{ result.AllowedProtocols.allowWeakCiphersForEap }}</td>
+        <td>{{ result.AllowedProtocols.description }}</td>
+        <td>{{ result.AllowedProtocols.eapTlsLBit }}</td>
+        <td>{{ result.AllowedProtocols.id }}</td>
+        <td>{{ result.AllowedProtocols.processHostLookup }}</td>
+        <td>{{ result.AllowedProtocols.requireMessageAuth }}</td>
+    </tr>
+{%-     endfor %}
+</tbody>
+</table>
 {%- elif  "/ers/config/adminuser" in api %}
+<h1>Admin Users</h1>
+<table id = "datatable">
+<thead>
+  <tr>
+    <th>Name</th>
+    <th>Admin Groups</th>
+    <th>Change Password</th>
+    <th>Custom Attributes</th>
+    <th>Description</th>
+    <th>Enabled</th>
+    <th>External User</th>
+    <th>ID</th>
+    <th>Inactive Account Never Disabled</th>
+    <th>Include System Alarms In Email</th>
+  </tr>
+</thead>  
+<tbody>
+{%-     for result in data_to_template %}
+    <tr>
+      <td>{{ result.AdminUser.name }}</td>
+      <td>{{ result.AdminUser.adminGroups }}</td>
+      <td>{{ result.AdminUser.changePassword }}</td>
+      <td>{{ result.AdminUser.customAttributes }}</td>
+      <td>{{ result.AdminUser.description }}</td>
+      <td>{{ result.AdminUser.enabled }}</td>
+      <td>{{ result.AdminUser.externalUser }}</td>
+      <td>{{ result.AdminUser.id }}</td>
+      <td>{{ result.AdminUser.inactiveAccountNeverDisabled }}</td>
+      <td>{{ result.AdminUser.includeSystemAlarmsInEmail }}</td>
+    </tr>
+{%-     endfor %}
+</tbody>
+</table>
 {%- elif  "/ers/config/activedirectory" in api %}
 {%- elif  "/ers/config/authorizationprofile" in api %}
+<h1>Authorization Profiles</h1>
+<table id = "datatable">
+<thead>
+  <tr>
+    <th>Name</th>
+    <th>Access Type</th>
+    <th>Left Hand Side Dictionary Attribute Advanced Attribute Value Type</th>
+    <th>Left Hand Side Dictionary Attribute Attribute Name</th>
+    <th>Left Hand Side Dictionary Attribute Dictionary Name</th>
+    <th>Right Hand Side Attribue Value Advanced Attribute Value Type</th>
+    <th>Right Hand Side Attribute Value Value</th>
+    <th>Right Hand Side Attribue Attribute Name</th>
+    <th>Right Hand Side Attribute Dictionary Name</th>
+    <th>Agentless Posture</th>
+    <th>AuthZ Profile Type</th>
+    <th>DACL Name</th>
+    <th>Description</th>
+    <th>Easy Wired Session Candidate</th>
+    <th>ID</th>
+    <th>Profile Name</th>
+    <th>Service Template</th>
+    <th>Track Movement</th>
+    <th>Voice Domain Permission</th>
+    <th>Web Redirection Type</th>
+    <th>Web Redirection ACL</th>
+    <th>Web Redirection Portal Name</th>
+  </tr>
+</thead>  
+<tbody>
+{%-     for result in data_to_template %}
+{%-         if result.AuthorizationProfile.advancedAttributes %}
+{%-             for attribute in result.AuthorizationProfile.advancedAttributes %}
+    <tr>
+      <td>{{ result.AuthorizationProfile.name }}</td>
+      <td>{{ result.AuthorizationProfile.accessType }}</td>
+      <td>{{ attribute.leftHandSideDictionaryAttribue.AdvancedAttributeValueType }}</td>
+      <td>{{ attribute.leftHandSideDictionaryAttribue.attributeName }}</td>
+      <td>{{ attribute.leftHandSideDictionaryAttribue.dictionaryName }}</td>
+      <td>{{ attribute.rightHandSideAttribueValue.AdvancedAttributeValueType }}</td>
+      <td>{{ attribute.rightHandSideAttribueValue.value | default("N/A") }}</td>
+      <td>{{ attribute.rightHandSideAttribueValue.attributeName | default("N/A") }}</td>
+      <td>{{ attribute.rightHandSideAttribueValue.dictionaryName | default("N/A") }}</td>
+      <td>{{ result.AuthorizationProfile.agentlessPosture }}</td>
+      <td>{{ result.AuthorizationProfile.authzProfileType }}</td>
+      <td>{{ result.AuthorizationProfile.daclName | default("N/A") }}</td>
+      <td>{{ result.AuthorizationProfile.description }}</td>
+      <td>{{ result.AuthorizationProfile.easywiredSessionCandidate }}</td>
+      <td>{{ result.AuthorizationProfile.id }}</td>
+      <td>{{ result.AuthorizationProfile.profileName }}</td>
+      <td>{{ result.AuthorizationProfile.serviceTemplate }}</td>
+      <td>{{ result.AuthorizationProfile.trackMovement }}</td>
+      <td>{{ result.AuthorizationProfile.voiceDomainPermission | default("N/A") }}</td>
+{%     if result.AuthorizationProfile.webRedirection %}
+      <td>{{ result.AuthorizationProfile.webRedirection.WebRedirectionType }}</td>
+      <td>{{ result.AuthorizationProfile.webRedirection.acl }}</td>
+      <td>{{ result.AuthorizationProfile.webRedirection.portalName }}</td>{% else %}
+      <td>N/A</td>
+      <td>N/A</td>
+      <td>N/A</td>{% endif %}
+    </tr>
+{%-             endfor %}
+{%-         else %}
+    </tr>
+      <td>{{ result.AuthorizationProfile.name }}</td>
+      <td>{{ result.AuthorizationProfile.accessType }}</td>
+      <td>N/A</td>
+      <td>N/A</td>
+      <td>N/A</td>
+      <td>N/A</td>
+      <td>N/A</td>
+      <td>N/A</td>
+      <td>N/A</td>
+      <td>{{ result.AuthorizationProfile.agentlessPosture }}</td>
+      <td>{{ result.AuthorizationProfile.authzProfileType }}</td>
+      <td>{{ result.AuthorizationProfile.daclName | default("N/A") }}</td>
+      <td>{{ result.AuthorizationProfile.description }}</td>
+      <td>{{ result.AuthorizationProfile.easywiredSessionCandidate }}</td>
+      <td>{{ result.AuthorizationProfile.id }}</td>
+      <td>{{ result.AuthorizationProfile.profileName }}</td>
+      <td>{{ result.AuthorizationProfile.serviceTemplate }}</td>
+      <td>{{ result.AuthorizationProfile.trackMovement }}</td>
+      <td>{{ result.AuthorizationProfile.voiceDomainPermission | default("N/A") }}</td>
+      {% if result.AuthorizationProfile.webRedirection %}
+      <td>{{ result.AuthorizationProfile.webRedirection.WebRedirectionType }}</td>
+      <td>{{ result.AuthorizationProfile.webRedirection.acl }}</td>
+      <td>{{ result.AuthorizationProfile.webRedirection.portalName }}</td>{% else %}
+      <td>N/A</td>
+      <td>N/A</td>
+      <td>N/A</td>{% endif %}
+    </tr>
+{%-          endif %}
+{%-     endfor %}
+</tbody>
+</table>
 {%- elif  "/ers/config/downloadableacl" in api %}
+<h1>Downloadable ACL</h1>
+<table id = "datatable">
+<thead>
+  <tr>
+    <th>Name</th>
+    <th>ID</th>
+    <th>DACL</th>
+    <th>DACL Type</th>
+    <th>Description</th>
+  </tr>
+</thead>  
+<tbody>
+{%-     for dacl in data_to_template %}
+  <tr>
+    <td>{{ dacl.DownloadableAcl.name }}</td>
+    <td>{{ dacl.DownloadableAcl.id }}</td>
+    <td>{{ dacl.DownloadableAcl.dacl }}</td>
+    <td>{{ dacl.DownloadableAcl.daclType }}</td>
+    <td>{{ dacl.DownloadableAcl.description }}</td>
+  </tr>
+{%-     endfor %}
+</tbody>
+</table>
 {%- elif  "/ers/config/endpoint" in api %}
 {%- elif  "/ers/config/endpointgroup" in api %}
 {%- elif  "/ers/config/identitygroup" in api %}
 {%- elif  "/ers/config/idstoresequence" in api %}
 {%- elif  "/ers/config/internaluser" in api %}
 {%- elif  "/ers/config/networkdevice" in api %}
-{%- elif  "/ers/config/networkdevicegroup" in api %}
+{%-     if  "/ers/config/networkdevicegroup" in api %}
+{%-     endif %}
 {%- elif  "/ers/config/node" in api %}
 {%- elif  "/ers/config/portal" in api %}
 {%- elif  "/ers/config/profilerprofile" in api %}
@@ -21,9 +224,71 @@
 {%- elif  "/ers/config/sponsoredguestportal" in api %}
 {%- elif  "/api/v1/backup-restore/config/last-backup-status" in api %}
 {%- elif  "/api/v1/certs/certificate-signing-request" in api %}
+<h1>Certificate Signing Requests</h1>
+<table id = "datatable">
+<thead>
+  <tr>
+    <th>Hostname</th>
+    <th>ID</th>
+    <th>CSR Contents</th>
+    <th>Friendly Name</th>
+    <th>Group Tag</th>
+    <th>Key Size</th>
+    <th>Signature Algorithm</th>
+    <th>Subject</th>
+    <th>Timestamp</th>
+    <th>Used For</th>
+  </tr>
+</thead>  
+<tbody>
+{%-     for cert in data_to_template %}
+  <tr>
+    <td>{{ cert.response.hostName }}</td>
+    <td>{{ cert.response.id }}</td>
+    <td>{{ cert.response.csrContents }}</td>
+    <td>{{ cert.response.friendlyName }}</td>
+    <td>{{ cert.response.groupTag }}</td>
+    <td>{{ cert.response.keySize }}</td>
+    <td>{{ cert.response.signatureAlgorithm }}</td>
+    <td>{{ cert.response.subject }}</td>
+    <td>{{ cert.response.timeStamp }}</td>
+    <td>{{ cert.response.usedFor }}</td>
+  </tr>
+{%-     endfor %}
+</tbody>
+</table>
 {%- elif  "/api/v1/certs/system-certificate" in api %}
 {%- elif  "/api/v1/certs/trusted-certificate" in api %}
 {%- elif  "/api/v1/deployment/node" in api %}
+<h1>Deployment Nodes</h1>
+<table id = "datatable">
+<thead>
+  <tr>
+    <th>Hostname</th>
+    <th>FQDN</th>
+    <th>IP Address</th>
+    <th>Node Status</th>
+    <th>Role</th>
+    <th>Services</th>
+  </tr>
+</thead>  
+<tbody>
+{%-     for node in data_to_template['response'] %}
+{%-         for role in node['roles'] %}
+{%-             for service in node['services'] %}
+  <tr>
+    <td>{{ node.hostname }}</td>
+    <td>{{ node.fqdn }}</td>
+    <td>{{ node.ipAddress }}</td>
+    <td>{{ node.nodeStatus }}</td>
+    <td>{{ role }}</td>
+    <td>{{ service }}</td>
+  </tr>
+{%-             endfor %}
+{%-         endfor %}
+{%-     endfor %}
+</tbody>
+</table>
 {%- elif  "/api/v1/deployment/pan-ha" in api %}
 {%- elif  "/api/v1/profile/" in api %}
 {%- elif  "/api/v1/license/system/connection-type" in api %}
@@ -38,9 +303,129 @@
 {%- elif  "/api/v1/system-settings/telemetry/transport-gateway" in api %}
 {%- elif  "/api/v1/trustsec/sgacl/nbarapp/" in api %}
 {%- elif  "/api/v1/policy/device-admin/command-sets" in api %}
+<h1>Command Sets</h1>
+<table id = "datatable">
+<thead>
+  <tr>
+    <th>Name</th>
+    <th>ID</th>
+  </tr>
+</thead>  
+<tbody>
+{%-     for set in data_to_template %}
+  <tr>
+    <td>{{ set.name }}</td>
+    <td>{{ set.id }}</td>
+  </tr>
+{%-     endfor %}
+</tbody>
+</table>
 {%- elif  "/api/v1/policy/device-admin/condition" in api %}
+<h1>Conditions</h1>
+<table id = "datatable">
+<thead>
+  <tr>
+    <th>Name</th>
+    <th>ID</th>
+    <th>Attribute Name</th>
+    <th>Attribute Value</th>
+    <th>Condition Type</th>
+    <th>Description</th>
+    <th>Dictionary Name</th>
+    <th>Dictionary Value</th>
+    <th>Is Negate</th>
+    <th>Operator</th>
+  </tr>
+</thead>  
+<tbody>
+{%-     for condition in data_to_template %}
+  <tr>
+    <td>{{ condition.response.name }}</td>
+    <td>{{ condition.response.id }}</td>
+    <td>{{ condition.response.attributeName }}</td>
+    <td>{{ condition.response.attributeValue }}</td>
+    <td>{{ condition.response.conditionType }}</td>
+    <td>{{ condition.response.description }}</td>
+    <td>{{ condition.response.dictionaryName }}</td>
+    <td>{{ condition.response.dictionaryValue }}</td>
+    <td>{{ condition.response.isNegate }}</td>
+    <td>{{ condition.response.operator }}</td>
+  </tr>
+{%-     endfor %}
+</tbody>
+</table>
 {%- elif  "/api/v1/policy/device-admin/dictionaries/authentication" in api %}
+<h1>Device Admin Dictionaries Authentication</h1>
+<table id = "datatable">
+<thead>
+  <tr>
+    <th>Name</th>
+    <th>Allowed Values is Default</th>
+    <th>Allowed Values Key</th>
+    <th>Allowed Values Value</th>
+    <th>Data Type</th>
+    <th>Description</th>
+    <th>Dictionary Name</th>
+    <th>Direction Type</th>
+    <th>ID</th>
+    <th>Internal Name</th>
+  </tr>
+</thead>  
+<tbody>
+{%-     for response in data_to_template['response'] %}
+{%-         for allow_value in response['allowedValues'] %}
+    <tr>
+      <td>{{ response.name }}</td>
+      <td>{{ allow_value.isDefault }}</td>
+      <td>{{ allow_value.key }}</td>
+      <td>{{ allow_value.value }}</td>
+      <td>{{ response.dataType }}</td>
+      <td>{{ response.description }}</td>
+      <td>{{ response.dictionaryName }}</td>
+      <td>{{ response.directionType }}</td>
+      <td>{{ response.id }}</td>
+      <td>{{ response.internalName }}</td>
+    </tr>
+{%-         endfor %}
+{%-     endfor %}
+</tbody>
+</table>
 {%- elif  "/api/v1/policy/device-admin/dictionaries/authorization" in api %}
+<h1>Device Admin Dictionaries Authentication</h1>
+<table id = "datatable">
+<thead>
+  <tr>
+    <th>Name</th>
+    <th>Allowed Values is Default</th>
+    <th>Allowed Values Key</th>
+    <th>Allowed Values Value</th>
+    <th>Data Type</th>
+    <th>Description</th>
+    <th>Dictionary Name</th>
+    <th>Direction Type</th>
+    <th>ID</th>
+    <th>Internal Name</th>
+  </tr>
+</thead>  
+<tbody>
+{%-     for response in data_to_template['response'] %}
+{%-         for allow_value in response['allowedValues'] %}
+    <tr>
+      <td>{{ response.name }}</td>
+      <td>{{ allow_value.isDefault }}</td>
+      <td>{{ allow_value.key }}</td>
+      <td>{{ allow_value.value }}</td>
+      <td>{{ response.dataType }}</td>
+      <td>{{ response.description }}</td>
+      <td>{{ response.dictionaryName }}</td>
+      <td>{{ response.directionType }}</td>
+      <td>{{ response.id }}</td>
+      <td>{{ response.internalName }}</td>
+    </tr>
+{%-         endfor %}
+{%-     endfor %}
+</tbody>
+</table>
 {%- elif  "/api/v1/policy/device-admin/dictionaries/policyset" in api %}
 {%- elif  "/api/v1/policy/device-admin/identity-stores" in api %}
 {%- elif  "/api/v1/policy/device-admin/policy-set" in api %}
@@ -60,3 +445,4 @@
 {%- elif  "/api/v1/policy/network-access/security-groups" in api %}
 {%- elif  "/api/v1/policy/network-access/service-names" in api %}
 {%- endif  %}
+{%- include 'datatable_footer.j2' %}
