@@ -1,17 +1,17 @@
-{%- if  "/ers/config/allowedprotocols" in api %}# Allowed Protocols
+{%- if "/ers/config/allowedprotocols" in api %}# Allowed Protocols
 | Name | Allow CHAP | Allow EAP Fast | Allow EAP MD5 | Allow EAP TLS | Allow EAP TTLS | Allow LEAP | Allow MS CHAP v1 | Allow MS CHAP v2 | Allow PAP ASCII | Allow PEAP | Allow Preferred EAP Protocol | Allow TEAP | Allow Weak Ciphers For EAP | Description | EAP TLS L Bit | ID | Process Host Lookup | Require Message Auth |
 | ---- | ---------- | -------------- | ------------- | ------------- | -------------- | ---------- | ---------------- | ---------------- | --------------- | ---------- | ---------------------------- | ---------- | -------------------------- | ----------- | ------------- | -- | ------------------- | -------------------- |
 {%-     for result in data_to_template %}
 | {{ result.AllowedProtocols.name }} | {{ result.AllowedProtocols.allowChap }} | {{ result.AllowedProtocols.allowEapFast }} | {{ result.AllowedProtocols.allowEapMd5 }} | {{ result.AllowedProtocols.allowEapTls }} | {{ result.AllowedProtocols.allowEapTtls }} | {{ result.AllowedProtocols.allowLeap }} | {{ result.AllowedProtocols.allowMsChapV1 }} | {{ result.AllowedProtocols.allowMsChapV2 }} | {{ result.AllowedProtocols.allowPapAscii }} | {{ result.AllowedProtocols.allowPeap }} | {{ result.AllowedProtocols.allowPreferredEapProtocol }} | {{ result.AllowedProtocols.allowTeap }} | {{ result.AllowedProtocols.allowWeakCiphersForEap }} | {{ result.AllowedProtocols.description }} | {{ result.AllowedProtocols.eapTlsLBit }} | {{ result.AllowedProtocols.id }} | {{ result.AllowedProtocols.processHostLookup }} | {{ result.AllowedProtocols.requireMessageAuth }} |
 {%-     endfor %}
-{%- elif  "/ers/config/adminuser" in api %}# Admin Users
+{%- elif "/ers/config/adminuser" in api %}# Admin Users
 | Name | Admin Groups | Change Password | Custom Attributes | Description | Enabled | External User | ID | Inactive Account Never Disabled | Include System Alarms In Email |
 | ---- | ------------ | --------------- | ----------------- | ----------- | ------- | ------------- | -- | ------------------------------- | ------------------------------ |
 {%-     for result in data_to_template %}
 | {{ result.AdminUser.name }} | {{ result.AdminUser.adminGroups }} | {{ result.AdminUser.changePassword }} | {{ result.AdminUser.customAttributes }} | {{ result.AdminUser.description }} | {{ result.AdminUser.enabled }} | {{ result.AdminUser.externalUser }} | {{ result.AdminUser.id }} | {{ result.AdminUser.inactiveAccountNeverDisabled }} | {{ result.AdminUser.includeSystemAlarmsInEmail }} |
 {%-     endfor %}
-{%- elif  "/ers/config/activedirectory" in api %}
-{%- elif  "/ers/config/authorizationprofile" in api %}# Authorization Profiles
+{%- elif "/ers/config/activedirectory" in api %}
+{%- elif "/ers/config/authorizationprofile" in api %}# Authorization Profiles
 | Name | Access Type | Left Hand Side Dictionary Attribute Advanced Attribute Value Type | Left Hand Side Dictionary Attribute Attribute Name | Left Hand Side Dictionary Attribute Dictionary Name | Right Hand Side Attribue Value Advanced Attribute Value Type | Right Hand Side Attribute Value Value | Right Hand Side Attribue Attribute Name | Right Hand Side Attribute Dictionary Name | Agentless Posture | AuthZ Profile Type | DACL Name | Description | Easy Wired Session Candidate | ID | Profile Name | Service Template | Track Movement | Voice Domain Permission | Web Redirection Type | Web Redirection ACL | Web Redirection Portal Name |
 | ---- | ----------- | ----------------------------------------------------------------- | -------------------------------------------------- | --------------------------------------------------- | ------------------------------------------------------------ | ------------------------------------- | --------------------------------------- | ----------------------------------------- | ----------------- | ------------------ | --------- | ----------- | ---------------------------- | -- | ------------ | ---------------- | -------------- | ----------------------- | -------------------- | ------------------- | --------------------------- |
 {%-     for result in data_to_template %}
@@ -23,39 +23,91 @@
 | {{ result.AuthorizationProfile.name }} | {{ result.AuthorizationProfile.accessType }} | N/A | N/A | N/A | N/A | N/A | N/A | N/A | {{ result.AuthorizationProfile.agentlessPosture }} | {{ result.AuthorizationProfile.authzProfileType }} | {{ result.AuthorizationProfile.daclName | default("N/A") }} | {{ result.AuthorizationProfile.description }} | {{ result.AuthorizationProfile.easywiredSessionCandidate }} | {{ result.AuthorizationProfile.id }} | {{ result.AuthorizationProfile.profileName }} | {{ result.AuthorizationProfile.serviceTemplate }} | {{ result.AuthorizationProfile.trackMovement }} | {{ result.AuthorizationProfile.voiceDomainPermission | default("N/A") }} | {% if result.AuthorizationProfile.webRedirection %}{{ result.AuthorizationProfile.webRedirection.WebRedirectionType }} | {{ result.AuthorizationProfile.webRedirection.acl }} | {{ result.AuthorizationProfile.webRedirection.portalName }}{% else %}N/A | N/A | N/A{% endif %} |
 {%-          endif %}
 {%-     endfor %}
-{%- elif  "/ers/config/downloadableacl" in api %}# Downloadable ACL
+{%- elif "/ers/config/downloadableacl" in api %}# Downloadable ACL
 | Name | ID | DACL | DACL Type | Description |
 | ---- | -- | ---- | --------- | ----------- |
 {%-     for dacl in data_to_template %}
 | {{ dacl.DownloadableAcl.name }} | {{ dacl.DownloadableAcl.id }} | {{ dacl.DownloadableAcl.dacl }} | {{ dacl.DownloadableAcl.daclType }} | {{ dacl.DownloadableAcl.description }} |
 {%-     endfor %}
-{%- elif  "/ers/config/endpoint" in api %}
-{%- elif  "/ers/config/endpointgroup" in api %}
-{%- elif  "/ers/config/identitygroup" in api %}
-{%- elif  "/ers/config/idstoresequence" in api %}
-{%- elif  "/ers/config/internaluser" in api %}
-{%- elif  "/ers/config/networkdevice" in api %}
-{%-     if  "/ers/config/networkdevicegroup" in api %}
+{%- elif "/ers/config/endpoint" in api %}
+{%-     if  "/ers/config/endpointgroup" in api %}# Endpoint Groups
+| Name | ID | Description | System Defined |
+| ---- | -- | ----------- | -------------- |
+{%-         for group in data_to_template %}
+| {{ group.EndPointGroup.name }} | {{ group.EndPointGroup.id }} | {{ group.EndPointGroup.description }} | {{ group.EndPointGroup.systemDefined }} |
+{%-         endfor %}
+{%-     else %}
 {%-     endif %}
-{%- elif  "/ers/config/node" in api %}
-{%- elif  "/ers/config/portal" in api %}
-{%- elif  "/ers/config/profilerprofile" in api %}
-{%- elif  "/ers/config/sgt" in api %}
-{%- elif  "/ers/config/sgacl" in api %}
-{%- elif  "/ers/config/selfregportal" in api %}
-{%- elif  "/ers/config/sponsorgroup" in api %}
-{%- elif  "/ers/config/sponsorportal" in api %}
-{%- elif  "/ers/config/sponsoredguestportal" in api %}
-{%- elif  "/api/v1/backup-restore/config/last-backup-status" in api %}
-{%- elif  "/api/v1/certs/certificate-signing-request" in api %}# Certificate Signing Requests
+{%- elif "/ers/config/identitygroup" in api %}# Identity Groups
+| Name | ID | Description | Parent |
+| ---- | -- | ----------- | ------ |
+{%-     for group in data_to_template %}
+| {{ group.IdentityGroup.name }} | {{ group.IdentityGroup.id }} | {{ group.IdentityGroup.description }} | {{ group.IdentityGroup.parent }} |
+{%-     endfor %}
+{%- elif "/ers/config/idstoresequence" in api %}# Identity Store Sequence
+| Name | ID | Description | Certificate Authentication Profile | Break On Store Fail | ID Store | Order |
+| ---- | -- | ----------- | ---------------------------------- | ------------------- | -------- | ----- |
+{%-     for sequence in data_to_template %}
+{%-         for seqitem in sequence.IdStoreSequence['idSeqItem'] %}
+| {{ sequence.IdStoreSequence.name }} | {{ sequence.IdStoreSequence.id }} | {{ sequence.IdStoreSequence.description }} | {{ sequence.IdStoreSequence.certificateAuthenticationProfile }} | {{ sequence.IdStoreSequence.breakOnStoreFail }} | {{ seqitem.idstore }} | {{ seqitem.order }} |
+{%-         endfor %}
+{%-     endfor %}
+{%- elif "/ers/config/internaluser" in api %}
+{%- elif "/ers/config/networkdevice" in api %}
+{%-     if  "/ers/config/networkdevicegroup" in api %}# Network Device Groups
+| Name | ID | Description | Other Name |
+| ---- | -- | ----------- | ---------- |
+{%-         for group in data_to_template %}
+| {{ group.NetworkDeviceGroup.name }} | {{ group.NetworkDeviceGroup.id }} | {{ group.NetworkDeviceGroup.description }} | {{ group.NetworkDeviceGroup.othername }} |
+{%-         endfor %}
+{%-     else %}# Network Devices
+| Name | ID | Description | Profile Name | CoA Port | IP Address | Subnet Mask | Network Device Group | DTLS Required | Enable Key Wrap | Enable Multi Secret | Key Encryption Key | Key Input Format | Message Authenticator Code Key | Network Protocol | RADIUS Shared Secret |
+| ---- | -- | ----------- | ------------ | -------- | ---------- | ----------- | -------------------- | ------------- | --------------- | ------------------- | ------------------ | ---------------- | ------------------------------ | ---------------- | -------------------- |
+{%-         for device in data_to_template %}
+{%-             for ip in device['NetworkDevice']['NetworkDeviceIPList'] %}
+{%-                 for group in device['NetworkDevice']['NetworkDeviceGroupList'] %}
+| {{ device['NetworkDevice'].name }} | {{ device['NetworkDevice'].id }} | {{ device['NetworkDevice'].description }} | {{ device['NetworkDevice'].profileName }} | {{ device['NetworkDevice'].coaPort }} | {{ ip.ipaddress }} | {{ ip.mask }} | {{ group }} | {{ device['NetworkDevice'].authenticationSettings.dtlsRequired }} | {{ device['NetworkDevice'].authenticationSettings.enableKeyWrap }} | {{ device['NetworkDevice'].authenticationSettings.enableMultiSecret }} | {{ device['NetworkDevice'].authenticationSettings.keyEncryptionKey }} | {{ device['NetworkDevice'].authenticationSettings.keyInputFormat }} | {{ device['NetworkDevice'].authenticationSettings.messageAuthenticatorCodeKey }} | {{ device['NetworkDevice'].authenticationSettings.networkProtocol }} | {{ device['NetworkDevice'].authenticationSettings.radiusSharedSecret }} |
+{%-                 endfor %}
+{%-             endfor %}
+{%-         endfor %}
+{%-     endif %}
+{%- elif "/ers/config/node" in api %}# Nodes
+| Name | ID | Display Name | FQDN | Gateway | In Deployment | IP v4 Address | IP v6 Address | Node Service Types | Other PAP FQDN | PAP Node | Primary PAP Node | PxGrid Node | SXP IP Address |
+| ---- | -- | ------------ | ---- | ------- | ------------- | ------------- | ------------- | ------------------ | -------------- | -------- | ---------------- | ----------- | -------------- |
+{%-     for node in data_to_template %}
+{%-         for v4 in node['Node'].ipAddresses %}
+{%-             if node['Node'].ipV6Addresses %}
+{%-                 for v6 in node['Node'].ipV6Addresses %}
+| {{ node['Node'].name }} | {{ node['Node'].id }} | {{ node['Node'].displayName }} | {{ node['Node'].fqdn }} | {{ node['Node'].gateWay }} | {{ node['Node'].inDeployment }} | {{ v4 }} | {{ v6 }} | {{ node['Node'].nodeServiceTypes }} | {{ node['Node'].otherPapFqdn }} | {{ node['Node'].papNode }} | {{ node['Node'].primaryPapNode }} | {{ node['Node'].pxGridNode }} | {{ node['Node'].sxpIpAddress }} |
+{%-                 endfor %}
+{%-             else %}
+| {{ node['Node'].name }} | {{ node['Node'].id }} | {{ node['Node'].displayName }} | {{ node['Node'].fqdn }} | {{ node['Node'].gateWay }} | {{ node['Node'].inDeployment }} | {{ v4 }} | N/A | {{ node['Node'].nodeServiceTypes }} | {{ node['Node'].otherPapFqdn }} | {{ node['Node'].papNode }} | {{ node['Node'].primaryPapNode }} | {{ node['Node'].pxGridNode }} | {{ node['Node'].sxpIpAddress }} |
+{%-             endif %}
+{%-         endfor %}
+{%-     endfor %}
+{%- elif "/ers/config/portal" in api %}
+{%- elif "/ers/config/profilerprofile" in api %}
+{%- elif "/ers/config/sgt" in api %}
+{%- elif "/ers/config/sgacl" in api %}
+{%- elif "/ers/config/selfregportal" in api %}
+{%- elif "/ers/config/sponsorgroup" in api %}
+{%- elif "/ers/config/sponsorportal" in api %}
+{%- elif "/ers/config/sponsoredguestportal" in api %}
+{%- elif "/api/v1/backup-restore/config/last-backup-status" in api %}# Last Backup Status
+| Name | Hostname | Action | Details | Error | Initiated From | Just Complete | Message | Percent Complete | Repository | Scheduled | Start Date | Status | Type |
+| ---- | -------- | ------ | ------- | ----- | -------------- | ------------- | ------- | ---------------- | ---------- | --------- | ---------- | ------ | ---- |
+| {{ data_to_template.response.name }} | {{ data_to_template.response.hostName }} | {{ data_to_template.response.action }} | {{ data_to_template.response.details }} | {{ data_to_template.response.error }} | {{ data_to_template.response.initiatedFrom }} | {{ data_to_template.response.justComplete }} | {{ data_to_template.response.message }} | {{ data_to_template.response.percentComplete }} | {{ data_to_template.response.repository }} | {{ data_to_template.response.scheduled }} | {{ data_to_template.response.startDate }} | {{ data_to_template.response.status }} | {{ data_to_template.response.type }} |
+{%- elif "/api/v1/certs/certificate-signing-request" in api %}
+{%-     if data_to_template['response'] %}# Certificate Signing Requests
 | Hostname | ID | CSR Contents | Friendly Name | Group Tag | Key Size | Signature Algorithm | Subject | Timestamp | Used For |
 | -------- | -- | ------------ | ------------- | --------- | -------- | ------------------- | ------- | --------- | -------- |
-{%-     for cert in data_to_template %}
+{%-         for cert in data_to_template %}
 | {{ cert.response.hostName }} | {{ cert.response.id }} | {{ cert.response.csrContents | replace("\n","") }} | {{ cert.response.friendlyName }} | {{ cert.response.groupTag }} | {{ cert.response.keySize }} | {{ cert.response.signatureAlgorithm }} | {{ cert.response.subject }} | {{ cert.response.timeStamp }} | {{ cert.response.usedFor }} |
-{%-     endfor %}
-{%- elif  "/api/v1/certs/system-certificate" in api %}
-{%- elif  "/api/v1/certs/trusted-certificate" in api %}
-{%- elif  "/api/v1/deployment/node" in api %}# Deployment Nodes
+{%-         endfor %}
+{%-     endif %}
+{%- elif "/api/v1/certs/system-certificate" in api %}
+{%- elif "/api/v1/certs/trusted-certificate" in api %}
+{%- elif "/api/v1/deployment/node" in api %}# Deployment Nodes
 | Hostname | FQDN | IP Address | Node Status | Role | Services |
 | -------- | ---- | ---------- | ----------- | ---- | -------- |
 {%-     for node in data_to_template['response'] %}
@@ -65,63 +117,264 @@
 {%-             endfor %}
 {%-         endfor %}
 {%-     endfor %}
-{%- elif  "/api/v1/deployment/pan-ha" in api %}
-{%- elif  "/api/v1/profile/" in api %}
-{%- elif  "/api/v1/license/system/connection-type" in api %}
-{%- elif  "/api/v1/license/system/feature-to-tier-mapping" in api %}
-{%- elif  "/api/v1/license/system/register" in api %}
-{%- elif  "/api/v1/license/system/smart-state" in api %}
-{%- elif  "/api/v1/license/system/tier-state" in api %}
-{%- elif  "/api/v1/patch" in api %}
-{%- elif  "/api/v1/hotpatch" in api %}
-{%- elif  "/api/v1/repository" in api %}
-{%- elif  "/api/v1/system-settings/proxy" in api %}
-{%- elif  "/api/v1/system-settings/telemetry/transport-gateway" in api %}
-{%- elif  "/api/v1/trustsec/sgacl/nbarapp/" in api %}
-{%- elif  "/api/v1/policy/device-admin/command-sets" in api %}# Command Sets
+{%- elif "/api/v1/deployment/pan-ha" in api %}# PAN HA
+| Failed Attempts | Is Enabled | Polling Interval | Primary Health Check Node | Secondary Health Check Node |
+| --------------- | ---------- | ---------------- | ------------------------- | --------------------------- |
+| {{ data_to_template.response.failedAttempts }} | {{ data_to_template.response.isEnabled }} | {{ data_to_template.response.pollingInterval }} | {{ data_to_template.response.primaryHealthCheckNode }} | {{ data_to_template.response.secondaryHealthCheckNode }} |
+{%- elif "/api/v1/node/" in api %}# Node Interfaces
+| Interface |
+| --------- |
+{%-     for interface in data_to_template['response'] %}
+| {{ interface.interface }} |
+{%-     endfor %}
+{%- elif "/api/v1/profile/" in api %}# Node Profile
+| Active Directory Days Before Rescan | DHCP Interface | DHCP Port | DHCP Span | DNS | HTTP | NetFlow | NMAP | PxGrid | RADIUS | SNMP Query Event Timeout | SNMP Query Retries | SNMP Query Timeout | SNMP Trap |
+| ----------------------------------- | -------------- | --------- | --------- | --- | ---- | ------- | ---- | ------ | ------ | ------------------------ | ------------------ | ------------------ | --------- |
+{%-     for interface in data_to_template['response']['dhcp']['interfaces'] %}
+| {{ data_to_template['response'].activeDirectory.daysBeforeRescan }} | {{ interface.interface }} | {{ data_to_template['response'].dhcp.port }} | {{ data_to_template['response'].dhcpSpan }} | {{ data_to_template['response'].dns }} | {{ data_to_template['response'].http }} | {{ data_to_template['response'].netflow }} | {{ data_to_template['response'].nmap }} | {{ data_to_template['response'].pxgrid }} | {{ data_to_template['response'].radius }} | {{ data_to_template['response'].snmpQuery.eventTimeout }} | {{ data_to_template['response'].snmpQuery.retries }} | {{ data_to_template['response'].snmpQuery.timeout }} | {{ data_to_template['response'].snmpTrap }} |
+{%-     endfor %}
+{%- elif "/api/v1/license/system/connection-type" in api %}# License Connection Type
+| Connection Type | State |
+| --------------- | ----- |
+| {{ data_to_template.connectionType }} | {{ data_to_template.state }} |
+{%- elif "/api/v1/license/system/eval-license" in api %}# Eval Licenses
+| Days Remaining |
+| {{ data_to_template.daysRemaining }} |
+{%- elif "/api/v1/license/system/feature-to-tier-mapping" in api %}# License Feature to Tier Mapping
+| Tier | Feature Name |
+| ---- | ------------ |
+{%-     for tier in data_to_template %}
+{%-         if tier['featureName'] %}
+{%-             for feature in tier['featureName'] %}
+| {{ tier.tier }} | {{ feature }} |
+{%-             endfor %}
+{%-         else %}
+| {{ tier.tier }} | N/A |
+{%-          endif %}
+{%-     endfor %}
+{%- elif "/api/v1/license/system/register" in api %}# License Register
+| Tier | Connection Type | Registration State | SSM On Prem Server |
+| ---- | --------------- | ------------------ | ------------------ |
+{%-     for license in data_to_template['response']['tier'] %}
+| {{ license }} | {{ data_to_template['response']['connectionType'] }} | {{ data_to_template['response']['registrationState'] }} | {{ data_to_template['response']['ssmOnPremServer'] }} |
+{%-     endfor %}
+{%- elif "/api/v1/license/system/smart-state" in api %}# License Smart State
+| Connection Type | State |
+| --------------- | ----- |
+| {{ data_to_template.response.connectionType }} | {{ data_to_template.response.state }} |
+{%- elif "/api/v1/license/system/tier-state" in api %}# License Tier State
+| Name | Compliance | Consumption Counter | Days Out Of Compliance | Last Authorization | Status |
+| ---- | ---------- | ------------------- | ---------------------- | ------------------ | ------ |
+{%-     for license in data_to_template %}
+| {{ license.name }} | {{ license.compliance }} | {{ license.consumptionCounter }} | {{ license.daysOutOfCompliance }} | {{ license.lastAuthorization }} | {{ license.status }} |
+{%-     endfor %}
+{%- elif "/api/v1/patch" in api %}# Patches
+| ISE Version | Patch Number | Install Date |
+| ----------- | ------------ | ------------ |
+{%-     for patch in data_to_template['patchVersion'] %}
+| {{ data_to_template.iseVersion }} | {{ patch.patchNumber }} | {{ patch.installDate }} |
+{%-     endfor %}
+{%- elif "/api/v1/hotpatch" in api %}# Hot Patches
+| Name | Install Date |
+| ---- | ------------ |
+{%-     for patch in data_to_template['response'] %}
+| {{ patch.hotpatchName }} | {{ patch.installDate }} |
+{%-     endfor %}
+{%- elif "/api/v1/repository" in api %}
+{%- elif "/api/v1/system-settings/proxy" in api %}
+{%- elif "/api/v1/system-settings/telemetry/transport-gateway" in api %}
+{%- elif "/api/v1/trustsec/sgacl/nbarapp/" in api %}# NBAR Applications
+| Name | ID | Description | Ports | Protocol |
+| ---- | -- | ----------- | ----- | -------- |
+{%-     for app in data_to_template['response'] %}
+{%-         for identity in app['networkIdentities'] %}
+| {{ app.name }} | {{ app.id }} | {{ app.description }} | {{ identity.ports }} | {{ identity.protocol }} |
+{%-         endfor %}
+{%-     endfor %}
+{%- elif "/api/v1/policy/device-admin/command-sets" in api %}# Command Sets
 | Name | ID |
 | ---- | -- |
 {%-     for set in data_to_template %}
 | {{ set.name }} | {{ set.id }} |
 {%-     endfor %}
-{%- elif  "/api/v1/policy/device-admin/condition" in api %}# Conditions
+{%- elif "/api/v1/policy/device-admin/condition" in api %}# Conditions
 | Name | ID | Attribute Name | Attribute Value | Condition Type | Description | Dictionary Name | Dictionary Value | Is Negate | Operator |
 | ---- | -- | -------------- | --------------- | -------------- | ----------- | --------------- | ---------------- | --------- | -------- |
 {%-     for condition in data_to_template %}
 | {{ condition.name }} | {{ condition.id }} | {{ condition.attributeName }} | {{ condition.attributeValue }} | {{ condition.conditionType }} | {{ condition.description }} | {{ condition.dictionaryName }} | {{ condition.dictionaryValue }} | {{ condition.isNegate }} | {{ condition.operator }} |
 {%-     endfor %}
-{%- elif  "/api/v1/policy/device-admin/dictionaries/authentication" in api %}# Device Admin Dictionaries Authentication
+{%- elif "/api/v1/policy/device-admin/dictionaries/authentication" in api %}# Device Admin Dictionaries Authentication
 | Name | Allowed Values is Default | Allowed Values Key | Allowed Values Value | Data Type | Description | Dictionary Name | Direction Type | ID | Internal Name |
 | ---- | ------------------------- | ------------------ | -------------------- | --------- | ----------- | --------------- | -------------- | -- | ------------- |
 {%-     for response in data_to_template['response'] %}
-{%-         for allow_value in response['allowedValues'] %}
+{%-         if response['allowedValues'] %}
+{%-             for allow_value in response['allowedValues'] %}
 | {{ response.name }} | {{ allow_value.isDefault }} | {{ allow_value.key }} | {{ allow_value.value }} | {{ response.dataType }} | {{ response.description }} | {{ response.dictionaryName }} | {{ response.directionType }} | {{ response.id }} | {{ response.internalName }} |
-{%-         endfor %}
+{%-             endfor %}
+{%-          else %}
+| {{ response.name }} | N/A | N/A | N/A | {{ response.dataType }} | {{ response.description }} | {{ response.dictionaryName }} | {{ response.directionType }} | {{ response.id }} | {{ response.internalName }} |
+{%-          endif %}
 {%-     endfor %}
-{%- elif  "/api/v1/policy/device-admin/dictionaries/authorization" in api %}# Device Admin Dictionaries Authorization
+{%- elif "/api/v1/policy/device-admin/dictionaries/authorization" in api %}# Device Admin Dictionaries Authorization
 | Name | Allowed Values is Default | Allowed Values Key | Allowed Values Value | Data Type | Description | Dictionary Name | Direction Type | ID | Internal Name |
 | ---- | ------------------------- | ------------------ | -------------------- | --------- | ----------- | --------------- | -------------- | -- | ------------- |
 {%-     for response in data_to_template['response'] %}
-{%-         for allow_value in response['allowedValues'] %}
+{%-         if response['allowedValues'] %}
+{%-             for allow_value in response['allowedValues'] %}
 | {{ response.name }} | {{ allow_value.isDefault }} | {{ allow_value.key }} | {{ allow_value.value }} | {{ response.dataType }} | {{ response.description }} | {{ response.dictionaryName }} | {{ response.directionType }} | {{ response.id }} | {{ response.internalName }} |
-{%-         endfor %}
+{%-             endfor %}
+{%-          else %}
+| {{ response.name }} | N/A | N/A | N/A | {{ response.dataType }} | {{ response.description }} | {{ response.dictionaryName }} | {{ response.directionType }} | {{ response.id }} | {{ response.internalName }} |
+{%-          endif %}
 {%-     endfor %}
-{%- elif  "/api/v1/policy/device-admin/dictionaries/policyset" in api %}
-{%- elif  "/api/v1/policy/device-admin/identity-stores" in api %}
-{%- elif  "/api/v1/policy/device-admin/policy-set" in api %}
-{%- elif  "/api/v1/policy/device-admin/service-names" in api %}
-{%- elif  "/api/v1/policy/device-admin/shell-profiles" in api %}
-{%- elif  "/api/v1/policy/network-access/authorization-profiles" in api %}
-{%- elif  "/api/v1/policy/network-access/condition" in api %}
-{%- elif  "/api/v1/policy/network-access/condition/authentication" in api %}
-{%- elif  "/api/v1/policy/network-access/condition/authorization" in api %}
-{%- elif  "/api/v1/policy/network-access/condition/policyset" in api %}
-{%- elif  "/api/v1/policy/network-access/dictionaries" in api %}
-{%- elif  "/api/v1/policy/network-access/dictionaries/authentication" in api %}
-{%- elif  "/api/v1/policy/network-access/dictionaries/authorization" in api %}
-{%- elif  "/api/v1/policy/network-access/dictionaries/policyset" in api %}
-{%- elif  "/api/v1/policy/network-access/identity-stores" in api %}
-{%- elif  "/api/v1/policy/network-access/policy-set" in api %}
-{%- elif  "/api/v1/policy/network-access/security-groups" in api %}
-{%- elif  "/api/v1/policy/network-access/service-names" in api %}
-{%- endif  %}
+{%- elif "/api/v1/policy/device-admin/dictionaries/policyset" in api %}# Policy Sets
+| Name | ID | Internal Name | Data Type | Description | Dictionary Name | Direction Type | Allowed Values Is Default | Allowed Values Key | Allowed Values Value |
+| ---- | -- | ------------- | --------- | ----------- | --------------- | -------------- | ------------------------- | ------------------ | -------------------- |
+{%-     for policy_set in data_to_template['response'] %}
+{%-         if policy_set['allowedValues'] %}
+{%-             for value in policy_set['allowedValues'] %}
+| {{ policy_set.name }} | {{ policy_set.id }} | {{ policy_set.internalName }} | {{ policy_set.dataType }} | {{ policy_set.description }} | {{ policy_set.dictionaryName }} | {{ policy_set.directionType }} | {{ value.isDefault }} | {{ value.key }} | {{ value.value }} |
+{%-             endfor %}
+{%-         else %}
+| {{ policy_set.name }} | {{ policy_set.id }} | {{ policy_set.internalName }} | {{ policy_set.dataType }} | {{ policy_set.description }} | {{ policy_set.dictionaryName }} | {{ policy_set.directionType }} | N/A | N/A | N/A |
+{%-         endif %}
+{%-     endfor %}
+{%- elif "/api/v1/policy/device-admin/identity-stores" in api %}# Identity Stores
+| Name | ID |
+| ---- | -- |
+{%-     for store in data_to_template %}
+| {{ store.name }} | {{ store.id }} |
+{%-     endfor %}
+{%- elif "/api/v1/policy/device-admin/policy-set" in api %}# Policy Sets
+| Name | ID | Condition | Default | Description | Hit Counts | Is Proxy | Rank | Service Name | State |
+| ---- | -- | --------- | ------- | ----------- | ---------- | -------- | ---- | ------------ | ----- |
+{%-     for set in data_to_template %}
+| {{ set.response.name }} | {{ set.response.id }} | {{ set.response.condition }} | {{ set.response.default }} | {{ set.response.description }} | {{ set.response.hitCounts }} | {{ set.response.isProxy }} | {{ set.response.rank }} | {{ set.response.serviceName }} | {{ set.response.state }} |
+{%-     endfor %}
+{%- elif "/api/v1/policy/device-admin/service-names" in api %}
+{%- elif "/api/v1/policy/device-admin/shell-profiles" in api %}
+{%- elif "/api/v1/policy/network-access/authorization-profiles" in api %}# Network Access Authorization Profiles
+| Name | ID |
+| ---- | -- |
+{%-     for profile in data_to_template %}
+| {{ profile.name }} | {{ profile.id }} |
+{%-     endfor %}
+{%- elif "/api/v1/policy/network-access/condition" in api %}
+{%-     if  "/api/v1/policy/network-access/condition/authentication" in api %}# Network Access Authentication Conditions
+| Name | ID | Attribute Name | Attribute Value | Condition Type | Description | Dictionary Name | Dictionary Value | Is Negate | Operator |
+| ---- | -- | -------------- | --------------- | -------------- | ----------- | --------------- | ---------------- | --------- | -------- |
+{%-         for condition in data_to_template %}
+{%-             if condition.response['children'] %}
+{%-                 for child in condition.response['children'] %}
+| {{ condition.response.name }} | {{ condition.response.id }} | {{ child.attributeName }} | {{ child.attributeValue }} | {{ child.conditionType }} | {{ condition.response.description }} | {{ child.dictionaryName }} | {{ child.dictionaryValue }} | {{ child.isNegate }} | {{ child.operator }} |
+{%-                 endfor %}
+{%-             else %}
+| {{ condition.response.name }} | {{ condition.response.id }} | {{ condition.response.attributeName }} | {{ condition.response.attributeValue }} | {{ condition.response.conditionType }} | {{ condition.response.description }} | {{ condition.response.dictionaryName }} | {{ condition.response.dictionaryValue }} | {{ condition.response.isNegate }} | {{ condition.response.operator }} |
+{%-             endif %}
+{%-         endfor %}
+{%-     elif "/api/v1/policy/network-access/condition/authorization" in api %}# Network Access Authorization Conditions
+| Name | ID | Attribute Name | Attribute Value | Condition Type | Description | Dictionary Name | Dictionary Value | Is Negate | Operator |
+| ---- | -- | -------------- | --------------- | -------------- | ----------- | --------------- | ---------------- | --------- | -------- |
+{%-         for condition in data_to_template %}
+{%-             if condition.response['children'] %}
+{%-                 for child in condition.response['children'] %}
+| {{ condition.response.name }} | {{ condition.response.id }} | {{ child.attributeName }} | {{ child.attributeValue }} | {{ child.conditionType }} | {{ condition.response.description }} | {{ child.dictionaryName }} | {{ child.dictionaryValue }} | {{ child.isNegate }} | {{ child.operator }} |
+{%-                 endfor %}
+{%-             else %}
+| {{ condition.response.name }} | {{ condition.response.id }} | {{ condition.response.attributeName }} | {{ condition.response.attributeValue }} | {{ condition.response.conditionType }} | {{ condition.response.description }} | {{ condition.response.dictionaryName }} | {{ condition.response.dictionaryValue }} | {{ condition.response.isNegate }} | {{ condition.response.operator }} |
+{%-             endif %}
+{%-         endfor %}
+{%-     elif "/api/v1/policy/network-access/condition/policyset" in api %}# Network Access Policy Set Conditions
+| Name | ID | Attribute Name | Attribute Value | Condition Type | Description | Dictionary Name | Dictionary Value | Is Negate | Operator |
+| ---- | -- | -------------- | --------------- | -------------- | ----------- | --------------- | ---------------- | --------- | -------- |
+{%-         for condition in data_to_template %}
+{%-             if condition.response['children'] %}
+{%-                 for child in condition.response['children'] %}
+| {{ condition.response.name }} | {{ condition.response.id }} | {{ child.attributeName }} | {{ child.attributeValue }} | {{ child.conditionType }} | {{ condition.response.description }} | {{ child.dictionaryName }} | {{ child.dictionaryValue }} | {{ child.isNegate }} | {{ child.operator }} |
+{%-                 endfor %}
+{%-             else %}
+| {{ condition.response.name }} | {{ condition.response.id }} | {{ condition.response.attributeName }} | {{ condition.response.attributeValue }} | {{ condition.response.conditionType }} | {{ condition.response.description }} | {{ condition.response.dictionaryName }} | {{ condition.response.dictionaryValue }} | {{ condition.response.isNegate }} | {{ condition.response.operator }} |
+{%-             endif %}
+{%-         endfor %}
+{%-     else %}# Network Access Conditions
+| Name | ID | Attribute Name | Attribute Value | Condition Type | Description | Dictionary Name | Dictionary Value | Is Negate | Operator |
+| ---- | -- | -------------- | --------------- | -------------- | ----------- | --------------- | ---------------- | --------- | -------- |
+{%-         for condition in data_to_template %}
+{%-             if condition.response['children'] %}
+{%-                 for child in condition.response['children'] %}
+| {{ condition.response.name }} | {{ condition.response.id }} | {{ child.attributeName }} | {{ child.attributeValue }} | {{ child.conditionType }} | {{ condition.response.description }} | {{ child.dictionaryName }} | {{ child.dictionaryValue }} | {{ child.isNegate }} | {{ child.operator }} |
+{%-                 endfor %}
+{%-             else %}
+| {{ condition.response.name }} | {{ condition.response.id }} | {{ condition.response.attributeName }} | {{ condition.response.attributeValue }} | {{ condition.response.conditionType }} | {{ condition.response.description }} | {{ condition.response.dictionaryName }} | {{ condition.response.dictionaryValue }} | {{ condition.response.isNegate }} | {{ condition.response.operator }} |
+{%-             endif %}
+{%-         endfor %}
+{%-     endif %}
+{%- elif "/api/v1/policy/network-access/dictionaries" in api %}
+{%-     if  "/api/v1/policy/network-access/dictionaries/authentication" in api %}# Network Access Authentication Dictionaries
+| Name | ID | Data Type | Description | Dictionary Name | Direction Type | Internal Name | Is Default | Key | Value |
+| ---- | -- | --------- | ----------- | --------------- | -------------- | ------------- | ---------- | --- | ----- |
+{%-         for dictionary in data_to_template['response'] %}
+{%-             if dictionary['allowedValues'] %}
+{%-                 for value in dictionary['allowedValues'] %}
+| {{ dictionary.name }} | {{ dictionary.id }} | {{ dictionary.dataType }} | {{ dictionary.description }} | {{ dictionary.dictionaryName }} | {{ dictionary.directionType }} | {{ dictionary.internalName }} | {{ value.isDefault }} | {{ value.key }} | {{ value.value }} |
+{%-                 endfor %}
+{%-             else %}
+| {{ dictionary.name }} | {{ dictionary.id }} | {{ dictionary.dataType }} | {{ dictionary.description }} | {{ dictionary.dictionaryName }} | {{ dictionary.directionType }} | {{ dictionary.internalName }} | N/A | N/A | N/A |
+{%-             endif %}
+{%-         endfor %}
+{%-     elif "/api/v1/policy/network-access/dictionaries/authorization" in api %}# Network Access Authorization Dictionaries
+| Name | ID | Data Type | Description | Dictionary Name | Direction Type | Internal Name | Is Default | Key | Value |
+| ---- | -- | --------- | ----------- | --------------- | -------------- | ------------- | ---------- | --- | ----- |
+{%-         for dictionary in data_to_template['response'] %}
+{%-             if dictionary['allowedValues'] %}
+{%-                 for value in dictionary['allowedValues'] %}
+| {{ dictionary.name }} | {{ dictionary.id }} | {{ dictionary.dataType }} | {{ dictionary.description }} | {{ dictionary.dictionaryName }} | {{ dictionary.directionType }} | {{ dictionary.internalName }} | {{ value.isDefault }} | {{ value.key }} | {{ value.value }} |
+{%-                 endfor %}
+{%-             else %}
+| {{ dictionary.name }} | {{ dictionary.id }} | {{ dictionary.dataType }} | {{ dictionary.description }} | {{ dictionary.dictionaryName }} | {{ dictionary.directionType }} | {{ dictionary.internalName }} | N/A | N/A | N/A |
+{%-             endif %}
+{%-         endfor %}
+{%-     elif "/api/v1/policy/network-access/dictionaries/policyset" in api %}# Network Access Policy Set Dictionaries
+| Name | ID | Data Type | Description | Dictionary Name | Direction Type | Internal Name | Is Default | Key | Value |
+| ---- | -- | --------- | ----------- | --------------- | -------------- | ------------- | ---------- | --- | ----- |
+{%-         for dictionary in data_to_template['response'] %}
+{%-             if dictionary['allowedValues'] %}
+{%-                 for value in dictionary['allowedValues'] %}
+| {{ dictionary.name }} | {{ dictionary.id }} | {{ dictionary.dataType }} | {{ dictionary.description }} | {{ dictionary.dictionaryName }} | {{ dictionary.directionType }} | {{ dictionary.internalName }} | {{ value.isDefault }} | {{ value.key }} | {{ value.value }} |
+{%-                 endfor %}
+{%-             else %}
+| {{ dictionary.name }} | {{ dictionary.id }} | {{ dictionary.dataType }} | {{ dictionary.description }} | {{ dictionary.dictionaryName }} | {{ dictionary.directionType }} | {{ dictionary.internalName }} | N/A | N/A | N/A |
+{%-             endif %}
+{%-         endfor %}
+{%-     else %}# Network Access Dictionaries
+| Name | ID | Description | Dictionary Attribute Type |
+| ---- | -- | ----------- | ------------------------- |
+{%-         for dictionary in data_to_template %}
+| {{ dictionary['response'].name }} | {{ dictionary['response'].id }} | {{ dictionary['response'].description }} | {{ dictionary['response'].dictionaryAttrType }} |
+{%-         endfor %}
+{%-     endif %}
+{%- elif "/api/v1/policy/network-access/identity-stores" in api %}# Network Access Identity Stores
+| Name | ID |
+| ---- | -- |
+{%-     for store in data_to_template %}
+| {{ store.name }} | {{ store.id }} |
+{%-     endfor %}
+{%- elif "/api/v1/policy/network-access/policy-set" in api %}# Network Access Policy Sets
+| Name | ID | Condition | Default | Description | Hit Counts | Is Proxy | Rank | Service Name | State |
+| ---- | -- | --------- | ------- | ----------- | ---------- | -------- | ---- | ------------ | ----- |
+{%-     for set in data_to_template %}
+| {{ set['response'].name }} | {{ set['response'].id }} | {{ set['response'].condition }} | {{ set['response'].default }} | {{ set['response'].description }} | {{ set['response'].hitCounts }} | {{ set['response'].isProxy }} | {{ set['response'].rank }} | {{ set['response'].serviceName }} | {{ set['response'].state }} |
+{%-     endfor %}
+{%- elif "/api/v1/policy/network-access/security-groups" in api %}# Network Access Security Groups
+| Name | ID |
+| ---- | -- |
+{%-     for group in data_to_template %}
+| {{ group.name }} | {{ group.id }} |
+{%-     endfor %}
+{%- elif "/api/v1/policy/network-access/service-names" in api %}# Network Access Service Names
+| Name | ID | Service Type | Is Local Authorization |
+| ---- | -- | ------------ | ---------------------- |
+{%-     for service in data_to_template %}
+| {{ service.name }} | {{ service.id }} | {{ service.serviceType }} | {{ service.isLocalAuthorization }} |
+{%-     endfor %}
+{%- endif %}

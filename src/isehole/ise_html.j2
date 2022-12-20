@@ -1,5 +1,5 @@
 {%- include 'datatable_header.j2' %}
-{%- if  "/ers/config/allowedprotocols" in api %}
+{%- if "/ers/config/allowedprotocols" in api %}
 <h1>Allowed Protocols</h1>
 <table id = "datatable">
 <thead>
@@ -51,7 +51,7 @@
 {%-     endfor %}
 </tbody>
 </table>
-{%- elif  "/ers/config/adminuser" in api %}
+{%- elif "/ers/config/adminuser" in api %}
 <h1>Admin Users</h1>
 <table id = "datatable">
 <thead>
@@ -85,8 +85,8 @@
 {%-     endfor %}
 </tbody>
 </table>
-{%- elif  "/ers/config/activedirectory" in api %}
-{%- elif  "/ers/config/authorizationprofile" in api %}
+{%- elif "/ers/config/activedirectory" in api %}
+{%- elif "/ers/config/authorizationprofile" in api %}
 <h1>Authorization Profiles</h1>
 <table id = "datatable">
 <thead>
@@ -181,7 +181,7 @@
 {%-     endfor %}
 </tbody>
 </table>
-{%- elif  "/ers/config/downloadableacl" in api %}
+{%- elif "/ers/config/downloadableacl" in api %}
 <h1>Downloadable ACL</h1>
 <table id = "datatable">
 <thead>
@@ -205,25 +205,273 @@
 {%-     endfor %}
 </tbody>
 </table>
-{%- elif  "/ers/config/endpoint" in api %}
-{%- elif  "/ers/config/endpointgroup" in api %}
-{%- elif  "/ers/config/identitygroup" in api %}
-{%- elif  "/ers/config/idstoresequence" in api %}
-{%- elif  "/ers/config/internaluser" in api %}
-{%- elif  "/ers/config/networkdevice" in api %}
-{%-     if  "/ers/config/networkdevicegroup" in api %}
+{%- elif "/ers/config/endpoint" in api %}
+{%-     if  "/ers/config/endpointgroup" in api %}
+<h1>Endpoint Groups</h1>
+<table id = "datatable">
+<thead>
+  <tr>
+    <th>Name</th>
+    <th>ID</th>
+    <th>Description</th>
+    <th>System Defined</th>
+  </tr>
+</thead>  
+<tbody>
+{%-         for group in data_to_template %}
+  <tr>
+    <td>{{ group.EndPointGroup.name }}</td>
+    <td>{{ group.EndPointGroup.id }}</td>
+    <td>{{ group.EndPointGroup.description }}</td>
+    <td>{{ group.EndPointGroup.systemDefined }}</td>
+  </tr>
+{%-         endfor %}
+</tbody>
+</table>
+{%-     else %}
 {%-     endif %}
-{%- elif  "/ers/config/node" in api %}
-{%- elif  "/ers/config/portal" in api %}
-{%- elif  "/ers/config/profilerprofile" in api %}
-{%- elif  "/ers/config/sgt" in api %}
-{%- elif  "/ers/config/sgacl" in api %}
-{%- elif  "/ers/config/selfregportal" in api %}
-{%- elif  "/ers/config/sponsorgroup" in api %}
-{%- elif  "/ers/config/sponsorportal" in api %}
-{%- elif  "/ers/config/sponsoredguestportal" in api %}
-{%- elif  "/api/v1/backup-restore/config/last-backup-status" in api %}
-{%- elif  "/api/v1/certs/certificate-signing-request" in api %}
+{%- elif "/ers/config/identitygroup" in api %}
+<h1>Identity Groups</h1>
+<table id = "datatable">
+<thead>
+  <tr>
+    <th>Name</th>
+    <th>ID</th>
+    <th>Description</th>
+    <th>Parent</th>
+  </tr>
+</thead>  
+<tbody>
+{%-     for group in data_to_template %}
+  <tr>
+    <td>{{ group.IdentityGroup.name }}</td>
+    <td>{{ group.IdentityGroup.id }}</td>
+    <td>{{ group.IdentityGroup.description }}</td>
+    <td>{{ group.IdentityGroup.parent }}</td>
+  </tr>
+{%-         endfor %}
+</tbody>
+</table>
+{%- elif "/ers/config/idstoresequence" in api %}
+<h1>Identity Store Sequence</h1>
+<table id = "datatable">
+<thead>
+  <tr>
+    <th>Name</th>
+    <th>ID</th>
+    <th>Description</th>
+    <th>Certificate Authentication Profile</th>
+    <th>Break On Store Fail</th>
+    <th>ID Store</th>
+    <th>Order</th>
+  </tr>
+</thead>  
+<tbody>
+{%-     for sequence in data_to_template %}
+{%-         for seqitem in sequence.IdStoreSequence['idSeqItem'] %}
+  <tr>
+    <td>{{ sequence.IdStoreSequence.name }}</td>
+    <td>{{ sequence.IdStoreSequence.id }}</td>
+    <td>{{ sequence.IdStoreSequence.description }}</td>
+    <td>{{ sequence.IdStoreSequence.certificateAuthenticationProfile }}</td>
+    <td>{{ sequence.IdStoreSequence.breakOnStoreFail }}</td>
+    <td>{{ seqitem.idstore }}</td>
+    <td>{{ seqitem.order }}</td>
+  </tr>
+{%-         endfor %}
+{%-     endfor %}
+</tbody>
+</table>
+{%- elif "/ers/config/internaluser" in api %}
+{%- elif "/ers/config/networkdevice" in api %}
+{%-     if  "/ers/config/networkdevicegroup" in api %}
+<h1>Network Device Groups</h1>
+<table id = "datatable">
+<thead>
+  <tr>
+    <th>Name</th>
+    <th>ID</th>
+    <th>Description</th>
+    <th>Other Name</th>
+  </tr>
+</thead>  
+<tbody>
+{%-         for group in data_to_template %}
+  <tr>
+    <td>{{ group.NetworkDeviceGroup.name }}</td>
+    <td>{{ group.NetworkDeviceGroup.id }}</td>
+    <td>{{ group.NetworkDeviceGroup.description }}</td>
+    <td>{{ group.NetworkDeviceGroup.othername }}</td>
+  </tr>
+{%-         endfor %}
+</tbody>
+</table>
+{%-     else %}
+<h1>Network Devices</h1>
+<table id = "datatable">
+<thead>
+  <tr>
+    <th>Name</th>
+    <th>ID</th>
+    <th>Description</th>
+    <th>Profile Name</th>
+    <th>CoA Port</th>
+    <th>IP Address</th>
+    <th>Subnet Mask</th>
+    <th>Network Device Group</th>
+    <th>DTLS Required</th>
+    <th>Enable Key Wrap</th>
+    <th>Enable Multi Secret</th>
+    <th>Key Encryption Key</th>
+    <th>Key Input Format</th>
+    <th>Message Authenticator Code Key</th>
+    <th>Network Protocol</th>
+    <th>RADIUS Shared Secret</th>
+  </tr>
+</thead>  
+<tbody>
+{%-         for device in data_to_template %}
+{%-             for ip in device['NetworkDevice']['NetworkDeviceIPList'] %}
+{%-                 for group in device['NetworkDevice']['NetworkDeviceGroupList'] %}
+  <tr>
+    <td>{{ device['NetworkDevice'].name }}</td>
+    <td>{{ device['NetworkDevice'].id }}</td>
+    <td>{{ device['NetworkDevice'].description }}</td>
+    <td>{{ device['NetworkDevice'].profileName }}</td>
+    <td>{{ device['NetworkDevice'].coaPort }}</td>
+    <td>{{ ip.ipaddress }}</td>
+    <td>{{ ip.mask }}</td>
+    <td>{{ group }}</td>
+    <td>{{ device['NetworkDevice'].authenticationSettings.dtlsRequired }}</td>
+    <td>{{ device['NetworkDevice'].authenticationSettings.enableKeyWrap }}</td>
+    <td>{{ device['NetworkDevice'].authenticationSettings.enableMultiSecret }}</td>
+    <td>{{ device['NetworkDevice'].authenticationSettings.keyEncryptionKey }}</td>
+    <td>{{ device['NetworkDevice'].authenticationSettings.keyInputFormat }}</td>
+    <td>{{ device['NetworkDevice'].authenticationSettings.messageAuthenticatorCodeKey }}</td>
+    <td>{{ device['NetworkDevice'].authenticationSettings.networkProtocol }}</td>
+    <td>{{ device['NetworkDevice'].authenticationSettings.radiusSharedSecret }}</td>
+  </tr>
+{%-                 endfor %}
+{%-             endfor %}
+{%-         endfor %}
+</tbody>
+</table>
+{%-     endif %}
+{%- elif "/ers/config/node" in api %}
+<h1>Nodes</h1>
+<table id = "datatable">
+<thead>
+  <tr>
+    <th>Name</th>
+    <th>ID</th>
+    <th>Display Name</th>
+    <th>FQDN</th>
+    <th>Gateway</th>
+    <th>In Deployment</th>
+    <th>IP v4 Address</th>
+    <th>IP v6 Address</th>
+    <th>Node Service Types</th>
+    <th>Other PAP FQDN</th>
+    <th>PAP Node</th>
+    <th>Primary PAP Node</th>
+    <th>PxGrid Node</th>
+    <th>SXP IP Address</th>
+  </tr>
+</thead>  
+<tbody>
+{%-     for node in data_to_template %}
+{%-         for v4 in node['Node'].ipAddresses %}
+{%-             if node['Node'].ipV6Addresses %}
+{%-                 for v6 in node['Node'].ipV6Addresses %}
+  <tr>
+    <td>{{ node['Node'].name }}</td>
+    <td>{{ node['Node'].id }}</td>
+    <td>{{ node['Node'].displayName }}</td>
+    <td>{{ node['Node'].fqdn }}</td>
+    <td>{{ node['Node'].gateWay }}</td>
+    <td>{{ node['Node'].inDeployment }}</td>
+    <td>{{ v4 }}</td>
+    <td>{{ v6 }}</td>
+    <td>{{ node['Node'].nodeServiceTypes }}</td>
+    <td>{{ node['Node'].otherPapFqdn }}</td>
+    <td>{{ node['Node'].papNode }}</td>
+    <td>{{ node['Node'].primaryPapNode }}</td>
+    <td>{{ node['Node'].pxGridNode }}</td>
+    <td>{{ node['Node'].sxpIpAddress }}</td>
+  </tr>
+{%-                 endfor %}
+{%-             else %}
+  <tr>
+    <td>{{ node['Node'].name }}</td>
+    <td>{{ node['Node'].id }}</td>
+    <td>{{ node['Node'].displayName }}</td>
+    <td>{{ node['Node'].fqdn }}</td>
+    <td>{{ node['Node'].gateWay }}</td>
+    <td>{{ node['Node'].inDeployment }}</td>
+    <td>{{ v4 }}</td>
+    <td>N/A</td>
+    <td>{{ node['Node'].nodeServiceTypes }}</td>
+    <td>{{ node['Node'].otherPapFqdn }}</td>
+    <td>{{ node['Node'].papNode }}</td>
+    <td>{{ node['Node'].primaryPapNode }}</td>
+    <td>{{ node['Node'].pxGridNode }}</td>
+    <td>{{ node['Node'].sxpIpAddress }}</td>
+  </tr>
+{%-             endif %}
+{%-         endfor %}
+{%-     endfor %}
+</tbody>
+</table>
+{%- elif "/ers/config/portal" in api %}
+{%- elif "/ers/config/profilerprofile" in api %}
+{%- elif "/ers/config/sgt" in api %}
+{%- elif "/ers/config/sgacl" in api %}
+{%- elif "/ers/config/selfregportal" in api %}
+{%- elif "/ers/config/sponsorgroup" in api %}
+{%- elif "/ers/config/sponsorportal" in api %}
+{%- elif "/ers/config/sponsoredguestportal" in api %}
+{%- elif "/api/v1/backup-restore/config/last-backup-status" in api %}
+<h1>Last Backup Status</h1>
+<table id = "datatable">
+<thead>
+  <tr>
+    <th>Name</th>
+    <th>Hostname</th>
+    <th>Action</th>
+    <th>Details</th>
+    <th>Error</th>
+    <th>Initiated From</th>
+    <th>Just Complete</th>
+    <th>Message</th>
+    <th>Percent Complete</th>
+    <th>Repository</th>
+    <th>Scheduled</th>
+    <th>Start Date</th>
+    <th>Status</th>
+    <th>Type</th>
+  </tr>
+</thead>  
+<tbody>
+  <tr>
+    <td>{{ data_to_template.response.name }}</td>
+    <td>{{ data_to_template.response.hostName }}</td>
+    <td>{{ data_to_template.response.action }}</td>
+    <td>{{ data_to_template.response.details }}</td>
+    <td>{{ data_to_template.response.error }}</td>
+    <td>{{ data_to_template.response.initiatedFrom }}</td>
+    <td>{{ data_to_template.response.justComplete }}</td>
+    <td>{{ data_to_template.response.message }}</td>
+    <td>{{ data_to_template.response.percentComplete }}</td>
+    <td>{{ data_to_template.response.repository }}</td>
+    <td>{{ data_to_template.response.scheduled }}</td>
+    <td>{{ data_to_template.response.startDate }}</td>
+    <td>{{ data_to_template.response.status }}</td>
+    <td>{{ data_to_template.response.type }}</td>
+  </tr>
+</tbody>
+</table>
+{%- elif "/api/v1/certs/certificate-signing-request" in api %}
+{%-     if data_to_template['response'] %}
 <h1>Certificate Signing Requests</h1>
 <table id = "datatable">
 <thead>
@@ -241,7 +489,7 @@
   </tr>
 </thead>  
 <tbody>
-{%-     for cert in data_to_template %}
+{%-         for cert in data_to_template %}
   <tr>
     <td>{{ cert.response.hostName }}</td>
     <td>{{ cert.response.id }}</td>
@@ -254,12 +502,13 @@
     <td>{{ cert.response.timeStamp }}</td>
     <td>{{ cert.response.usedFor }}</td>
   </tr>
-{%-     endfor %}
+{%-         endfor %}
 </tbody>
 </table>
-{%- elif  "/api/v1/certs/system-certificate" in api %}
-{%- elif  "/api/v1/certs/trusted-certificate" in api %}
-{%- elif  "/api/v1/deployment/node" in api %}
+{%-     endif %}
+{%- elif "/api/v1/certs/system-certificate" in api %}
+{%- elif "/api/v1/certs/trusted-certificate" in api %}
+{%- elif "/api/v1/deployment/node" in api %}
 <h1>Deployment Nodes</h1>
 <table id = "datatable">
 <thead>
@@ -289,20 +538,275 @@
 {%-     endfor %}
 </tbody>
 </table>
-{%- elif  "/api/v1/deployment/pan-ha" in api %}
-{%- elif  "/api/v1/profile/" in api %}
-{%- elif  "/api/v1/license/system/connection-type" in api %}
-{%- elif  "/api/v1/license/system/feature-to-tier-mapping" in api %}
-{%- elif  "/api/v1/license/system/register" in api %}
-{%- elif  "/api/v1/license/system/smart-state" in api %}
-{%- elif  "/api/v1/license/system/tier-state" in api %}
-{%- elif  "/api/v1/patch" in api %}
-{%- elif  "/api/v1/hotpatch" in api %}
-{%- elif  "/api/v1/repository" in api %}
-{%- elif  "/api/v1/system-settings/proxy" in api %}
-{%- elif  "/api/v1/system-settings/telemetry/transport-gateway" in api %}
-{%- elif  "/api/v1/trustsec/sgacl/nbarapp/" in api %}
-{%- elif  "/api/v1/policy/device-admin/command-sets" in api %}
+{%- elif "/api/v1/deployment/pan-ha" in api %}
+<h1>PAN HA</h1>
+<table id = "datatable">
+<thead>
+  <tr>
+    <th>Failed Attempts</th>
+    <th>Is Enabled</th>
+    <th>Polling Interval</th>
+    <th>Primary Health Check Node</th>
+    <th>Secondary Health Check Node</th>
+  </tr>
+</thead>  
+<tbody>
+  <tr>
+    <td>{{ data_to_template.response.failedAttempts }}</td>
+    <td>{{ data_to_template.response.isEnabled }}</td>
+    <td>{{ data_to_template.response.pollingInterval }}</td>
+    <td>{{ data_to_template.response.primaryHealthCheckNode }}</td>
+    <td>{{ data_to_template.response.secondaryHealthCheckNode }}</td>
+  </tr>
+</tbody>
+</table>
+{%- elif "/api/v1/node/" in api %}
+<h1>Node Interfaces</h1>
+<table id = "datatable">
+<thead>
+  <tr>
+    <th>Interface</th>
+  </tr>
+</thead>  
+<tbody>
+{%-     for interface in data_to_template['response'] %}
+  <tr>
+    <td>{{ interface.interface }}</td>
+  </tr>
+{%-     endfor %}
+</tbody>
+</table>
+{%- elif "/api/v1/profile/" in api %}
+<h1>Node Profile</h1>
+<table id = "datatable">
+<thead>
+  <tr>
+    <th>Active Directory Days Before Rescan</th>
+    <th>DHCP Interface</th>
+    <th>DHCP Port</th>
+    <th>DHCP Span</th>
+    <th>DNS</th>
+    <th>HTTP</th>
+    <th>NetFlow</th>
+    <th>NMAP</th>
+    <th>PxGrid</th>
+    <th>RADIUS</th>
+    <th>SNMP Query Event Timeout</th>
+    <th>SNMP Query Retries</th>
+    <th>SNMP Query Timeout</th>
+    <th>SNMP Trap</th>
+  </tr>
+</thead>  
+<tbody>
+{%-     for interface in data_to_template['response']['dhcp']['interfaces'] %}
+  <tr>
+    <td>{{ data_to_template['response'].activeDirectory.daysBeforeRescan }}</td>
+    <td>{{ interface.interface }}</td>
+    <td>{{ data_to_template['response'].dhcp.port }}</td>
+    <td>{{ data_to_template['response'].dhcpSpan }}</td>
+    <td>{{ data_to_template['response'].dns }}</td>
+    <td>{{ data_to_template['response'].http }}</td>
+    <td>{{ data_to_template['response'].netflow }}</td>
+    <td>{{ data_to_template['response'].nmap }}</td>
+    <td>{{ data_to_template['response'].pxgrid }}</td>
+    <td>{{ data_to_template['response'].radius }}</td>
+    <td>{{ data_to_template['response'].snmpQuery.eventTimeout }}</td>
+    <td>{{ data_to_template['response'].snmpQuery.retries }}</td>
+    <td>{{ data_to_template['response'].snmpQuery.timeout }}</td>
+    <td>{{ data_to_template['response'].snmpTrap }}</td>
+  </tr>
+{%-     endfor %}
+</tbody>
+</table>
+{%- elif "/api/v1/license/system/connection-type" in api %}
+<h1>License Connection Type</h1>
+<table id = "datatable">
+<thead>
+  <tr>
+    <th>Connection Type</th>
+    <th>State</th>
+  </tr>
+</thead>  
+<tbody>
+  <tr>
+    <td>{{ data_to_template.connectionType }}</td>
+    <td>{{ data_to_template.state }}</td>
+  </tr>
+</tbody>
+</table>
+{%- elif "/api/v1/license/system/eval-license" in api %}
+<h1>Eval Licenses</h1>
+<table id = "datatable">
+<thead>
+  <tr>
+    <th>Days Remaining</th>
+  </tr>
+</thead>  
+<tbody>
+  <tr>
+    <td>{{ data_to_template.daysRemaining }}</td>
+  </tr>
+</tbody>
+</table>
+{%- elif "/api/v1/license/system/feature-to-tier-mapping" in api %}
+<h1>License Feature to Tier Mapping</h1>
+<table id = "datatable">
+<thead>
+  <tr>
+    <th>Tier</th>
+    <th>Feature Name</th>
+  </tr>
+</thead>  
+<tbody>
+{%-     for tier in data_to_template %}
+{%-         if tier['featureName'] %}
+{%-             for feature in tier['featureName'] %}
+  <tr>
+    <td>{{ tier.tier }}</td>
+    <td>{{ feature }}</td>
+  </tr>
+{%-             endfor %}
+{%-         else %}
+  <tr>
+    <td>{{ tier.tier }}</td>
+    <td>N/A</td>
+  </tr>
+{%-          endif %}
+{%-     endfor %}
+</tbody>
+</table>
+{%- elif "/api/v1/license/system/register" in api %}
+<h1>License Register</h1>
+<table id = "datatable">
+<thead>
+  <tr>
+    <th>Tier</th>
+    <th>Connection Type</th>
+    <th>Registration State</th>
+    <th>SSM On Prem Server</th>
+  </tr>
+</thead>  
+<tbody>
+{%-     for license in data_to_template['response']['tier'] %}
+  <tr>
+    <td>{{ license }}</td>
+    <td>{{ data_to_template['response']['connectionType'] }}</td>
+    <td>{{ data_to_template['response']['registrationState'] }}</td>
+    <td>{{ data_to_template['response']['ssmOnPremServer'] }}</td>
+  </tr>
+{%-     endfor %}
+</tbody>
+</table>
+{%- elif "/api/v1/license/system/smart-state" in api %}
+<h1>License Smart State</h1>
+<table id = "datatable">
+<thead>
+  <tr>
+    <th>Connection Type</th>
+    <th>State</th>
+  </tr>
+</thead>  
+<tbody>
+  <tr>
+    <td>{{ data_to_template.response.connectionType }}</td>
+    <td>{{ data_to_template.response.state }}</td>
+  </tr>
+</tbody>
+</table>
+{%- elif "/api/v1/license/system/tier-state" in api %}
+<h1>License Tier State</h1>
+<table id = "datatable">
+<thead>
+  <tr>
+    <th>Name</th>
+    <th>Compliance</th>
+    <th>Consumption Counter</th>
+    <th>Days Out Of Compliance</th>
+    <th>Last Authorization</th>
+    <th>Status</th>
+  </tr>
+</thead>  
+<tbody>
+{%-     for license in data_to_template %}
+  <tr>
+    <td>{{ license.name }}</td>
+    <td>{{ license.compliance }}</td>
+    <td>{{ license.consumptionCounter }}</td>
+    <td>{{ license.daysOutOfCompliance }}</td>
+    <td>{{ license.lastAuthorization }}</td>
+    <td>{{ license.status }}</td>
+  </tr>
+{%-     endfor %}
+</tbody>
+</table>
+{%- elif "/api/v1/patch" in api %}
+<h1>Patches</h1>
+<table id = "datatable">
+<thead>
+  <tr>
+    <th>ISE Version</th>
+    <th>Patch Number</th>
+    <th>Install Date</th>
+  </tr>
+</thead>  
+<tbody>
+{%-     for patch in data_to_template['patchVersion'] %}
+  <tr>
+    <td>{{ data_to_template.iseVersion }}</td>
+    <td>{{ patch.patchNumber }}</td>
+    <td>{{ patch.installDate }}</td>
+  </tr>
+{%-     endfor %}
+</tbody>
+</table>
+{%- elif "/api/v1/hotpatch" in api %}
+<h1>Hot Patches</h1>
+<table id = "datatable">
+<thead>
+  <tr>
+    <th>Name</th>
+    <th>Install Date</th>
+  </tr>
+</thead>  
+<tbody>
+{%-     for patch in data_to_template['response'] %}
+  <tr>
+    <td>{{ patch.hotpatchName }}</td>
+    <td>{{ patch.installDate }}</td>
+  </tr>
+{%-     endfor %}
+</tbody>
+</table>
+{%- elif "/api/v1/repository" in api %}
+{%- elif "/api/v1/system-settings/proxy" in api %}
+{%- elif "/api/v1/system-settings/telemetry/transport-gateway" in api %}
+{%- elif "/api/v1/trustsec/sgacl/nbarapp/" in api %}
+<h1>NBAR Applications</h1>
+<table id = "datatable">
+<thead>
+  <tr>
+    <th>Name</th>
+    <th>ID</th>
+    <th>Description</th>
+    <th>Ports</th>
+    <th>Protocol</th>
+  </tr>
+</thead>  
+<tbody>
+{%-     for app in data_to_template['response'] %}
+{%-         for identity in app['networkIdentities'] %}
+  <tr>
+    <td>{{ app.name }}</td>
+    <td>{{ app.id }}</td>
+    <td>{{ app.description }}</td>
+    <td>{{ identity.ports }}</td>
+    <td>{{ identity.protocol }}</td>
+  </tr>
+{%-         endfor %}
+{%-     endfor %}
+</tbody>
+</table>
+{%- elif "/api/v1/policy/device-admin/command-sets" in api %}
 <h1>Command Sets</h1>
 <table id = "datatable">
 <thead>
@@ -320,7 +824,7 @@
 {%-     endfor %}
 </tbody>
 </table>
-{%- elif  "/api/v1/policy/device-admin/condition" in api %}
+{%- elif "/api/v1/policy/device-admin/condition" in api %}
 <h1>Conditions</h1>
 <table id = "datatable">
 <thead>
@@ -354,7 +858,7 @@
 {%-     endfor %}
 </tbody>
 </table>
-{%- elif  "/api/v1/policy/device-admin/dictionaries/authentication" in api %}
+{%- elif "/api/v1/policy/device-admin/dictionaries/authentication" in api %}
 <h1>Device Admin Dictionaries Authentication</h1>
 <table id = "datatable">
 <thead>
@@ -373,7 +877,8 @@
 </thead>  
 <tbody>
 {%-     for response in data_to_template['response'] %}
-{%-         for allow_value in response['allowedValues'] %}
+{%-         if response['allowedValues'] %}
+{%-             for allow_value in response['allowedValues'] %}
     <tr>
       <td>{{ response.name }}</td>
       <td>{{ allow_value.isDefault }}</td>
@@ -386,11 +891,25 @@
       <td>{{ response.id }}</td>
       <td>{{ response.internalName }}</td>
     </tr>
-{%-         endfor %}
+{%-             endfor %}
+{%-         else %}
+    <tr>
+      <td>{{ response.name }}</td>
+      <td>N/A</td>
+      <td>N/A</td>
+      <td>N/A</td>
+      <td>{{ response.dataType }}</td>
+      <td>{{ response.description }}</td>
+      <td>{{ response.dictionaryName }}</td>
+      <td>{{ response.directionType }}</td>
+      <td>{{ response.id }}</td>
+      <td>{{ response.internalName }}</td>
+    </tr>
+{%-         endif %}
 {%-     endfor %}
 </tbody>
 </table>
-{%- elif  "/api/v1/policy/device-admin/dictionaries/authorization" in api %}
+{%- elif "/api/v1/policy/device-admin/dictionaries/authorization" in api %}
 <h1>Device Admin Dictionaries Authentication</h1>
 <table id = "datatable">
 <thead>
@@ -409,7 +928,8 @@
 </thead>  
 <tbody>
 {%-     for response in data_to_template['response'] %}
-{%-         for allow_value in response['allowedValues'] %}
+{%-         if response['allowedValues'] %}
+{%-             for allow_value in response['allowedValues'] %}
     <tr>
       <td>{{ response.name }}</td>
       <td>{{ allow_value.isDefault }}</td>
@@ -422,27 +942,621 @@
       <td>{{ response.id }}</td>
       <td>{{ response.internalName }}</td>
     </tr>
-{%-         endfor %}
+{%-             endfor %}
+{%-         else %}
+    <tr>
+      <td>{{ response.name }}</td>
+      <td>N/A</td>
+      <td>N/A</td>
+      <td>N/A</td>
+      <td>{{ response.dataType }}</td>
+      <td>{{ response.description }}</td>
+      <td>{{ response.dictionaryName }}</td>
+      <td>{{ response.directionType }}</td>
+      <td>{{ response.id }}</td>
+      <td>{{ response.internalName }}</td>
+    </tr>
+{%-         endif %}
 {%-     endfor %}
 </tbody>
 </table>
-{%- elif  "/api/v1/policy/device-admin/dictionaries/policyset" in api %}
-{%- elif  "/api/v1/policy/device-admin/identity-stores" in api %}
-{%- elif  "/api/v1/policy/device-admin/policy-set" in api %}
-{%- elif  "/api/v1/policy/device-admin/service-names" in api %}
-{%- elif  "/api/v1/policy/device-admin/shell-profiles" in api %}
-{%- elif  "/api/v1/policy/network-access/authorization-profiles" in api %}
-{%- elif  "/api/v1/policy/network-access/condition" in api %}
-{%- elif  "/api/v1/policy/network-access/condition/authentication" in api %}
-{%- elif  "/api/v1/policy/network-access/condition/authorization" in api %}
-{%- elif  "/api/v1/policy/network-access/condition/policyset" in api %}
-{%- elif  "/api/v1/policy/network-access/dictionaries" in api %}
-{%- elif  "/api/v1/policy/network-access/dictionaries/authentication" in api %}
-{%- elif  "/api/v1/policy/network-access/dictionaries/authorization" in api %}
-{%- elif  "/api/v1/policy/network-access/dictionaries/policyset" in api %}
-{%- elif  "/api/v1/policy/network-access/identity-stores" in api %}
-{%- elif  "/api/v1/policy/network-access/policy-set" in api %}
-{%- elif  "/api/v1/policy/network-access/security-groups" in api %}
-{%- elif  "/api/v1/policy/network-access/service-names" in api %}
-{%- endif  %}
+{%- elif "/api/v1/policy/device-admin/dictionaries/policyset" in api %}
+<h1>Policy Sets</h1>
+<table id = "datatable">
+<thead>
+  <tr>
+    <th>Name</th>
+    <th>ID</th>
+    <th>Internal Name</th>
+    <th>Data Type</th>
+    <th>Description</th>
+    <th>Dictionary Name</th>
+    <th>Direction Type</th>
+    <th>Allowed Values Is Default</th>
+    <th>Allowed Values Key</th>
+    <th>Allowed Values Value</th>
+  </tr>
+</thead>  
+<tbody>
+{%-     for policy_set in data_to_template['response'] %}
+{%-         if policy_set['allowedValues'] %}
+{%-             for value in policy_set['allowedValues'] %}
+    <tr>
+      <td>{{ policy_set.name }}</td>
+      <td>{{ policy_set.id }}</td>
+      <td>{{ policy_set.internalName }}</td>
+      <td>{{ policy_set.dataType }}</td>
+      <td>{{ policy_set.description }}</td>
+      <td>{{ policy_set.dictionaryName }}</td>
+      <td>{{ policy_set.directionType }}</td>
+      <td>{{ value.isDefault }}</td>
+      <td>{{ value.key }}</td>
+      <td>{{ value.value }}</td>
+    </tr>
+{%-             endfor %}
+{%-         else %}
+    <tr>
+      <td>{{ policy_set.name }}</td>
+      <td>{{ policy_set.id }}</td>
+      <td>{{ policy_set.internalName }}</td>
+      <td>{{ policy_set.dataType }}</td>
+      <td>{{ policy_set.description }}</td>
+      <td>{{ policy_set.dictionaryName }}</td>
+      <td>{{ policy_set.directionType }}</td>
+      <td>N/A</td>
+      <td>N/A</td>
+      <td>N/A</td>
+    </tr>
+{%-         endif %}
+{%-     endfor %}
+</tbody>
+</table>
+{%- elif "/api/v1/policy/device-admin/identity-stores" in api %}
+<h1>Identity Stores</h1>
+<table id = "datatable">
+<thead>
+  <tr>
+    <th>Name</th>
+    <th>ID</th>
+  </tr>
+</thead>  
+<tbody>
+{%-     for store in data_to_template %}
+    <tr>
+      <td>{{ store.name }}</td>
+      <td>{{ store.id }}</td>
+    </tr>
+{%-     endfor %}
+</tbody>
+</table>
+{%- elif "/api/v1/policy/device-admin/policy-set" in api %}
+<h1>Policy Sets</h1>
+<table id = "datatable">
+<thead>
+  <tr>
+    <th>Name</th>
+    <th>ID</th>
+    <th>Condition</th>
+    <th>Default</th>
+    <th>Description</th>
+    <th>Hit Counts</th>
+    <th>Is Proxy</th>
+    <th>Rank</th>
+    <th>Service Name</th>
+    <th>State</th>
+  </tr>
+</thead>  
+<tbody>
+{%-     for set in data_to_template %}
+  <tr>
+    <td>{{ set.response.name }}</td>
+    <td>{{ set.response.id }}</td>
+    <td>{{ set.response.condition }}</td>
+    <td>{{ set.response.default }}</td>
+    <td>{{ set.response.description }}</td>
+    <td>{{ set.response.hitCounts }}</td>
+    <td>{{ set.response.isProxy }}</td>
+    <td>{{ set.response.rank }}</td>
+    <td>{{ set.response.serviceName }}</td>
+    <td>{{ set.response.state }}</td>
+  </tr>
+{%-     endfor %}
+</tbody>
+</table>
+{%- elif "/api/v1/policy/device-admin/service-names" in api %}
+{%- elif "/api/v1/policy/device-admin/shell-profiles" in api %}
+{%- elif "/api/v1/policy/network-access/authorization-profiles" in api %}
+<h1>Network Access Authorization Profiles</h1>
+<table id = "datatable">
+<thead>
+  <tr>
+    <th>Name</th>
+    <th>ID</th>
+  </tr>
+</thead>  
+<tbody>
+{%-     for profile in data_to_template %}
+    <tr>
+      <td>{{ profile.name }}</td>
+      <td>{{ profile.id }}</td>
+    </tr>
+{%-     endfor %}
+</tbody>
+</table>
+{%- elif "/api/v1/policy/network-access/condition" in api %}
+{%-     if  "/api/v1/policy/network-access/condition/authentication" in api %}
+<h1>Network Access Authentication Conditions</h1>
+<table id = "datatable">
+<thead>
+  <tr>
+    <th>Name</th>
+    <th>ID</th>
+    <th>Attribute Name</th>
+    <th>Attribute Value</th>
+    <th>Condition Type</th>
+    <th>Description</th>
+    <th>Dictionary Name</th>
+    <th>Dictionary Value</th>
+    <th>Is Negate</th>
+    <th>Operator</th>
+  </tr>
+</thead>  
+<tbody>
+{%-         for condition in data_to_template %}
+{%-             if condition.response['children'] %}
+{%-                 for child in condition.response['children'] %}
+  <tr>
+    <td>{{ condition.response.name }}</td>
+    <td>{{ condition.response.id }}</td>
+    <td>{{ child.attributeName }}</td>
+    <td>{{ child.attributeValue }}</td>
+    <td>{{ child.conditionType }}</td>
+    <td>{{ condition.response.description }}</td>
+    <td>{{ child.dictionaryName }}</td>
+    <td>{{ child.dictionaryValue }}</td>
+    <td>{{ child.isNegate }}</td>
+    <td>{{ child.operator }}</td>
+  </tr>
+{%-                 endfor %}
+{%-             else %}
+  <tr>
+    <td>{{ condition.response.name }}</td>
+    <td>{{ condition.response.id }}</td>
+    <td>{{ condition.response.attributeName }}</td>
+    <td>{{ condition.response.attributeValue }}</td>
+    <td>{{ condition.response.conditionType }}</td>
+    <td>{{ condition.response.description }}</td>
+    <td>{{ condition.response.dictionaryName }}</td>
+    <td>{{ condition.response.dictionaryValue }}</td>
+    <td>{{ condition.response.isNegate }}</td>
+    <td>{{ condition.response.operator }}</td>
+  </tr>
+{%-             endif %}
+{%-         endfor %}
+</tbody>
+</table>
+{%-     elif "/api/v1/policy/network-access/condition/authorization" in api %}
+<h1>Network Access Authorization Conditions</h1>
+<table id = "datatable">
+<thead>
+  <tr>
+    <th>Name</th>
+    <th>ID</th>
+    <th>Attribute Name</th>
+    <th>Attribute Value</th>
+    <th>Condition Type</th>
+    <th>Description</th>
+    <th>Dictionary Name</th>
+    <th>Dictionary Value</th>
+    <th>Is Negate</th>
+    <th>Operator</th>
+  </tr>
+</thead>  
+<tbody>
+{%-         for condition in data_to_template %}
+{%-             if condition.response['children'] %}
+{%-                 for child in condition.response['children'] %}
+  <tr>
+    <td>{{ condition.response.name }}</td>
+    <td>{{ condition.response.id }}</td>
+    <td>{{ child.attributeName }}</td>
+    <td>{{ child.attributeValue }}</td>
+    <td>{{ child.conditionType }}</td>
+    <td>{{ condition.response.description }}</td>
+    <td>{{ child.dictionaryName }}</td>
+    <td>{{ child.dictionaryValue }}</td>
+    <td>{{ child.isNegate }}</td>
+    <td>{{ child.operator }}</td>
+  </tr>
+{%-                 endfor %}
+{%-             else %}
+  <tr>
+    <td>{{ condition.response.name }}</td>
+    <td>{{ condition.response.id }}</td>
+    <td>{{ condition.response.attributeName }}</td>
+    <td>{{ condition.response.attributeValue }}</td>
+    <td>{{ condition.response.conditionType }}</td>
+    <td>{{ condition.response.description }}</td>
+    <td>{{ condition.response.dictionaryName }}</td>
+    <td>{{ condition.response.dictionaryValue }}</td>
+    <td>{{ condition.response.isNegate }}</td>
+    <td>{{ condition.response.operator }}</td>
+  </tr>
+{%-             endif %}
+{%-         endfor %}
+</tbody>
+</table>
+{%-     elif "/api/v1/policy/network-access/condition/policyset" in api %}
+<h1>Network Access Policy Set Conditions</h1>
+<table id = "datatable">
+<thead>
+  <tr>
+    <th>Name</th>
+    <th>ID</th>
+    <th>Attribute Name</th>
+    <th>Attribute Value</th>
+    <th>Condition Type</th>
+    <th>Description</th>
+    <th>Dictionary Name</th>
+    <th>Dictionary Value</th>
+    <th>Is Negate</th>
+    <th>Operator</th>
+  </tr>
+</thead>  
+<tbody>
+{%-         for condition in data_to_template %}
+{%-             if condition.response['children'] %}
+{%-                 for child in condition.response['children'] %}
+  <tr>
+    <td>{{ condition.response.name }}</td>
+    <td>{{ condition.response.id }}</td>
+    <td>{{ child.attributeName }}</td>
+    <td>{{ child.attributeValue }}</td>
+    <td>{{ child.conditionType }}</td>
+    <td>{{ condition.response.description }}</td>
+    <td>{{ child.dictionaryName }}</td>
+    <td>{{ child.dictionaryValue }}</td>
+    <td>{{ child.isNegate }}</td>
+    <td>{{ child.operator }}</td>
+  </tr>
+{%-                 endfor %}
+{%-             else %}
+  <tr>
+    <td>{{ condition.response.name }}</td>
+    <td>{{ condition.response.id }}</td>
+    <td>{{ condition.response.attributeName }}</td>
+    <td>{{ condition.response.attributeValue }}</td>
+    <td>{{ condition.response.conditionType }}</td>
+    <td>{{ condition.response.description }}</td>
+    <td>{{ condition.response.dictionaryName }}</td>
+    <td>{{ condition.response.dictionaryValue }}</td>
+    <td>{{ condition.response.isNegate }}</td>
+    <td>{{ condition.response.operator }}</td>
+  </tr>
+{%-             endif %}
+{%-         endfor %}
+</tbody>
+</table>
+{%-     else %}
+<h1>Network Access Conditions</h1>
+<table id = "datatable">
+<thead>
+  <tr>
+    <th>Name</th>
+    <th>ID</th>
+    <th>Attribute Name</th>
+    <th>Attribute Value</th>
+    <th>Condition Type</th>
+    <th>Description</th>
+    <th>Dictionary Name</th>
+    <th>Dictionary Value</th>
+    <th>Is Negate</th>
+    <th>Operator</th>
+  </tr>
+</thead>  
+<tbody>
+{%-         for condition in data_to_template %}
+{%-             if condition.response['children'] %}
+{%-                 for child in condition.response['children'] %}
+  <tr>
+    <td>{{ condition.response.name }}</td>
+    <td>{{ condition.response.id }}</td>
+    <td>{{ child.attributeName }}</td>
+    <td>{{ child.attributeValue }}</td>
+    <td>{{ child.conditionType }}</td>
+    <td>{{ condition.response.description }}</td>
+    <td>{{ child.dictionaryName }}</td>
+    <td>{{ child.dictionaryValue }}</td>
+    <td>{{ child.isNegate }}</td>
+    <td>{{ child.operator }}</td>
+  </tr>
+{%-                 endfor %}
+{%-             else %}
+  <tr>
+    <td>{{ condition.response.name }}</td>
+    <td>{{ condition.response.id }}</td>
+    <td>{{ condition.response.attributeName }}</td>
+    <td>{{ condition.response.attributeValue }}</td>
+    <td>{{ condition.response.conditionType }}</td>
+    <td>{{ condition.response.description }}</td>
+    <td>{{ condition.response.dictionaryName }}</td>
+    <td>{{ condition.response.dictionaryValue }}</td>
+    <td>{{ condition.response.isNegate }}</td>
+    <td>{{ condition.response.operator }}</td>
+  </tr>
+{%-             endif %}
+{%-         endfor %}
+</tbody>
+</table>
+{%-     endif %}
+{%- elif "/api/v1/policy/network-access/dictionaries" in api %}
+{%-     if  "/api/v1/policy/network-access/dictionaries/authentication" in api %}
+<h1>Network Access Authentication Dictionaries</h1>
+<table id = "datatable">
+<thead>
+  <tr>
+    <th>Name</th>
+    <th>ID</th>
+    <th>Data Type</th>
+    <th>Description</th>
+    <th>Dictionary Name</th>
+    <th>Direction Type</th>
+    <th>Internal Name</th>
+    <th>Is Default</th>
+    <th>Key</th>
+    <th>Value</th>
+  </tr>
+</thead>  
+<tbody>
+{%-         for dictionary in data_to_template['response'] %}
+{%-             if dictionary['allowedValues'] %}
+{%-                 for value in dictionary['allowedValues'] %}
+  <tr>
+    <td>{{ dictionary.name }}</td>
+    <td>{{ dictionary.id }}</td>
+    <td>{{ dictionary.dataType }}</td>
+    <td>{{ dictionary.description }}</td>
+    <td>{{ dictionary.dictionaryName }}</td>
+    <td>{{ dictionary.directionType }}</td>
+    <td>{{ dictionary.internalName }}</td>
+    <td>{{ value.isDefault }}</td>
+    <td>{{ value.key }}</td>
+    <td>{{ value.value }}</td>
+  </tr>
+{%-                 endfor %}
+{%-             else %}
+  <tr>
+    <td>{{ dictionary.name }}</td>
+    <td>{{ dictionary.id }}</td>
+    <td>{{ dictionary.dataType }}</td>
+    <td>{{ dictionary.description }}</td>
+    <td>{{ dictionary.dictionaryName }}</td>
+    <td>{{ dictionary.directionType }}</td>
+    <td>{{ dictionary.internalName }}</td>
+    <td>N/A</td>
+    <td>N/A</td>
+    <td>N/A</td>
+  </tr>
+{%-               endif %}
+{%-         endfor %}
+</tbody>
+</table>
+{%-     elif "/api/v1/policy/network-access/dictionaries/authorization" in api %}
+<h1>Network Access Authorization Dictionaries</h1>
+<table id = "datatable">
+<thead>
+  <tr>
+    <th>Name</th>
+    <th>ID</th>
+    <th>Data Type</th>
+    <th>Description</th>
+    <th>Dictionary Name</th>
+    <th>Direction Type</th>
+    <th>Internal Name</th>
+    <th>Is Default</th>
+    <th>Key</th>
+    <th>Value</th>
+  </tr>
+</thead>  
+<tbody>
+{%-         for dictionary in data_to_template['response'] %}
+{%-             if dictionary['allowedValues'] %}
+{%-                 for value in dictionary['allowedValues'] %}
+  <tr>
+    <td>{{ dictionary.name }}</td>
+    <td>{{ dictionary.id }}</td>
+    <td>{{ dictionary.dataType }}</td>
+    <td>{{ dictionary.description }}</td>
+    <td>{{ dictionary.dictionaryName }}</td>
+    <td>{{ dictionary.directionType }}</td>
+    <td>{{ dictionary.internalName }}</td>
+    <td>{{ value.isDefault }}</td>
+    <td>{{ value.key }}</td>
+    <td>{{ value.value }}</td>
+  </tr>
+{%-                 endfor %}
+{%-             else %}
+  <tr>
+    <td>{{ dictionary.name }}</td>
+    <td>{{ dictionary.id }}</td>
+    <td>{{ dictionary.dataType }}</td>
+    <td>{{ dictionary.description }}</td>
+    <td>{{ dictionary.dictionaryName }}</td>
+    <td>{{ dictionary.directionType }}</td>
+    <td>{{ dictionary.internalName }}</td>
+    <td>N/A</td>
+    <td>N/A</td>
+    <td>N/A</td>
+  </tr>
+{%-               endif %}
+{%-         endfor %}
+</tbody>
+</table>
+{%-     elif "/api/v1/policy/network-access/dictionaries/policyset" in api %}
+<h1>Network Access Policy Set Dictionaries</h1>
+<table id = "datatable">
+<thead>
+  <tr>
+    <th>Name</th>
+    <th>ID</th>
+    <th>Data Type</th>
+    <th>Description</th>
+    <th>Dictionary Name</th>
+    <th>Direction Type</th>
+    <th>Internal Name</th>
+    <th>Is Default</th>
+    <th>Key</th>
+    <th>Value</th>
+  </tr>
+</thead>  
+<tbody>
+{%-         for dictionary in data_to_template['response'] %}
+{%-             if dictionary['allowedValues'] %}
+{%-                 for value in dictionary['allowedValues'] %}
+  <tr>
+    <td>{{ dictionary.name }}</td>
+    <td>{{ dictionary.id }}</td>
+    <td>{{ dictionary.dataType }}</td>
+    <td>{{ dictionary.description }}</td>
+    <td>{{ dictionary.dictionaryName }}</td>
+    <td>{{ dictionary.directionType }}</td>
+    <td>{{ dictionary.internalName }}</td>
+    <td>{{ value.isDefault }}</td>
+    <td>{{ value.key }}</td>
+    <td>{{ value.value }}</td>
+  </tr>
+{%-                 endfor %}
+{%-             else %}
+  <tr>
+    <td>{{ dictionary.name }}</td>
+    <td>{{ dictionary.id }}</td>
+    <td>{{ dictionary.dataType }}</td>
+    <td>{{ dictionary.description }}</td>
+    <td>{{ dictionary.dictionaryName }}</td>
+    <td>{{ dictionary.directionType }}</td>
+    <td>{{ dictionary.internalName }}</td>
+    <td>N/A</td>
+    <td>N/A</td>
+    <td>N/A</td>
+  </tr>
+{%-               endif %}
+{%-         endfor %}
+</tbody>
+</table>
+{%-     else %}
+<h1>Network Access Dictionaries</h1>
+<table id = "datatable">
+<thead>
+  <tr>
+    <th>Name</th>
+    <th>ID</th>
+    <th>Description</th>
+    <th>Dictionary Attribute Type</th>
+  </tr>
+</thead>  
+<tbody>
+{%-         for dictionary in data_to_template %}
+  <tr>
+    <td>{{ dictionary['response'].name }}</td>
+    <td>{{ dictionary['response'].id }}</td>
+    <td>{{ dictionary['response'].description }}</td>
+    <td>{{ dictionary['response'].dictionaryAttrType }}</td>
+  </tr>
+{%-         endfor %}
+</tbody>
+</table>
+{%-     endif %}
+{%- elif "/api/v1/policy/network-access/identity-stores" in api %}
+<h1>Network Access Identity Stores</h1>
+<table id = "datatable">
+<thead>
+  <tr>
+    <th>Name</th>
+    <th>ID</th>
+  </tr>
+</thead>  
+<tbody>
+{%-     for store in data_to_template %}
+  <tr>
+    <td>{{ store.name }}</td>
+    <td>{{ store.id }}</td>
+  </tr>
+{%-         endfor %}
+</tbody>
+</table>
+{%- elif "/api/v1/policy/network-access/policy-set" in api %}
+<h1>Network Access Policy Sets</h1>
+<table id = "datatable">
+<thead>
+  <tr>
+    <th>Name</th>
+    <th>ID</th>
+    <th>Condition</th>
+    <th>Default</th>
+    <th>Description</th>
+    <th>Hit Counts</th>
+    <th>Is Proxy</th>
+    <th>Rank</th>
+    <th>Service Name</th>
+    <th>State</th>
+  </tr>
+</thead>  
+<tbody>
+{%-     for set in data_to_template %}
+  </tr>
+    <td>{{ set['response'].name }}</td>
+    <td>{{ set['response'].id }}</td>
+    <td>{{ set['response'].condition }}</td>
+    <td>{{ set['response'].default }}</td>
+    <td>{{ set['response'].description }}</td>
+    <td>{{ set['response'].hitCounts }}</td>
+    <td>{{ set['response'].isProxy }}</td>
+    <td>{{ set['response'].rank }}</td>
+    <td>{{ set['response'].serviceName }}</td>
+    <td>{{ set['response'].state }}</td>
+  </tr>
+{%-         endfor %}
+</tbody>
+</table>
+{%- elif "/api/v1/policy/network-access/security-groups" in api %}
+<h1>Network Access Security Groups</h1>
+<table id = "datatable">
+<thead>
+  <tr>
+    <th>Name</th>
+    <th>ID</th>
+  </tr>
+</thead>  
+<tbody>
+{%-     for group in data_to_template %}
+  <tr>
+    <td>{{ group.name }}</td>
+    <td>{{ group.id }}</td>
+  </tr>
+{%-         endfor %}
+</tbody>
+</table>
+{%- elif "/api/v1/policy/network-access/service-names" in api %}
+<h1>Network Access Service Names</h1>
+<table id = "datatable">
+<thead>
+  <tr>
+    <th>Name</th>
+    <th>ID</th>
+    <th>Service Type</th>
+    <th>Is Local Authorization</th>
+  </tr>
+</thead>  
+<tbody>
+{%-     for service in data_to_template %}
+  <tr>
+    <td>{{ service.name }}</td>
+    <td>{{ service.id }}</td>
+    <td>{{ service.serviceType }}</td>
+    <td>{{ service.isLocalAuthorization }}</td>
+  </tr>
+{%-         endfor %}
+</tbody>
+</table>
+{%- endif %}
 {%- include 'datatable_footer.j2' %}
