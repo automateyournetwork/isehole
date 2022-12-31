@@ -576,6 +576,21 @@ rich = ">=10.7.0"
 dev = ["pre-commit"]
 
 [[package]]
+name = "throttler"
+version = "1.2.2"
+description = "Zero-dependency Python package for easy throttling with asyncio support"
+category = "main"
+optional = false
+python-versions = "*"
+files = [
+    {file = "throttler-1.2.2-py3-none-any.whl", hash = "sha256:fc6ae612a2529e01110b32335af40375258b98e3b81232ec77cd07f51bf71392"},
+    {file = "throttler-1.2.2.tar.gz", hash = "sha256:d54db406d98e1b54d18a9ba2b31ab9f093ac64a0a59d730c1cf7bb1cdfc94a58"},
+]
+
+[package.extras]
+dev = ["aiohttp (>=3.8)", "codecov (>=2.1)", "flake8 (>=4.0)", "pytest (>=7.0)", "pytest-asyncio (>=0.16)", "pytest-cov (>=3.0)"]
+
+[[package]]
 name = "typing-extensions"
 version = "4.4.0"
 description = "Backported and Experimental Type Hints for Python 3.7+"
@@ -585,6 +600,18 @@ python-versions = ">=3.7"
 files = [
     {file = "typing_extensions-4.4.0-py3-none-any.whl", hash = "sha256:16fa4864408f655d35ec496218b85f79b3437c829e93320c7c9215ccfd92489e"},
     {file = "typing_extensions-4.4.0.tar.gz", hash = "sha256:1511434bb92bf8dd198c12b1cc812e800d4181cfcb867674e0f8279cc93087aa"},
+]
+
+[[package]]
+name = "xmltodict"
+version = "0.13.0"
+description = "Makes working with XML feel like you are working with JSON"
+category = "main"
+optional = false
+python-versions = ">=3.4"
+files = [
+    {file = "xmltodict-0.13.0-py2.py3-none-any.whl", hash = "sha256:aa89e8fd76320154a40d19a0df04a4695fb9dc5ba977cbb68ab3e4eb225e7852"},
+    {file = "xmltodict-0.13.0.tar.gz", hash = "sha256:341595a488e3e01a85a9d8911d8912fd922ede5fecc4dce437eb4b6c8d037e56"},
 ]
 
 [[package]]
@@ -678,4 +705,4 @@ multidict = ">=4.0"
 [metadata]
 lock-version = "2.0"
 python-versions = "^3.8"
-content-hash = "5fa0e82ecc8ed7f63d00126817e6e186c38d00c52e695b30c23f023e6cfbbe3a"
+content-hash = "4fd884cae41e06bab4d954b9ea328889ee91f4c79d69361cc94502745996685c"

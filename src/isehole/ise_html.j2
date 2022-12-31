@@ -5,49 +5,219 @@
 <thead>
   <tr>
     <th>Name</th>
-    <th>Allow Chap</th>
-    <th>Allow EAP Fast</th>
+    <th>ID</th>
+    <th>Description</th>
+    <th>Allow CHAP</th>
+    <th>Allow EAP FAST</th>
     <th>Allow EAP MD5</th>
     <th>Allow EAP TLS</th>
     <th>Allow EAP TTLS</th>
     <th>Allow LEAP</th>
-    <th>Allow MS CHAP v1</th>
-    <th>Allow MS CHAP v2</th>
+    <th>Allow MS CHAP V1</th>
+    <th>Allow MS CHAP V2</th>
     <th>Allow PAP ASCII</th>
     <th>Allow PEAP</th>
     <th>Allow Preferred EAP Protocol</th>
     <th>Allow TEAP</th>
     <th>Allow Weak Ciphers For EAP</th>
-    <th>Description</th>
-    <th>EAP TLS L Bit</th>
-    <th>ID</th>
+    <th>EAP FAST Allow EAP GTC</th>
+    <th>EAP FAST Allow EAP GTC Password Change</th>
+    <th>EAP FAST Allow EAP GTC Password Change Retries</th>
+    <th>EAP FAST Allow EAP MS CHAP V2</th>
+    <th>EAP FAST Allow EAP MS CHAP V2 Password Change</th>
+    <th>EAP FAST Allow EAP MS CHAP V2 Password Change Retries</th>
+    <th>EAP FAST Allow EAP TLS</th>
+    <th>EAP FAST Allow EAP TLS Auth Of Expired Certs</th>
+    <th>EAP FAST EAP FAST Enable EAP Chaining</th>
+    <th>EAP FAST EAP FAST Use Pacs</th>
+    <th>EAP FAST EAP FAST Use Pacs Accept Client Cert</th>
+    <th>EAP FAST EAP FAST Use Pacs Allow Anonymous Provisioning</th>
+    <th>EAP FAST EAP FAST Use Pacs Allow Authentication Provisioning</th>
+    <th>EAP FAST EAP FAST Use Pacs Allow Machine Authentication</th>
+    <th>EAP FAST EAP FAST Use Pacs Authorization Pac TTL</th>
+    <th>EAP FAST EAP FAST Use Pacs Authorization Pac TTL Units</th>
+    <th>EAP FAST EAP FAST Use Pacs Machine Pac TTL</th>
+    <th>EAP FAST EAP FAST Use Pacs Machine Pac TTL Units</th>
+    <th>EAP FAST EAP FAST Use Pacs Server Returns</th>
+    <th>EAP FAST EAP FAST Use Pacs Stateless Session Resume</th>
+    <th>EAP FAST EAP FAST Use Pacs Tunnel Pac TTL</th>
+    <th>EAP FAST EAP FAST Use Pacs Tunnel Pac TTL Units</th>
+    <th>EAP FAST EAP FAST Use Pacs Use Proactive Pac Update Precentage</th>
+    <th>EAP TLS Allow EAP TLS Auth Of Expired Certs</th>
+    <th>EAP TLS Enable Stateless Session Resume</th>
+    <th>EAP TLS LBit</th>
+    <th>EAP TTLS CHAP</th>
+    <th>EAP TTLS EAP MD5</th>
+    <th>EAP TTLS EAP MS CHAP V2</th>
+    <th>EAP TTLS EAP MS CHAP V2 Password Change</th>
+    <th>EAP TTLS EAP MS CHAP V2 Passwordd Change Retries</th>
+    <th>EAP TTLS MS CHAP V1</th>
+    <th>EAP TTLS MS CHAP V2</th>
+    <th>EAP TTLS PAP ASCII</th>
+    <th>PEAP Allow PEAP EAP GTC</th>
+    <th>PEAP Allow PEAP EAP GTC Password Change</th>
+    <th>PEAP Allow PEAP EAP GTC Passwordd Change Retries</th>
+    <th>PEAP Allow PEAP EAP MS CHAP V2</th>
+    <th>PEAP Allow PEAP EAP MS CHAP V2 Password Change</th>
+    <th>PEAP Allow PEAP EAP MS CHAP V2 Password Change Retries</th>
+    <th>PEAP Allow PEAP EAP TLS</th>
+    <th>PEAP Allow PEAP EAP TLS Auth Of Expired Certs</th>
+    <th>PEAP Allow PEAP V0</th>
+    <th>PEAP Require Cryptobinding</th>
     <th>Process Host Lookup</th>
     <th>Require Message Auth</th>
+    <th>TEAP Accept Client Cert During Tunnel Est</th>
+    <th>TEAP Allow Downgrade Msk</th>
+    <th>TEAP Allow TEAP EAP MS CHAP V2</th>
+    <th>TEAP Allow TEAP EAP MS CHAP V2 Password Change</th>
+    <th>TEAP Allow TEAP EAP MS CHAP V2 Password Change Retries</th>
+    <th>TEAP Allow TEAP EAP TLS</th>
+    <th>TEAP Allow TEAP EAP TLS Auth Of Expired Certs</th>
+    <th>TEAP Enable EAP Chaining</th>
   </tr>
 </thead>  
 <tbody>
 {%-     for result in data_to_template %}
-    <tr>
-        <td>{{ result.AllowedProtocols.name }}</td>
-        <td>{{ result.AllowedProtocols.allowChap }}</td>
-        <td>{{ result.AllowedProtocols.allowEapFast }}</td>
-        <td>{{ result.AllowedProtocols.allowEapMd5 }}</td>
-        <td>{{ result.AllowedProtocols.allowEapTls }}</td>
-        <td>{{ result.AllowedProtocols.allowEapTtls }}</td>
-        <td>{{ result.AllowedProtocols.allowLeap }}</td>
-        <td>{{ result.AllowedProtocols.allowMsChapV1 }}</td>
-        <td>{{ result.AllowedProtocols.allowMsChapV2 }}</td>
-        <td>{{ result.AllowedProtocols.allowPapAscii }}</td>
-        <td>{{ result.AllowedProtocols.allowPeap }}</td>
-        <td>{{ result.AllowedProtocols.allowPreferredEapProtocol }}</td>
-        <td>{{ result.AllowedProtocols.allowTeap }}</td>
-        <td>{{ result.AllowedProtocols.allowWeakCiphersForEap }}</td>
-        <td>{{ result.AllowedProtocols.description }}</td>
-        <td>{{ result.AllowedProtocols.eapTlsLBit }}</td>
-        <td>{{ result.AllowedProtocols.id }}</td>
-        <td>{{ result.AllowedProtocols.processHostLookup }}</td>
-        <td>{{ result.AllowedProtocols.requireMessageAuth }}</td>
-    </tr>
+{%-         for hit in result %}
+  <tr>
+    <td>{{ hit.AllowedProtocols.name }}</td>
+    <td>{{ hit.AllowedProtocols.id }}</td>
+    <td>{{ hit.AllowedProtocols.description }}</td>
+    <td>{{ hit.AllowedProtocols.allowChap }}</td>
+    <td>{{ hit.AllowedProtocols.allowEapFast }}</td>
+    <td>{{ hit.AllowedProtocols.allowEapMd5 }}</td>
+    <td>{{ hit.AllowedProtocols.allowEapTls }}</td>
+    <td>{{ hit.AllowedProtocols.allowEapTtls }}</td>
+    <td>{{ hit.AllowedProtocols.allowLeap }}</td>
+    <td>{{ hit.AllowedProtocols.allowMsChapV1 }}</td>
+    <td>{{ hit.AllowedProtocols.allowMsChapV2 }}</td>
+    <td>{{ hit.AllowedProtocols.allowPapAscii }}</td>
+    <td>{{ hit.AllowedProtocols.allowPeap }}</td>
+    <td>{{ hit.AllowedProtocols.allowPreferredEapProtocol }}</td>
+    <td>{{ hit.AllowedProtocols.allowTeap }}</td>
+    <td>{{ hit.AllowedProtocols.allowWeakCiphersForEap }}</td>
+    {%- if hit.AllowedProtocols.eapFast %}
+    <td>{{ hit.AllowedProtocols.eapFast.allowEapFastEapGtc }}</td>
+    <td>{{ hit.AllowedProtocols.eapFast.allowEapFastEapGtcPwdChange }}</td>
+    <td>{{ hit.AllowedProtocols.eapFast.allowEapFastEapGtcPwdChangeRetries }}</td>
+    <td>{{ hit.AllowedProtocols.eapFast.allowEapFastEapMsChapV2 }}</td>
+    <td>{{ hit.AllowedProtocols.eapFast.allowEapFastEapMsChapV2PwdChange }}</td>
+    <td>{{ hit.AllowedProtocols.eapFast.allowEapFastEapMsChapV2PwdChangeRetries }}</td>
+    <td>{{ hit.AllowedProtocols.eapFast.allowEapFastEapTls }}</td>
+    <td>{{ hit.AllowedProtocols.eapFast.allowEapFastEapTlsAuthOfExpiredCerts }}</td>
+    <td>{{ hit.AllowedProtocols.eapFast.eapFastEnableEAPChaining }}</td>
+    <td>{{ hit.AllowedProtocols.eapFast.eapFastUsePacs }}</td>
+    <td>{{ hit.AllowedProtocols.eapFast.eapFastUsePacsAcceptClientCert }}</td>
+    <td>{{ hit.AllowedProtocols.eapFast.eapFastUsePacsAllowAnonymProvisioning }}</td>
+    <td>{{ hit.AllowedProtocols.eapFast.eapFastUsePacsAllowAuthenProvisioning }}</td>
+    <td>{{ hit.AllowedProtocols.eapFast.eapFastUsePacsAllowMachineAuthentication }}</td>
+    <td>{{ hit.AllowedProtocols.eapFast.eapFastUsePacsAuthorizationPacTtl }}</td>
+    <td>{{ hit.AllowedProtocols.eapFast.eapFastUsePacsAuthorizationPacTtlUnits }}</td>
+    <td>{{ hit.AllowedProtocols.eapFast.eapFastUsePacsMachinePacTtl }}</td>
+    <td>{{ hit.AllowedProtocols.eapFast.eapFastUsePacsMachinePacTtlUnits }}</td>
+    <td>{{ hit.AllowedProtocols.eapFast.eapFastUsePacsServerReturns }}</td>
+    <td>{{ hit.AllowedProtocols.eapFast.eapFastUsePacsStatelessSessionResume }}</td>
+    <td>{{ hit.AllowedProtocols.eapFast.eapFastUsePacsTunnelPacTtl }}</td>
+    <td>{{ hit.AllowedProtocols.eapFast.eapFastUsePacsTunnelPacTtlUnits }}</td>
+    <td>{{ hit.AllowedProtocols.eapFast.eapFastUsePacsUseProactivePacUpdatePrecentage }}</td>
+    {%- else %}
+    <td>N/A</td>
+    <td>N/A</td>
+    <td>N/A</td>
+    <td>N/A</td>
+    <td>N/A</td>
+    <td>N/A</td>
+    <td>N/A</td>
+    <td>N/A</td>
+    <td>N/A</td>
+    <td>N/A</td>
+    <td>N/A</td>
+    <td>N/A</td>
+    <td>N/A</td>
+    <td>N/A</td>
+    <td>N/A</td>
+    <td>N/A</td>
+    <td>N/A</td>
+    <td>N/A</td>
+    <td>N/A</td>
+    <td>N/A</td>
+    <td>N/A</td>
+    <td>N/A</td>
+    <td>N/A</td>
+    {%- endif %}
+    {%- if hit.AllowedProtocols.eapTls %}
+    <td>{{ hit.AllowedProtocols.eapTls.allowEapTlsAuthOfExpiredCerts }}</td>
+    <td>{{ hit.AllowedProtocols.eapTls.eapTlsEnableStatelessSessionResume }}</td>
+    {%- else %}
+    <td>N/A</td>
+    <td>N/A</td>
+    {%- endif %}
+    <td>{{ hit.AllowedProtocols.eapTlsLBit }}</td>
+    {%- if hit.AllowedProtocols.eapTtls %}
+    <td>{{ hit.AllowedProtocols.eapTtls.eapTtlsChap }}</td>
+    <td>{{ hit.AllowedProtocols.eapTtls.eapTtlsEapMd5 }}</td>
+    <td>{{ hit.AllowedProtocols.eapTtls.eapTtlsEapMsChapV2 }}</td>
+    <td>{{ hit.AllowedProtocols.eapTtls.eapTtlsEapMsChapV2PwdChange }}</td>
+    <td>{{ hit.AllowedProtocols.eapTtls.eapTtlsEapMsChapV2PwdChangeRetries }}</td>
+    <td>{{ hit.AllowedProtocols.eapTtls.eapTtlsMsChapV1 }}</td>
+    <td>{{ hit.AllowedProtocols.eapTtls.eapTtlsMsChapV2 }}</td>
+    <td>{{ hit.AllowedProtocols.eapTtls.eapTtlsPapAscii }}</td>
+    {%- else %}
+    <td>N/A</td>
+    <td>N/A</td>
+    <td>N/A</td>
+    <td>N/A</td>
+    <td>N/A</td>
+    <td>N/A</td>
+    <td>N/A</td>
+    <td>N/A</td>
+    {%- endif %}
+    {%- if hit.AllowedProtocols.peap %}
+    <td>{{ hit.AllowedProtocols.peap.allowPeapEapGtc }}</td>
+    <td>{{ hit.AllowedProtocols.peap.allowPeapEapGtcPwdChange }}</td>
+    <td>{{ hit.AllowedProtocols.peap.allowPeapEapGtcPwdChangeRetries }}</td>
+    <td>{{ hit.AllowedProtocols.peap.allowPeapEapMsChapV2 }}</td>
+    <td>{{ hit.AllowedProtocols.peap.allowPeapEapMsChapV2PwdChange }}</td>
+    <td>{{ hit.AllowedProtocols.peap.allowPeapEapMsChapV2PwdChangeRetries }}</td>
+    <td>{{ hit.AllowedProtocols.peap.allowPeapEapTls }}</td>
+    <td>{{ hit.AllowedProtocols.peap.allowPeapEapTlsAuthOfExpiredCerts }}</td>
+    <td>{{ hit.AllowedProtocols.peap.allowPeapV0 }}</td>
+    <td>{{ hit.AllowedProtocols.peap.requireCryptobinding }}</td>
+    {%- else %}
+    <td>N/A</td>
+    <td>N/A</td>
+    <td>N/A</td>
+    <td>N/A</td>
+    <td>N/A</td>
+    <td>N/A</td>
+    <td>N/A</td>
+    <td>N/A</td>
+    <td>N/A</td>
+    <td>N/A</td>
+    {%- endif %}
+    <td>{{ hit.AllowedProtocols.processHostLookup }}</td>
+    <td>{{ hit.AllowedProtocols.requireMessageAuth }}</td>
+    {%- if hit.AllowedProtocols.teap %}
+    <td>{{ hit.AllowedProtocols.teap.acceptClientCertDuringTunnelEst }}</td>
+    <td>{{ hit.AllowedProtocols.teap.allowDowngradeMsk }}</td>
+    <td>{{ hit.AllowedProtocols.teap.allowTeapEapMsChapV2 }}</td>
+    <td>{{ hit.AllowedProtocols.teap.allowTeapEapMsChapV2PwdChange }}</td>
+    <td>{{ hit.AllowedProtocols.teap.allowTeapEapMsChapV2PwdChangeRetries }}</td>
+    <td>{{ hit.AllowedProtocols.teap.allowTeapEapTls }}</td>
+    <td>{{ hit.AllowedProtocols.teap.allowTeapEapTlsAuthOfExpiredCerts }}</td>
+    <td>{{ hit.AllowedProtocols.teap.enableEapChaining }}</td>
+    {%- else %}
+    <td>N/A</td>
+    <td>N/A</td>
+    <td>N/A</td>
+    <td>N/A</td>
+    <td>N/A</td>
+    <td>N/A</td>
+    <td>N/A</td>
+    <td>N/A</td>
+  </tr>
+{%- endif %}
+{%-         endfor %}
 {%-     endfor %}
 </tbody>
 </table>
@@ -69,7 +239,8 @@
   </tr>
 </thead>  
 <tbody>
-{%-     for result in data_to_template %}
+{%-     for hit in data_to_template %}
+{%-         for result in hit %}
     <tr>
       <td>{{ result.AdminUser.name }}</td>
       <td>{{ result.AdminUser.adminGroups }}</td>
@@ -82,10 +253,100 @@
       <td>{{ result.AdminUser.inactiveAccountNeverDisabled }}</td>
       <td>{{ result.AdminUser.includeSystemAlarmsInEmail }}</td>
     </tr>
+{%-         endfor %}
 {%-     endfor %}
 </tbody>
 </table>
 {%- elif "/ers/config/activedirectory" in api %}
+<h1>Active Directory</h1>
+<table id = "datatable">
+<thead>
+  <tr>
+    <th>Name</th>
+    <th>ID</th>
+    <th>Description</th>
+    <th>Domain</th>
+    <th>AD Attributes</th>
+    <th>AD Scopes Names</th>
+    <th>AD Groups</th>
+    <th>Aging Time</th>
+    <th>Auth Protection Type</th>
+    <th>Country</th>
+    <th>Department</th>
+    <th>Email</th>
+    <th>Enable Callback For Dialin Client</th>
+    <th>Enable Dialin Permission Check</th>
+    <th>Enable Failed Auth Protection</th>
+    <th>Enable Machine Access</th>
+    <th>Enable Machine Auth</th>
+    <th>Enable Password Change</th>
+    <th>Enable Rewrites</th>
+    <th>Failed Auth Threshold</th>
+    <th>First Name</th>
+    <th>Identity Not In AD Behaviour</th>
+    <th>Job Title</th>
+    <th>Last Name</th>
+    <th>Locality</th>
+    <th>Organizational Unit</th>
+    <th>Plaintext Auth</th>
+    <th>Rewrite Match</th>
+    <th>Rewrite Result</th>
+    <th>Row ID</th>
+    <th>Schema</th>
+    <th>State Or Province</th>
+    <th>Street Address</th>
+    <th>Telephone</th>
+    <th>Unreachable Domains Behaviour</th>
+    <th>Enable Domain Allowed List</th>
+  </tr>
+</thead>  
+<tbody>
+{%-     for hit in data_to_template %}
+{%-         for directory in hit %}
+{%-             for rule in directory.ERSActiveDirectory.advancedSettings.rewriteRules %}
+  <tr>
+    <td>{{ directory.ERSActiveDirectory.name }}</td>
+    <td>{{ directory.ERSActiveDirectory.id }}</td>
+    <td>{{ directory.ERSActiveDirectory.description }}</td>
+    <td>{{ directory.ERSActiveDirectory.domain }}</td>
+    <td>{{ directory.ERSActiveDirectory.adAttributes.attributes }}</td>
+    <td>{{ directory.ERSActiveDirectory.adScopesNames }}</td>
+    <td>{{ directory.ERSActiveDirectory.adgroups.groups }}</td>
+    <td>{{ directory.ERSActiveDirectory.advancedSettings.agingTime }}</td>
+    <td>{{ directory.ERSActiveDirectory.advancedSettings.authProtectionType }}</td>
+    <td>{{ directory.ERSActiveDirectory.advancedSettings.country }}</td>
+    <td>{{ directory.ERSActiveDirectory.advancedSettings.department }}</td>
+    <td>{{ directory.ERSActiveDirectory.advancedSettings.email }}</td>
+    <td>{{ directory.ERSActiveDirectory.advancedSettings.enableCallbackForDialinClient }}</td>
+    <td>{{ directory.ERSActiveDirectory.advancedSettings.enableDialinPermissionCheck }}</td>
+    <td>{{ directory.ERSActiveDirectory.advancedSettings.enableFailedAuthProtection }}</td>
+    <td>{{ directory.ERSActiveDirectory.advancedSettings.enableMachineAccess }}</td>
+    <td>{{ directory.ERSActiveDirectory.advancedSettings.enableMachineAuth }}</td>
+    <td>{{ directory.ERSActiveDirectory.advancedSettings.enablePassChange }}</td>
+    <td>{{ directory.ERSActiveDirectory.advancedSettings.enableRewrites }}</td>
+    <td>{{ directory.ERSActiveDirectory.advancedSettings.failedAuthThreshold }}</td>
+    <td>{{ directory.ERSActiveDirectory.advancedSettings.firstName }}</td>
+    <td>{{ directory.ERSActiveDirectory.advancedSettings.identityNotInAdBehaviour }}</td>
+    <td>{{ directory.ERSActiveDirectory.advancedSettings.jobTitle }}</td>
+    <td>{{ directory.ERSActiveDirectory.advancedSettings.lastName }}</td>
+    <td>{{ directory.ERSActiveDirectory.advancedSettings.locality }}</td>
+    <td>{{ directory.ERSActiveDirectory.advancedSettings.organizationalUnit }}</td>
+    <td>{{ directory.ERSActiveDirectory.advancedSettings.plaintextAuth }}</td>
+    <td>{{ rule.rewriteMatch }}</td>
+    <td>{{ rule.rewriteResult }}</td>
+    <td>{{ rule.rowId }}</td>
+    <td>{{ directory.ERSActiveDirectory.advancedSettings.schema }}</td>
+    <td>{{ directory.ERSActiveDirectory.advancedSettings.stateOrProvince }}</td>
+    <td>{{ directory.ERSActiveDirectory.advancedSettings.streetAddress }}</td>
+    <td>{{ directory.ERSActiveDirectory.advancedSettings.telephone }}</td>
+    <td>{{ directory.ERSActiveDirectory.advancedSettings.unreachableDomainsBehaviour }}</td>
+    <td>{{ directory.ERSActiveDirectory.enableDomainAllowedList }}</td>
+  </tr>
+{%-             endfor %}
+{%-         endfor %}
+{%-     endfor %}
+</tbody>
+</table>
 {%- elif "/ers/config/authorizationprofile" in api %}
 <h1>Authorization Profiles</h1>
 <table id = "datatable">
@@ -116,9 +377,10 @@
   </tr>
 </thead>  
 <tbody>
-{%-     for result in data_to_template %}
-{%-         if result.AuthorizationProfile.advancedAttributes %}
-{%-             for attribute in result.AuthorizationProfile.advancedAttributes %}
+{%-     for hit in data_to_template %}
+{%-         for result in hit %}
+{%-             if result.AuthorizationProfile.advancedAttributes %}
+{%-                 for attribute in result.AuthorizationProfile.advancedAttributes %}
     <tr>
       <td>{{ result.AuthorizationProfile.name }}</td>
       <td>{{ result.AuthorizationProfile.accessType }}</td>
@@ -139,16 +401,17 @@
       <td>{{ result.AuthorizationProfile.serviceTemplate }}</td>
       <td>{{ result.AuthorizationProfile.trackMovement }}</td>
       <td>{{ result.AuthorizationProfile.voiceDomainPermission | default("N/A") }}</td>
-{%     if result.AuthorizationProfile.webRedirection %}
+{%                      if result.AuthorizationProfile.webRedirection %}
       <td>{{ result.AuthorizationProfile.webRedirection.WebRedirectionType }}</td>
       <td>{{ result.AuthorizationProfile.webRedirection.acl }}</td>
       <td>{{ result.AuthorizationProfile.webRedirection.portalName }}</td>{% else %}
       <td>N/A</td>
       <td>N/A</td>
-      <td>N/A</td>{% endif %}
+      <td>N/A</td>
+{%-                     endif %}
     </tr>
-{%-             endfor %}
-{%-         else %}
+{%-                 endfor %}
+{%-             else %}
     </tr>
       <td>{{ result.AuthorizationProfile.name }}</td>
       <td>{{ result.AuthorizationProfile.accessType }}</td>
@@ -169,15 +432,17 @@
       <td>{{ result.AuthorizationProfile.serviceTemplate }}</td>
       <td>{{ result.AuthorizationProfile.trackMovement }}</td>
       <td>{{ result.AuthorizationProfile.voiceDomainPermission | default("N/A") }}</td>
-      {% if result.AuthorizationProfile.webRedirection %}
+{%-                  if result.AuthorizationProfile.webRedirection %}
       <td>{{ result.AuthorizationProfile.webRedirection.WebRedirectionType }}</td>
       <td>{{ result.AuthorizationProfile.webRedirection.acl }}</td>
       <td>{{ result.AuthorizationProfile.webRedirection.portalName }}</td>{% else %}
       <td>N/A</td>
       <td>N/A</td>
-      <td>N/A</td>{% endif %}
+      <td>N/A</td>
+{%-                  endif %}
     </tr>
-{%-          endif %}
+{%-              endif %}
+{%-         endfor %}
 {%-     endfor %}
 </tbody>
 </table>
@@ -194,7 +459,8 @@
   </tr>
 </thead>  
 <tbody>
-{%-     for dacl in data_to_template %}
+{%-     for hit in data_to_template %}
+{%-         for dacl in hit %}
   <tr>
     <td>{{ dacl.DownloadableAcl.name }}</td>
     <td>{{ dacl.DownloadableAcl.id }}</td>
@@ -202,6 +468,7 @@
     <td>{{ dacl.DownloadableAcl.daclType }}</td>
     <td>{{ dacl.DownloadableAcl.description }}</td>
   </tr>
+{%-         endfor %}
 {%-     endfor %}
 </tbody>
 </table>
@@ -218,13 +485,15 @@
   </tr>
 </thead>  
 <tbody>
-{%-         for group in data_to_template %}
+{%-         for hit in data_to_template %}
+{%-             for group in hit %}
   <tr>
     <td>{{ group.EndPointGroup.name }}</td>
     <td>{{ group.EndPointGroup.id }}</td>
     <td>{{ group.EndPointGroup.description }}</td>
     <td>{{ group.EndPointGroup.systemDefined }}</td>
   </tr>
+{%-             endfor %}
 {%-         endfor %}
 </tbody>
 </table>
@@ -242,7 +511,8 @@
   </tr>
 </thead>  
 <tbody>
-{%-     for group in data_to_template %}
+{%-     for hit in data_to_template %}
+{%-         for group in hit %}
   <tr>
     <td>{{ group.IdentityGroup.name }}</td>
     <td>{{ group.IdentityGroup.id }}</td>
@@ -250,6 +520,7 @@
     <td>{{ group.IdentityGroup.parent }}</td>
   </tr>
 {%-         endfor %}
+{%-     endfor%}
 </tbody>
 </table>
 {%- elif "/ers/config/idstoresequence" in api %}
@@ -267,8 +538,9 @@
   </tr>
 </thead>  
 <tbody>
-{%-     for sequence in data_to_template %}
-{%-         for seqitem in sequence.IdStoreSequence['idSeqItem'] %}
+{%-     for hit  in data_to_template %}
+{%-         for sequence in hit %}
+{%-             for seqitem in sequence.IdStoreSequence['idSeqItem'] %}
   <tr>
     <td>{{ sequence.IdStoreSequence.name }}</td>
     <td>{{ sequence.IdStoreSequence.id }}</td>
@@ -278,11 +550,53 @@
     <td>{{ seqitem.idstore }}</td>
     <td>{{ seqitem.order }}</td>
   </tr>
+{%-             endfor %}
 {%-         endfor %}
 {%-     endfor %}
 </tbody>
 </table>
 {%- elif "/ers/config/internaluser" in api %}
+<h1>Internal Users</h1>
+<table id = "datatable">
+<thead>
+  <tr>
+    <th>Name</th>
+    <th>ID</th>
+    <th>Change Password</th>
+    <th>Custom Attributes</th>
+    <th>Description</th>
+    <th>Email</th>
+    <th>Enabled</th>
+    <th>Expiry Date Enabled</th>
+    <th>First Name</th>
+    <th>Last Name</th>
+    <th>Identity Groups</th>
+    <th>Password</th>
+    <th>Password ID Store</th>
+  </tr>
+</thead>  
+<tbody>
+{%-     for hit  in data_to_template %}
+{%-         for user in hit %}
+  <tr>
+    <td>{{ user['InternalUser'].name }}</td>
+    <td>{{ user['InternalUser'].id }}</td>
+    <td>{{ user['InternalUser'].changePassword }}</td>
+    <td>{{ user['InternalUser'].customAttributes }}</td>
+    <td>{{ user['InternalUser'].description }}</td>
+    <td>{{ user['InternalUser'].email }}</td>
+    <td>{{ user['InternalUser'].enabled }}</td>
+    <td>{{ user['InternalUser'].expiryDateEnabled }}</td>
+    <td>{{ user['InternalUser'].firstName }}</td>
+    <td>{{ user['InternalUser'].lastName }}</td>
+    <td>{{ user['InternalUser'].identityGroups }}</td>
+    <td>{{ user['InternalUser'].password }}</td>
+    <td>{{ user['InternalUser'].passwordIDStore }}</td>
+  </tr>
+{%-         endfor %}
+{%-     endfor %}
+</tbody>
+</table>
 {%- elif "/ers/config/networkdevice" in api %}
 {%-     if  "/ers/config/networkdevicegroup" in api %}
 <h1>Network Device Groups</h1>
@@ -296,7 +610,8 @@
   </tr>
 </thead>  
 <tbody>
-{%-         for group in data_to_template %}
+{%-     for hit in data_to_template %}
+{%-         for group in hit %}
   <tr>
     <td>{{ group.NetworkDeviceGroup.name }}</td>
     <td>{{ group.NetworkDeviceGroup.id }}</td>
@@ -304,6 +619,7 @@
     <td>{{ group.NetworkDeviceGroup.othername }}</td>
   </tr>
 {%-         endfor %}
+{%-     endfor %}
 </tbody>
 </table>
 {%-     else %}
@@ -330,9 +646,10 @@
   </tr>
 </thead>  
 <tbody>
-{%-         for device in data_to_template %}
-{%-             for ip in device['NetworkDevice']['NetworkDeviceIPList'] %}
-{%-                 for group in device['NetworkDevice']['NetworkDeviceGroupList'] %}
+{%-         for hit in data_to_template %}
+{%-             for device in hit %}
+{%-                 for ip in device['NetworkDevice']['NetworkDeviceIPList'] %}
+{%-                     for group in device['NetworkDevice']['NetworkDeviceGroupList'] %}
   <tr>
     <td>{{ device['NetworkDevice'].name }}</td>
     <td>{{ device['NetworkDevice'].id }}</td>
@@ -351,6 +668,7 @@
     <td>{{ device['NetworkDevice'].authenticationSettings.networkProtocol }}</td>
     <td>{{ device['NetworkDevice'].authenticationSettings.radiusSharedSecret }}</td>
   </tr>
+{%-                     endfor %}
 {%-                 endfor %}
 {%-             endfor %}
 {%-         endfor %}
@@ -379,10 +697,11 @@
   </tr>
 </thead>  
 <tbody>
-{%-     for node in data_to_template %}
-{%-         for v4 in node['Node'].ipAddresses %}
-{%-             if node['Node'].ipV6Addresses %}
-{%-                 for v6 in node['Node'].ipV6Addresses %}
+{%-     for hit in data_to_template %}
+{%-         for node in hit %}
+{%-             for v4 in node['Node'].ipAddresses %}
+{%-                 if node['Node'].ipV6Addresses %}
+{%-                     for v6 in node['Node'].ipV6Addresses %}
   <tr>
     <td>{{ node['Node'].name }}</td>
     <td>{{ node['Node'].id }}</td>
@@ -399,8 +718,8 @@
     <td>{{ node['Node'].pxGridNode }}</td>
     <td>{{ node['Node'].sxpIpAddress }}</td>
   </tr>
-{%-                 endfor %}
-{%-             else %}
+{%-                     endfor %}
+{%-                 else %}
   <tr>
     <td>{{ node['Node'].name }}</td>
     <td>{{ node['Node'].id }}</td>
@@ -417,19 +736,679 @@
     <td>{{ node['Node'].pxGridNode }}</td>
     <td>{{ node['Node'].sxpIpAddress }}</td>
   </tr>
-{%-             endif %}
+{%-                 endif %}
+{%-             endfor %}
 {%-         endfor %}
 {%-     endfor %}
 </tbody>
 </table>
 {%- elif "/ers/config/portal" in api %}
+<h1>Portals</h1>
+<table id = "datatable">
+<thead>
+  <tr>
+    <th>Name</th>
+    <th>ID</th>
+    <th>Description</th>
+    <th>Portal Type</th>
+    <th>Allow Sponsor To Change Own Password</th>
+    <th>Guest User Field Label Name</th>
+    <th>Guest User Field Required</th>
+    <th>Guest User Field Data Type</th>
+    <th>Guest User Field Custom Type</th>
+    <th>Guest User Field Dictionary Label Key</th>
+  </tr>
+</thead>  
+<tbody>
+{%-     for hit in data_to_template %}
+{%-         for portal in hit %}
+{%-             if portal['ERSPortal']['guestUserFieldList'] %}
+{%-                 for field in portal['ERSPortal']['guestUserFieldList'] %}
+  <tr>
+    <td>{{ portal['ERSPortal'].name }}</td>
+    <td>{{ portal['ERSPortal'].id }}</td>
+    <td>{{ portal['ERSPortal'].description }}</td>
+    <td>{{ portal['ERSPortal'].portalType }}</td>
+    <td>{{ portal['ERSPortal'].allowSponsorToChangeOwnPassword }}</td>
+    <td>{{ field.labelName }}</td>
+    <td>{{ field.required }}</td>
+    <td>{{ field.dataType }}</td>
+    <td>{{ field.customType }}</td>
+    <td>{{ field.dictionaryLabelKey }}</td>
+  </tr>
+{%-                 endfor %}
+{%-             else %}
+  <tr>
+    <td>{{ portal['ERSPortal'].name }}</td>
+    <td>{{ portal['ERSPortal'].id }}</td>
+    <td>{{ portal['ERSPortal'].description }}</td>
+    <td>{{ portal['ERSPortal'].portalType }}</td>
+    <td>N/A</td>
+    <td>N/A</td>
+    <td>N/A</td>
+    <td>N/A</td>
+    <td>N/A</td>
+    <td>N/A</td>
+  </tr>
+{%-             endif %}
+{%-         endfor %}
+{%-     endfor %}
+</tbody>
+</table>
 {%- elif "/ers/config/profilerprofile" in api %}
+<h1>Profilers Profiles</h1>
+<table id = "datatable">
+<thead>
+  <tr>
+    <th>Name</th>
+    <th>ID</th>
+    <td>Description</td>
+  </tr>
+</thead>  
+<tbody>
+{%-     for hit in data_to_template %}
+{%-         for profile in hit %}
+  <tr>
+    <td>{{ profile.ProfilerProfile.name }}</td>
+    <td>{{ profile.ProfilerProfile.id }}</td>
+    <td>{{ profile.ProfilerProfile.description }}</td>
+  </tr>
+{%-         endfor %}
+{%-     endfor %}
+</tbody>
+</table>
 {%- elif "/ers/config/sgt" in api %}
+<h1>SGTs</h1>
+<table id = "datatable">
+<thead>
+  <tr>
+    <th>Name</th>
+    <th>ID</th>
+    <th>Description</th>
+    <th>Generation ID</th>
+    <th>Propogate To APIC</th>
+    <th>Value</th>
+  </tr>
+</thead>  
+<tbody>
+{%-     for hit in data_to_template %}
+{%-         for sgt in hit %}
+  <tr>
+    <td>{{ sgt.Sgt.name }}</td>
+    <td>{{ sgt.Sgt.id }}</td>
+    <td>{{ sgt.Sgt.description }}</td>
+    <td>{{ sgt.Sgt.generationId }}</td>
+    <td>{{ sgt.Sgt.propogateToApic }}</td>
+    <td>{{ sgt.Sgt.value }}</td>
+  </tr>
+{%-         endfor %}
+{%-     endfor %}
+</tbody>
+</table>
 {%- elif "/ers/config/sgacl" in api %}
+<h1>SGT ACLs</h1>
+<table id = "datatable">
+<thead>
+  <tr>
+    <th>Name</th>
+    <th>ID</th>
+    <th>Description</th>
+    <th>ACL Content</th>
+    <th>Generation ID</th>
+  </tr>
+</thead>  
+<tbody>
+{%-     for hit in data_to_template %}
+{%-         for acl in hit %}
+  <tr>
+    <td>{{ acl.Sgacl.name }}</td>
+    <td>{{ acl.Sgacl.id }}</td>
+    <td>{{ acl.Sgacl.description }}</td>
+    <td>{{ acl.Sgacl.aclcontent }}</td>
+    <td>{{ acl.Sgacl.generationId }}</td>
+  </tr>
+{%-         endfor %}
+{%-     endfor %}
+</tbody>
+</table>
 {%- elif "/ers/config/selfregportal" in api %}
+<h1>Self Registration Portals</h1>
+<table id = "datatable">
+<thead>
+  <tr>
+    <th>Name</th>
+    <th>ID</th>
+    <th>Description</th>
+    <th>Portal Test URL</th>
+    <th>Portal Type</th>
+    <th>Banner Title</th>
+    <th>Contact Text</th>
+    <th>Footer Element</th>
+    <th>View Language</th>
+    <th>Portal Theme ID</th>
+    <th>Portal Theme Name</th>
+    <th>AUP Settings Display Frequency</th>
+    <th>AUP Settings Include AUP</th>
+    <th>AUP Settings Require Scrolling</th>
+    <th>Auth Success Redirect</th>
+    <th>BYOD Registration Settings EndPoint Identity Group ID</th>
+    <th>BYOD Registration Settings Show Device ID</th>
+    <th>BYOD Registration Success Settings Success Redirect</th>
+    <th>BYOD Welcome Settings AUP Display</th>
+    <th>BYOD Welcome Settings Enable BYOD</th>
+    <th>BYOD Welcome Settings Enable Guest Access</th>
+    <th>BYOD Welcome Settings Include AUP</th>
+    <th>BYOD Welcome Settings Require AUP Acceptance</th>
+    <th>BYOD Welcome Settings Require MDM</th>
+    <th>BYOD Welcome Settings Require Scrolling</th>
+    <th>Change Password Settings Allow Change Password At First Login</th>
+    <th>Guest Device Registration Settings Allow Guests To Register Devices</th>
+    <th>Guest Device Registration Settings Auto Register Guest Devices</th>
+    <th>Login Page Settings Allow Alternate Guest Portal</th>
+    <th>Login Page Settings Allow Forgot Password</th>
+    <th>Login Page Settings Allow Guest To Change Password</th>
+    <th>Login Page Settings Allow Guest To Create Accounts</th>
+    <th>Login Page Settings Include AUP</th>
+    <th>Login Page Settings Max Failed Attempts Before Rate Limit</th>
+    <th>Login Page Settings Require Access Code</th>
+    <th>Login Page Settings Social Configs Social Media Type</th>
+    <th>Login Page Settings Social Configs Social Media Value</th>
+    <th>Login Page Settings Time Between Logins During Rate Limit</th>
+    <th>Portal Settings Allowed Interfaces</th>
+    <th>Portal Settings Always Used Language</th>
+    <th>Portal Settings Assigned Guest Type For Employee</th>
+    <th>Portal Settings Authentication Method</th>
+    <th>Portal Settings Certificate Group Tag</th>
+    <th>Portal Settings Display Lang</th>
+    <th>Portal Settings Fallback Language</th>
+    <th>Portal Settings HTTPS Port</th>
+    <th>Post Login Banner Settings Include Post Access Banner</th>
+    <th>Self Reg Page Settings Account Validity Duration</th>
+    <th>Self Reg Page Settings Allow Grace Access</th>
+    <th>Self Reg Page Settings Approve Deny Links Time Units</th>
+    <th>Self Reg Page Settings Assign Guests To Guest Type</th>
+    <th>Self Reg Page Settings Authenticate Sponsors Using Portal List</th>
+    <th>Self Reg Page Settings Auto Login Self Wait</th>
+    <th>Self Reg Page Settings Auto Login Time Period</th>
+    <th>Self Reg Page Settings Credential Notification Using Email</th>
+    <th>Self Reg Page Settings Credential Notification Using SMS</th>
+    <th>Self Reg Page Settings Enable Guest Email Blacklist</th>
+    <th>Self Reg Page Settings Enable Guest Email Whitelist</th>
+    <th>Self Reg Page Settings Field Company Include</th>
+    <th>Self Reg Page Settings Field Company Require</th>
+    <th>Self Reg Page Settings Field Email Address Include</th>
+    <th>Self Reg Page Settings Field Email Address Require</th>
+    <th>Self Reg Page Settings Field First Name Include</th>
+    <th>Self Reg Page Settings Field First Name Require</th>
+    <th>Self Reg Page Settings Field Last Name Include</th>
+    <th>Self Reg Page Settings Field Last Name Require</th>
+    <th>Self Reg Page Settings Field Field Location Include</th>
+    <th>Self Reg Page Settings Field Field Location Require</th>
+    <th>Self Reg Page Settings Field Person Being Visited Include</th>
+    <th>Self Reg Page Settings Field Person Being Visited Require</th>
+    <th>Self Reg Page Settings Field Phone Number Include</th>
+    <th>Self Reg Page Settings Field Phone Number Require</th>
+    <th>Self Reg Page Settings Field Reason For Visit Include</th>
+    <th>Self Reg Page Settings Field Reason For Visit Require</th>
+    <th>Self Reg Page Settings Field SMS Provider Include</th>
+    <th>Self Reg Page Settings Field SMS Provider Require</th>
+    <th>Self Reg Page Settings Field User Name Include</th>
+    <th>Self Reg Page Settings Field User Name Require</th>
+    <th>Self Reg Page Settings Grace Access Expire Interval</th>
+    <th>Self Reg Page Settings Grace Access Send Account Expiration</th>
+    <th>Self Reg Page Settings Guest Email Blacklist Domains</th>
+    <th>Self Reg Page Settings Guest Email Whitelist Domains</th>
+    <th>Self Reg Page Settings Include AUP</th>
+    <th>Self Reg Page Settings Post Registration Redirect</th>
+    <th>Self Reg Page Settings Require AUP Acceptance</th>
+    <th>Self Reg Page Settings Require Guest Approval</th>
+    <th>Self Reg Page Settings Require Registration Code</th>
+    <th>Self Reg Page Settings Selectable Locations</th>
+    <th>Self Reg Page Settings Selectable SMS Providers</th>
+    <th>Self Reg Page Settings Sponsor Portal List</th>
+    <th>Self Reg Success Settings Allow Guest Login From Self Reg Success Page</th>
+    <th>Self Reg Success Settings Allow Guest Send Self Using Email</th>
+    <th>Self Reg Success Settings Allow Guest Send Self Using Print</th>
+    <th>Self Reg Success Settings Allow Guest Send Self Using SMS</th>
+    <th>Self Reg Success Settings AUP On Page</th>
+    <th>Self Reg Success Settings Include AUP</th>
+    <th>Self Reg Success Settings Include Company</th>
+    <th>Self Reg Success Settings Include Email Address</th>
+    <th>Self Reg Success Settings Include First Name</th>
+    <th>Self Reg Success Settings Include Last Name</th>
+    <th>Self Reg Success Settings Include Location</th>
+    <th>Self Reg Success Settings Include Password</th>
+    <th>Self Reg Success Settings Include Person Being Visited</th>
+    <th>Self Reg Success Settings Include Phone Number</th>
+    <th>Self Reg Success Settings Include Reason For Visit</th>
+    <th>Self Reg Success Settings Include SMS Provider</th>
+    <th>Self Reg Success Settings Include User Name</th>
+    <th>Self Reg Success Settings Require AUP Acceptance</th>
+    <th>Self Reg Success Settings Require AUP Scrolling</th>
+    <th>Support Info Settings Empty Field Display</th>
+    <th>Support Info Settings Include Browser User Agent</th>
+    <th>Support Info Settings Include Failure Code</th>
+    <th>Support Info Settings Include IP Address</th>
+    <th>Support Info Settings Include MAC Address</th>
+    <th>Support Info Settings Include Policy Server</th>
+    <th>Support Info Settings Include Support Info Page</th>
+  </tr>
+</thead>  
+<tbody>
+{%-     for hit in data_to_template %}
+{%-         for portal in hit %}
+{%-             for social in portal.SelfRegPortal.settings.loginPageSettings.socialConfigs %}
+  <tr>
+    <td>{{ portal.SelfRegPortal.name }}</td>
+    <td>{{ portal.SelfRegPortal.id }}</td>
+    <td>{{ portal.SelfRegPortal.description }}</td>
+    <td>{{ portal.SelfRegPortal.portalTestUrl }}</td>
+    <td>{{ portal.SelfRegPortal.portalType }}</td>
+    <td>{{ portal.SelfRegPortal.customizations.globalCustomizations.bannerTitle }}</td>
+    <td>{{ portal.SelfRegPortal.customizations.globalCustomizations.contactText }}</td>
+    <td>{{ portal.SelfRegPortal.customizations.globalCustomizations.footerElement }}</td>
+    <td>{{ portal.SelfRegPortal.customizations.language.viewLanguage }}</td>
+    <td>{{ portal.SelfRegPortal.customizations.portalTheme.id }}</td>
+    <td>{{ portal.SelfRegPortal.customizations.portalTheme.name }}</td>
+    <td>{{ portal.SelfRegPortal.settings.aupSettings.displayFrequency }}</td>
+    <td>{{ portal.SelfRegPortal.settings.aupSettings.includeAup }}</td>
+    <td>{{ portal.SelfRegPortal.settings.aupSettings.requireScrolling }}</td>
+    <td>{{ portal.SelfRegPortal.settings.authSuccessSettings.successRedirect }}</td>
+    <td>{{ portal.SelfRegPortal.settings.byodSettings.byodRegistrationSettings.endPointIdentityGroupId }}</td>
+    <td>{{ portal.SelfRegPortal.settings.byodSettings.byodRegistrationSettings.showDeviceID }}</td>
+    <td>{{ portal.SelfRegPortal.settings.byodSettings.byodRegistrationSuccessSettings.successRedirect }}</td>
+    <td>{{ portal.SelfRegPortal.settings.byodSettings.byodWelcomeSettings.aupDisplay }}</td>
+    <td>{{ portal.SelfRegPortal.settings.byodSettings.byodWelcomeSettings.enableBYOD }}</td>
+    <td>{{ portal.SelfRegPortal.settings.byodSettings.byodWelcomeSettings.enableGuestAccess }}</td>
+    <td>{{ portal.SelfRegPortal.settings.byodSettings.byodWelcomeSettings.includeAup }}</td>
+    <td>{{ portal.SelfRegPortal.settings.byodSettings.byodWelcomeSettings.requireAupAcceptance }}</td>
+    <td>{{ portal.SelfRegPortal.settings.byodSettings.byodWelcomeSettings.requireMDM }}</td>
+    <td>{{ portal.SelfRegPortal.settings.byodSettings.byodWelcomeSettings.requireScrolling }}</td>
+    <td>{{ portal.SelfRegPortal.settings.guestChangePasswordSettings.allowChangePasswdAtFirstLogin }}</td>
+    <td>{{ portal.SelfRegPortal.settings.guestDeviceRegistrationSettings.allowGuestsToRegisterDevices }}</td>
+    <td>{{ portal.SelfRegPortal.settings.guestDeviceRegistrationSettings.autoRegisterGuestDevices }}</td>
+    <td>{{ portal.SelfRegPortal.settings.loginPageSettings.allowAlternateGuestPortal }}</td>
+    <td>{{ portal.SelfRegPortal.settings.loginPageSettings.allowForgotPassword }}</td>
+    <td>{{ portal.SelfRegPortal.settings.loginPageSettings.allowGuestToChangePassword }}</td>
+    <td>{{ portal.SelfRegPortal.settings.loginPageSettings.allowGuestToCreateAccounts }}</td>
+    <td>{{ portal.SelfRegPortal.settings.loginPageSettings.includeAup }}</td>
+    <td>{{ portal.SelfRegPortal.settings.loginPageSettings.maxFailedAttemptsBeforeRateLimit }}</td>
+    <td>{{ portal.SelfRegPortal.settings.loginPageSettings.requireAccessCode }}</td>
+    <td>{{ social.socialMediaType }}</td>
+    <td>{{ social.socialMediaValue }}</td>
+    <td>{{ portal.SelfRegPortal.settings.loginPageSettings.timeBetweenLoginsDuringRateLimit }}</td>
+    <td>{{ portal.SelfRegPortal.settings.portalSettings.allowedInterfaces }}</td>
+    <td>{{ portal.SelfRegPortal.settings.portalSettings.alwaysUsedLanguage }}</td>
+    <td>{{ portal.SelfRegPortal.settings.portalSettings.assignedGuestTypeForEmployee }}</td>
+    <td>{{ portal.SelfRegPortal.settings.portalSettings.authenticationMethod }}</td>
+    <td>{{ portal.SelfRegPortal.settings.portalSettings.certificateGroupTag }}</td>
+    <td>{{ portal.SelfRegPortal.settings.portalSettings.displayLang }}</td>
+    <td>{{ portal.SelfRegPortal.settings.portalSettings.fallbackLanguage }}</td>
+    <td>{{ portal.SelfRegPortal.settings.portalSettings.httpsPort }}</td>
+    <td>{{ portal.SelfRegPortal.settings.postLoginBannerSettings.includePostAccessBanner }}</td>
+    <td>{{ portal.SelfRegPortal.settings.selfRegPageSettings.accountValidityDuration }}</td>
+    <td>{{ portal.SelfRegPortal.settings.selfRegPageSettings.allowGraceAccess }}</td>
+    <td>{{ portal.SelfRegPortal.settings.selfRegPageSettings.approveDenyLinksTimeUnits }}</td>
+    <td>{{ portal.SelfRegPortal.settings.selfRegPageSettings.assignGuestsToGuestType }}</td>
+    <td>{{ portal.SelfRegPortal.settings.selfRegPageSettings.authenticateSponsorsUsingPortalList }}</td>
+    <td>{{ portal.SelfRegPortal.settings.selfRegPageSettings.autoLoginSelfWait }}</td>
+    <td>{{ portal.SelfRegPortal.settings.selfRegPageSettings.autoLoginTimePeriod }}</td>
+    <td>{{ portal.SelfRegPortal.settings.selfRegPageSettings.credentialNotificationUsingEmail }}</td>
+    <td>{{ portal.SelfRegPortal.settings.selfRegPageSettings.credentialNotificationUsingSms }}</td>
+    <td>{{ portal.SelfRegPortal.settings.selfRegPageSettings.enableGuestEmailBlacklist }}</td>
+    <td>{{ portal.SelfRegPortal.settings.selfRegPageSettings.enableGuestEmailWhitelist }}</td>
+    <td>{{ portal.SelfRegPortal.settings.selfRegPageSettings.fieldCompany.include }}</td>
+    <td>{{ portal.SelfRegPortal.settings.selfRegPageSettings.fieldCompany.require }}</td>
+    <td>{{ portal.SelfRegPortal.settings.selfRegPageSettings.fieldEmailAddr.include }}</td>
+    <td>{{ portal.SelfRegPortal.settings.selfRegPageSettings.fieldEmailAddr.require }}</td>
+    <td>{{ portal.SelfRegPortal.settings.selfRegPageSettings.fieldFirstName.include }}</td>
+    <td>{{ portal.SelfRegPortal.settings.selfRegPageSettings.fieldFirstName.require }}</td>
+    <td>{{ portal.SelfRegPortal.settings.selfRegPageSettings.fieldLastName.include }}</td>
+    <td>{{ portal.SelfRegPortal.settings.selfRegPageSettings.fieldLastName.require }}</td>
+    <td>{{ portal.SelfRegPortal.settings.selfRegPageSettings.fieldLocation.include }}</td>
+    <td>{{ portal.SelfRegPortal.settings.selfRegPageSettings.fieldLocation.require }}</td>
+    <td>{{ portal.SelfRegPortal.settings.selfRegPageSettings.fieldPersonBeingVisited.include }}</td>
+    <td>{{ portal.SelfRegPortal.settings.selfRegPageSettings.fieldPersonBeingVisited.require }}</td>
+    <td>{{ portal.SelfRegPortal.settings.selfRegPageSettings.fieldPhoneNo.include }}</td>
+    <td>{{ portal.SelfRegPortal.settings.selfRegPageSettings.fieldPhoneNo.require }}</td>
+    <td>{{ portal.SelfRegPortal.settings.selfRegPageSettings.fieldReasonForVisit.include }}</td>
+    <td>{{ portal.SelfRegPortal.settings.selfRegPageSettings.fieldReasonForVisit.require }}</td>
+    <td>{{ portal.SelfRegPortal.settings.selfRegPageSettings.fieldSmsProvider.include }}</td>
+    <td>{{ portal.SelfRegPortal.settings.selfRegPageSettings.fieldSmsProvider.require }}</td>
+    <td>{{ portal.SelfRegPortal.settings.selfRegPageSettings.fieldUserName.include }}</td>
+    <td>{{ portal.SelfRegPortal.settings.selfRegPageSettings.fieldUserName.require }}</td>
+    <td>{{ portal.SelfRegPortal.settings.selfRegPageSettings.graceAccessExpireInterval }}</td>
+    <td>{{ portal.SelfRegPortal.settings.selfRegPageSettings.graceAccessSendAccountExpiration }}</td>
+    <td>{{ portal.SelfRegPortal.settings.selfRegPageSettings.guestEmailBlacklistDomains }}</td>
+    <td>{{ portal.SelfRegPortal.settings.selfRegPageSettings.guestEmailWhitelistDomains }}</td>
+    <td>{{ portal.SelfRegPortal.settings.selfRegPageSettings.includeAup }}</td>
+    <td>{{ portal.SelfRegPortal.settings.selfRegPageSettings.postRegistrationRedirect }}</td>
+    <td>{{ portal.SelfRegPortal.settings.selfRegPageSettings.requireAupAcceptance }}</td>
+    <td>{{ portal.SelfRegPortal.settings.selfRegPageSettings.requireGuestApproval }}</td>
+    <td>{{ portal.SelfRegPortal.settings.selfRegPageSettings.requireRegistrationCode }}</td>
+    <td>{{ portal.SelfRegPortal.settings.selfRegPageSettings.selectableLocations }}</td>
+    <td>{{ portal.SelfRegPortal.settings.selfRegPageSettings.selectableSmsProviders }}</td>
+    <td>{{ portal.SelfRegPortal.settings.selfRegPageSettings.sponsorPortalList }}</td>
+    <td>{{ portal.SelfRegPortal.settings.selfRegSuccessSettings.allowGuestLoginFromSelfregSuccessPage }}</td>
+    <td>{{ portal.SelfRegPortal.settings.selfRegSuccessSettings.allowGuestSendSelfUsingEmail }}</td>
+    <td>{{ portal.SelfRegPortal.settings.selfRegSuccessSettings.allowGuestSendSelfUsingPrint }}</td>
+    <td>{{ portal.SelfRegPortal.settings.selfRegSuccessSettings.allowGuestSendSelfUsingSms }}</td>
+    <td>{{ portal.SelfRegPortal.settings.selfRegSuccessSettings.aupOnPage }}</td>
+    <td>{{ portal.SelfRegPortal.settings.selfRegSuccessSettings.includeAup }}</td>
+    <td>{{ portal.SelfRegPortal.settings.selfRegSuccessSettings.includeCompany }}</td>
+    <td>{{ portal.SelfRegPortal.settings.selfRegSuccessSettings.includeEmailAddr }}</td>
+    <td>{{ portal.SelfRegPortal.settings.selfRegSuccessSettings.includeFirstName }}</td>
+    <td>{{ portal.SelfRegPortal.settings.selfRegSuccessSettings.includeLastName }}</td>
+    <td>{{ portal.SelfRegPortal.settings.selfRegSuccessSettings.includeLocation }}</td>
+    <td>{{ portal.SelfRegPortal.settings.selfRegSuccessSettings.includePassword }}</td>
+    <td>{{ portal.SelfRegPortal.settings.selfRegSuccessSettings.includePersonBeingVisited }}</td>
+    <td>{{ portal.SelfRegPortal.settings.selfRegSuccessSettings.includePhoneNo }}</td>
+    <td>{{ portal.SelfRegPortal.settings.selfRegSuccessSettings.includeReasonForVisit }}</td>
+    <td>{{ portal.SelfRegPortal.settings.selfRegSuccessSettings.includeSmsProvider }}</td>
+    <td>{{ portal.SelfRegPortal.settings.selfRegSuccessSettings.includeUserName }}</td>
+    <td>{{ portal.SelfRegPortal.settings.selfRegSuccessSettings.requireAupAcceptance }}</td>
+    <td>{{ portal.SelfRegPortal.settings.selfRegSuccessSettings.requireAupScrolling }}</td>
+    <td>{{ portal.SelfRegPortal.settings.supportInfoSettings.emptyFieldDisplay }}</td>
+    <td>{{ portal.SelfRegPortal.settings.supportInfoSettings.includeBrowserUserAgent }}</td>
+    <td>{{ portal.SelfRegPortal.settings.supportInfoSettings.includeFailureCode }}</td>
+    <td>{{ portal.SelfRegPortal.settings.supportInfoSettings.includeIpAddress }}</td>
+    <td>{{ portal.SelfRegPortal.settings.supportInfoSettings.includeMacAddr }}</td>
+    <td>{{ portal.SelfRegPortal.settings.supportInfoSettings.includePolicyServer }}</td>
+    <td>{{ portal.SelfRegPortal.settings.supportInfoSettings.includeSupportInfoPage }}</td>
+  </tr>
+{%-             endfor %}
+{%-         endfor %}
+{%-     endfor %}
+</tbody>
+</table>
 {%- elif "/ers/config/sponsorgroup" in api %}
+<h1>Sponsor Groups</h1>
+<table id = "datatable">
+<thead>
+  <tr>
+    <th>Name</th>
+    <th>ID</th>
+    <th>Description</th>
+    <th>Auto Notification</th>
+    <th>Can Create Random Accounts</th>
+    <th>Can Import Multiple Accounts</th>
+    <th>Can Set Future Start Date</th>
+    <th>Can Specify Username Prefix</th>
+    <th>Import Batch Size Limit</th>
+    <th>Random Batch Size Limit</th>
+    <th>Start Date Future Limit Days</th>
+    <th>Guest Types</th>
+    <th>Is Default Group</th>
+    <th>Is Enabled</th>
+    <th>Locations</th>
+    <th>Manage Permission</th>
+    <th>Member Groups</th>
+    <th>Can Access Via REST</th>
+    <th>Can Approve Self Reg Guests</th>
+    <th>Can Delete Guest Accounts</th>
+    <th>Can Extend Guest Accounts</th>
+    <th>Can Reinstate Suspended Accounts</th>
+    <th>Can Reset Guest Passwords</th>
+    <th>Can Send SMS Notifications</th>
+    <th>Can Suspend Guest Accounts</th>
+    <th>Can Update Guest Contact Info</th>
+    <th>Can View Guest Passwords</th>
+    <th>Limit Approval To Sponsors Guests</th>
+    <th>Require Suspension Reason</th>
+  </tr>
+</thead>  
+<tbody>
+{%-     for hit in data_to_template %}
+{%-         for group in hit %}
+  <tr>
+    <td>{{ group.SponsorGroup.name }}</td>
+    <td>{{ group.SponsorGroup.id }}</td>
+    <td>{{ group.SponsorGroup.description  }}</td>
+    <td>{{ group.SponsorGroup.autoNotification }}</td>
+    <td>{{ group.SponsorGroup.createPermissions.canCreateRandomAccounts }}</td>
+    <td>{{ group.SponsorGroup.createPermissions.canImportMultipleAccounts }}</td>
+    <td>{{ group.SponsorGroup.createPermissions.canSetFutureStartDate }}</td>
+    <td>{{ group.SponsorGroup.createPermissions.canSpecifyUsernamePrefix }}</td>
+    <td>{{ group.SponsorGroup.createPermissions.importBatchSizeLimit }}</td>
+    <td>{{ group.SponsorGroup.createPermissions.randomBatchSizeLimit }}</td>
+    <td>{{ group.SponsorGroup.createPermissions.startDateFutureLimitDays }}</td>
+    <td>{{ group.SponsorGroup.guestTypes }}</td>
+    <td>{{ group.SponsorGroup.isDefaultGroup }}</td>
+    <td>{{ group.SponsorGroup.isEnabled }}</td>
+    <td>{{ group.SponsorGroup.locations }}</td>
+    <td>{{ group.SponsorGroup.managePermission }}</td>
+    <td>{{ group.SponsorGroup.memberGroups }}</td>
+    <td>{{ group.SponsorGroup.otherPermissions.canAccessViaRest }}</td>
+    <td>{{ group.SponsorGroup.otherPermissions.canApproveSelfregGuests }}</td>
+    <td>{{ group.SponsorGroup.otherPermissions.canDeleteGuestAccounts }}</td>
+    <td>{{ group.SponsorGroup.otherPermissions.canExtendGuestAccounts }}</td>
+    <td>{{ group.SponsorGroup.otherPermissions.canReinstateSuspendedAccounts }}</td>
+    <td>{{ group.SponsorGroup.otherPermissions.canResetGuestPasswords }}</td>
+    <td>{{ group.SponsorGroup.otherPermissions.canSendSmsNotifications }}</td>
+    <td>{{ group.SponsorGroup.otherPermissions.canSuspendGuestAccounts }}</td>
+    <td>{{ group.SponsorGroup.otherPermissions.canUpdateGuestContactInfo }}</td>
+    <td>{{ group.SponsorGroup.otherPermissions.canViewGuestPasswords }}</td>
+    <td>{{ group.SponsorGroup.otherPermissions.limitApprovalToSponsorsGuests }}</td>
+    <td>{{ group.SponsorGroup.otherPermissions.requireSuspensionReason }}</td>
+  </tr>
+{%-         endfor %}
+{%-     endfor %}
+</tbody>
+</table>
 {%- elif "/ers/config/sponsorportal" in api %}
+<h1>Sponsor Portal</h1>
+<table id = "datatable">
+<thead>
+  <tr>
+    <th>Name</th>
+    <th>ID</th>
+    <th>Description</th>
+    <th>Portal Test URL</th>
+    <th>Portal Type</th>
+    <th>Banner Title</th>
+    <th>Contact Text</th>
+    <th>Footer Element</th>
+    <th>View Language</th>
+    <th>Portal Theme ID</th>
+    <th>Portal Theme Name</th>
+    <th>AUP Settings Display Frequency</th>
+    <th>AUP Settings Include AUP</th>
+    <th>AUP Settings Require Scrolling</th>
+    <th>Login Page Settings Include AUP</th>
+    <th>Login Page Settings Max Failed Attempts Before Rate Limit</th>
+    <th>Login Page Settings Require AUP Scrolling</th>
+    <th>Login Page Settings Social Configs Social Media</th>
+    <th>Login Page Settings Time Between Logins During Rate Limit</th>
+    <th>Portal Settings Allowed Interfaces</th>
+    <th>Portal Settings Authentication Method</th>
+    <th>Portal Settings Available SSIDs</th>
+    <th>Portal Settings Certificate Group Tag</th>
+    <th>Portal Settings Display Lang</th>
+    <th>Portal Settings Fallback Language</th>
+    <th>Portal Settings HTTPS</th>
+    <th>Portal Settings Idle Timeout</th>
+    <th>Port Post Login Banner Settings Include Post Access Banner</th>
+    <th>Allow Sponsor To Change Password</th>
+    <th>Support Info Settings Empty Field Display</th>
+    <th>Support Info Settings Include Browser User Agent</th>
+    <th>Support Info Settings Include Failure Code</th>
+    <th>Support Info Settings Include IP Address</th>
+    <th>Support Info Settings Include MAC Address</th>
+    <th>Support Info Settings Include Policy Server</th>
+    <th>Support Info Settings Include Support Info Page</th>
+  </tr>
+</thead>  
+<tbody>
+{%-     for hit in data_to_template %}
+{%-         for portal in hit %}
+  <tr>
+    <td>{{ portal.SponsorPortal.name }}</td>
+    <td>{{ portal.SponsorPortal.id }}</td>
+    <td>{{ portal.SponsorPortal.description }}</td>
+    <td>{{ portal.SponsorPortal.portalTestUrl }}</td>
+    <td>{{ portal.SponsorPortal.portalType }}</td>
+    <td>{{ portal.SponsorPortal.customizations.globalCustomizations.bannerTitle }}</td>
+    <td>{{ portal.SponsorPortal.customizations.globalCustomizations.contactText }}</td>
+    <td>{{ portal.SponsorPortal.customizations.globalCustomizations.footerElement }}</td>
+    <td>{{ portal.SponsorPortal.customizations.language.viewLanguage }}</td>
+    <td>{{ portal.SponsorPortal.customizations.portalTheme.id }}</td>
+    <td>{{ portal.SponsorPortal.customizations.portalTheme.name }}</td>
+    <td>{{ portal.SponsorPortal.settings.aupSettings.displayFrequency }}</td>
+    <td>{{ portal.SponsorPortal.settings.aupSettings.includeAup }}</td>
+    <td>{{ portal.SponsorPortal.settings.aupSettings.requireScrolling }}</td>
+    <td>{{ portal.SponsorPortal.settings.loginPageSettings.includeAup }}</td>
+    <td>{{ portal.SponsorPortal.settings.loginPageSettings.maxFailedAttemptsBeforeRateLimit }}</td>
+    <td>{{ portal.SponsorPortal.settings.loginPageSettings.requireAupScrolling }}</td>
+    <td>{{ portal.SponsorPortal.settings.loginPageSettings.socialConfigs}}</td>
+    <td>{{ portal.SponsorPortal.settings.loginPageSettings.timeBetweenLoginsDuringRateLimit }}</td>
+    <td>{{ portal.SponsorPortal.settings.portalSettings.allowedInterfaces }}</td>
+    <td>{{ portal.SponsorPortal.settings.portalSettings.authenticationMethod }}</td>
+    <td>{{ portal.SponsorPortal.settings.portalSettings.availableSsids }}</td>
+    <td>{{ portal.SponsorPortal.settings.portalSettings.certificateGroupTag }}</td>
+    <td>{{ portal.SponsorPortal.settings.portalSettings.displayLang }}</td>
+    <td>{{ portal.SponsorPortal.settings.portalSettings.fallbackLanguage }}</td>
+    <td>{{ portal.SponsorPortal.settings.portalSettings.httpsPort }}</td>
+    <td>{{ portal.SponsorPortal.settings.portalSettings.idleTimeout }}</td>
+    <td>{{ portal.SponsorPortal.settings.postLoginBannerSettings.includePostAccessBanner }}</td>
+    <td>{{ portal.SponsorPortal.settings.sponsorChangePasswordSettings.allowSponsorToChangePwd }}</td>
+    <td>{{ portal.SponsorPortal.settings.supportInfoSettings.emptyFieldDisplay }}</td>
+    <td>{{ portal.SponsorPortal.settings.supportInfoSettings.includeBrowserUserAgent }}</td>
+    <td>{{ portal.SponsorPortal.settings.supportInfoSettings.includeFailureCode }}</td>
+    <td>{{ portal.SponsorPortal.settings.supportInfoSettings.includeIpAddress }}</td>
+    <td>{{ portal.SponsorPortal.settings.supportInfoSettings.includeMacAddr }}</td>
+    <td>{{ portal.SponsorPortal.settings.supportInfoSettings.includePolicyServer }}</td>
+    <td>{{ portal.SponsorPortal.settings.supportInfoSettings.includeSupportInfoPage }}</td>
+  </tr>
+{%-         endfor %}
+{%-     endfor %}
+</tbody>
+</table>
 {%- elif "/ers/config/sponsoredguestportal" in api %}
+<h1>Sponsored Guest Portals</h1>
+<table id = "datatable">
+<thead>
+  <tr>
+    <th>Name</th>
+    <th>ID</th>
+    <th>Description</th>
+    <th>Portal Test URL</th>
+    <th>Portal Type</th>
+    <th>Banner Title</th>
+    <th>Contact Text</th>
+    <th>Footer Element</th>
+    <th>View Language</th>
+    <th>Portal Theme ID</th>
+    <th>Portal Theme Name</th>
+    <th>AUP Settings Display Frequency</th>
+    <th>AUP Settings Include AUP</th>
+    <th>AUP Settings Require Scrolling</th>
+    <th>Auth Success Redirect</th>
+    <th>BYOD Registration Settings EndPoint Identity Group ID</th>
+    <th>BYOD Registration Settings Show Device ID</th>
+    <th>BYOD Registration Success Settings Success Redirect</th>
+    <th>BYOD Welcome Settings AUP Display</th>
+    <th>BYOD Welcome Settings Enable BYOD</th>
+    <th>BYOD Welcome Settings Enable Guest Access</th>
+    <th>BYOD Welcome Settings Include AUP</th>
+    <th>BYOD Welcome Settings Require AUP Acceptance</th>
+    <th>BYOD Welcome Settings Require MDM</th>
+    <th>BYOD Welcome Settings Require Scrolling</th>
+    <th>Change Password Settings Allow Change Password At First Login</th>
+    <th>Guest Device Registration Settings Allow Guests To Register Devices</th>
+    <th>Guest Device Registration Settings Auto Register Guest Devices</th>
+    <th>Login Page Settings Allow Alternate Guest Portal</th>
+    <th>Login Page Settings Allow Forgot Password</th>
+    <th>Login Page Settings Allow Guest To Change Password</th>
+    <th>Login Page Settings Allow Guest To Create Accounts</th>
+    <th>Login Page Settings Include AUP</th>
+    <th>Login Page Settings Max Failed Attempts Before Rate Limit</th>
+    <th>Login Page Settings Require Access Code</th>
+    <th>Login Page Settings Social Configs Social Media Type</th>
+    <th>Login Page Settings Social Configs Social Media Value</th>
+    <th>Login Page Settings Time Between Logins During Rate Limit</th>
+    <th>Portal Settings Allowed Interfaces</th>
+    <th>Portal Settings Always Used Language</th>
+    <th>Portal Settings Assigned Guest Type For Employee</th>
+    <th>Portal Settings Authentication Method</th>
+    <th>Portal Settings Certificate Group Tag</th>
+    <th>Portal Settings Display Lang</th>
+    <th>Portal Settings Fallback Language</th>
+    <th>Portal Settings HTTPS</th>
+    <th>Port Post Login Banner Settings Include Post Access Banner</th>
+    <th>Support Info Settings Empty Field Display</th>
+    <th>Support Info Settings Include Browser User Agent</th>
+    <th>Support Info Settings Include Failure Code</th>
+    <th>Support Info Settings Include IP Address</th>
+    <th>Support Info Settings Include MAC Address</th>
+    <th>Support Info Settings Include Policy Server</th>
+    <th>Support Info Settings Include Support Info Page</th>
+  </tr>
+</thead>  
+<tbody>
+{%-     for hit in data_to_template %}
+{%-         for portal in hit %}
+{%-             for social in portal.SponsoredGuestPortal.settings.loginPageSettings.socialConfigs %}
+  <tr>
+    <td>{{ portal.SponsoredGuestPortal.name }}</td>
+    <td>{{ portal.SponsoredGuestPortal.id }}</td>
+    <td>{{ portal.SponsoredGuestPortal.description }}</td>
+    <td>{{ portal.SponsoredGuestPortal.portalTestUrl }}</td>
+    <td>{{ portal.SponsoredGuestPortal.portalType }}</td>
+    <td>{{ portal.SponsoredGuestPortal.customizations.globalCustomizations.bannerTitle }}</td>
+    <td>{{ portal.SponsoredGuestPortal.customizations.globalCustomizations.contactText }}</td>
+    <td>{{ portal.SponsoredGuestPortal.customizations.globalCustomizations.footerElement }}</td>
+    <td>{{ portal.SponsoredGuestPortal.customizations.language.viewLanguage }}</td>
+    <td>{{ portal.SponsoredGuestPortal.customizations.portalTheme.id }}</td>
+    <td>{{ portal.SponsoredGuestPortal.customizations.portalTheme.name }}</td>
+    <td>{{ portal.SponsoredGuestPortal.settings.aupSettings.displayFrequency }}</td>
+    <td>{{ portal.SponsoredGuestPortal.settings.aupSettings.includeAup }}</td>
+    <td>{{ portal.SponsoredGuestPortal.settings.aupSettings.requireScrolling }}</td>
+    <td>{{ portal.SponsoredGuestPortal.settings.authSuccessSettings.successRedirect }}</td>
+    <td>{{ portal.SponsoredGuestPortal.settings.byodSettings.byodRegistrationSettings.endPointIdentityGroupId }}</td>
+    <td>{{ portal.SponsoredGuestPortal.settings.byodSettings.byodRegistrationSettings.showDeviceID }}</td>
+    <td>{{ portal.SponsoredGuestPortal.settings.byodSettings.byodRegistrationSuccessSettings.successRedirect }}</td>
+    <td>{{ portal.SponsoredGuestPortal.settings.byodSettings.byodWelcomeSettings.aupDisplay }}</td>
+    <td>{{ portal.SponsoredGuestPortal.settings.byodSettings.byodWelcomeSettings.enableBYOD }}</td>
+    <td>{{ portal.SponsoredGuestPortal.settings.byodSettings.byodWelcomeSettings.enableGuestAccess }}</td>
+    <td>{{ portal.SponsoredGuestPortal.settings.byodSettings.byodWelcomeSettings.includeAup }}</td>
+    <td>{{ portal.SponsoredGuestPortal.settings.byodSettings.byodWelcomeSettings.requireAupAcceptance }}</td>
+    <td>{{ portal.SponsoredGuestPortal.settings.byodSettings.byodWelcomeSettings.requireMDM }}</td>
+    <td>{{ portal.SponsoredGuestPortal.settings.byodSettings.byodWelcomeSettings.requireScrolling }}</td>
+    <td>{{ portal.SponsoredGuestPortal.settings.guestChangePasswordSettings.allowChangePasswdAtFirstLogin }}</td>
+    <td>{{ portal.SponsoredGuestPortal.settings.guestDeviceRegistrationSettings.allowGuestsToRegisterDevices }}</td>
+    <td>{{ portal.SponsoredGuestPortal.settings.guestDeviceRegistrationSettings.autoRegisterGuestDevices }}</td>
+    <td>{{ portal.SponsoredGuestPortal.settings.loginPageSettings.allowAlternateGuestPortal }}</td>
+    <td>{{ portal.SponsoredGuestPortal.settings.loginPageSettings.allowForgotPassword }}</td>
+    <td>{{ portal.SponsoredGuestPortal.settings.loginPageSettings.allowGuestToChangePassword }}</td>
+    <td>{{ portal.SponsoredGuestPortal.settings.loginPageSettings.allowGuestToCreateAccounts }}</td>
+    <td>{{ portal.SponsoredGuestPortal.settings.loginPageSettings.includeAup }}</td>
+    <td>{{ portal.SponsoredGuestPortal.settings.loginPageSettings.maxFailedAttemptsBeforeRateLimit }}</td>
+    <td>{{ portal.SponsoredGuestPortal.settings.loginPageSettings.requireAccessCode }}</td>
+    <td>{{ social.socialMediaType }}</td>
+    <td>{{ social.socialMediaValue }}</td>
+    <td>{{ portal.SponsoredGuestPortal.settings.loginPageSettings.timeBetweenLoginsDuringRateLimit }}</td>
+    <td>{{ portal.SponsoredGuestPortal.settings.portalSettings.allowedInterfaces }}</td>
+    <td>{{ portal.SponsoredGuestPortal.settings.portalSettings.alwaysUsedLanguage }}</td>
+    <td>{{ portal.SponsoredGuestPortal.settings.portalSettings.assignedGuestTypeForEmployee }}</td>
+    <td>{{ portal.SponsoredGuestPortal.settings.portalSettings.authenticationMethod }}</td>
+    <td>{{ portal.SponsoredGuestPortal.settings.portalSettings.certificateGroupTag }}</td>
+    <td>{{ portal.SponsoredGuestPortal.settings.portalSettings.displayLang }}</td>
+    <td>{{ portal.SponsoredGuestPortal.settings.portalSettings.fallbackLanguage }}</td>
+    <td>{{ portal.SponsoredGuestPortal.settings.portalSettings.httpsPort }}</td>
+    <td>{{ portal.SponsoredGuestPortal.settings.postLoginBannerSettings.includePostAccessBanner }}</td>
+    <td>{{ portal.SponsoredGuestPortal.settings.supportInfoSettings.emptyFieldDisplay }}</td>
+    <td>{{ portal.SponsoredGuestPortal.settings.supportInfoSettings.includeBrowserUserAgent }}</td>
+    <td>{{ portal.SponsoredGuestPortal.settings.supportInfoSettings.includeFailureCode }}</td>
+    <td>{{ portal.SponsoredGuestPortal.settings.supportInfoSettings.includeIpAddress }}</td>
+    <td>{{ portal.SponsoredGuestPortal.settings.supportInfoSettings.includeMacAddr }}</td>
+    <td>{{ portal.SponsoredGuestPortal.settings.supportInfoSettings.includePolicyServer }}</td>
+    <td>{{ portal.SponsoredGuestPortal.settings.supportInfoSettings.includeSupportInfoPage }}</td>
+  </tr>
+{%-             endfor %}
+{%-         endfor %}
+{%-     endfor %}
+</tbody>
+</table>
 {%- elif "/api/v1/backup-restore/config/last-backup-status" in api %}
 <h1>Last Backup Status</h1>
 <table id = "datatable">
@@ -507,7 +1486,125 @@
 </table>
 {%-     endif %}
 {%- elif "/api/v1/certs/system-certificate" in api %}
+<h1>System Certificates</h1>
+<table id = "datatable">
+<thead>
+  <tr>
+    <th>Friendly Name</th>
+    <th>ID</th>
+    <th>Expiration Date</th>
+    <th>Group Tag</th>
+    <th>Issued By</th>
+    <th>Issued To</th>
+    <th>Key Size</th>
+    <th>Portals Using The Tag</th>
+    <th>Self Signed</th>
+    <th>Serial Number Decimal Format</th>
+    <th>SHA256 Fingerprint</th>
+    <th>Signature Algorithm</th>
+    <th>Used By</th>
+    <th>Valid From</th>
+  </tr>
+</thead>  
+<tbody>
+{%-     for cert in data_to_template %}
+  <tr>
+    <td>{{ cert.response.friendlyName }}</td>
+    <td>{{ cert.response.id }}</td>
+    <td>{{ cert.response.expirationDate }}</td>
+    <td>{{ cert.response.groupTag }}</td>
+    <td>{{ cert.response.issuedBy }}</td>
+    <td>{{ cert.response.issuedTo }}</td>
+    <td>{{ cert.response.keySize }}</td>
+    <td>{{ cert.response.portalsUsingTheTag }}</td>
+    <td>{{ cert.response.selfSigned }}</td>
+    <td>{{ cert.response.serialNumberDecimalFormat }}</td>
+    <td>{{ cert.response.sha256Fingerprint }}</td>
+    <td>{{ cert.response.signatureAlgorithm }}</td>
+    <td>{{ cert.response.usedBy }}</td>
+    <td>{{ cert.response.validFrom }}</td>
+  </tr>
+{%-         endfor %}
+</tbody>
+</table>
 {%- elif "/api/v1/certs/trusted-certificate" in api %}
+<h1>Trusted Certificates</h1>
+<table id = "datatable">
+<thead>
+  <tr>
+    <th>Friendly Name</th>
+    <th>ID</th>
+    <th>Description</th>
+    <th>Authenticate Before CRL Received</th>
+    <th>Automatic CRL Update</th>
+    <th>Automatic CRL Update Period</th>
+    <th>Automatic CRL Update Units</th>
+    <th>CRL Distribution Url</th>
+    <th>CRL Download Failure Retries</th>
+    <th>CRL Download Failure Retries Units</th>
+    <th>Download CRL</th>
+    <th>Enable OCSP Validation</th>
+    <th>Enable Server Identity Check</th>
+    <th>Expiration Date</th>
+    <th>Ignore CRL Expiration</th>
+    <th>Internal CA</th>
+    <th>Is Referred In Policy</th>
+    <th>Issued By</th>
+    <th>Issued To</th>
+    <th>Key Size</th>
+    <th>Non Automatic CRL Update Period</th>
+    <th>Non Automatic CRL Update Units</th>
+    <th>Reject If No Status From OCSP</th>
+    <th>Reject If Unreachable From OCSP</th>
+    <th>Selected OCSP Service</th>
+    <th>Serial Number Decimal Format</th>
+    <th>SHA256 Fingerprint</th>
+    <th>Signature Algorithm</th>
+    <th>Status</th>
+    <th>Subject</th>
+    <th>Trusted For</th>
+    <th>Valid From</th>
+  </tr>
+</thead>  
+<tbody>
+{%-     for cert in data_to_template %}
+  <tr>
+    <td>{{ cert.response.friendlyName }}</td>
+    <td>{{ cert.response.id }}</td>
+    <td>{{ cert.response.description }}</td>
+    <td>{{ cert.response.authenticateBeforeCRLReceived }}</td>
+    <td>{{ cert.response.automaticCRLUpdate }}</td>
+    <td>{{ cert.response.automaticCRLUpdatePeriod }}</td>
+    <td>{{ cert.response.automaticCRLUpdateUnits }}</td>
+    <td>{{ cert.response.crlDistributionUrl }}</td>
+    <td>{{ cert.response.crlDownloadFailureRetries }}</td>
+    <td>{{ cert.response.crlDownloadFailureRetriesUnits }}</td>
+    <td>{{ cert.response.downloadCRL }}</td>
+    <td>{{ cert.response.enableOCSPValidation }}</td>
+    <td>{{ cert.response.enableServerIdentityCheck }}</td>
+    <td>{{ cert.response.expirationDate }}</td>
+    <td>{{ cert.response.ignoreCRLExpiration }}</td>
+    <td>{{ cert.response.internalCA }}</td>
+    <td>{{ cert.response.isReferredInPolicy }}</td>
+    <td>{{ cert.response.issuedBy }}</td>
+    <td>{{ cert.response.issuedTo }}</td>
+    <td>{{ cert.response.keySize }}</td>
+    <td>{{ cert.response.nonAutomaticCRLUpdatePeriod }}</td>
+    <td>{{ cert.response.nonAutomaticCRLUpdateUnits }}</td>
+    <td>{{ cert.response.rejectIfNoStatusFromOCSP }}</td>
+    <td>{{ cert.response.rejectIfUnreachableFromOCSP }}</td>
+    <td>{{ cert.response.selectedOCSPService }}</td>
+    <td>{{ cert.response.serialNumberDecimalFormat }}</td>
+    <td>{{ cert.response.sha256Fingerprint }}</td>
+    <td>{{ cert.response.signatureAlgorithm }}</td>
+    <td>{{ cert.response.status }}</td>
+    <td>{{ cert.response.subject }}</td>
+    <td>{{ cert.response.trustedFor }}</td>
+    <td>{{ cert.response.validFrom }}</td>
+  </tr>
+{%-         endfor %}
+</tbody>
+</table>
 {%- elif "/api/v1/deployment/node" in api %}
 <h1>Deployment Nodes</h1>
 <table id = "datatable">
@@ -778,8 +1875,71 @@
 </tbody>
 </table>
 {%- elif "/api/v1/repository" in api %}
+<h1>Repositories</h1>
+<table id = "datatable">
+<thead>
+  <tr>
+    <th>Name</th>
+    <th>Password</th>
+    <th>Path</th>
+    <th>Protocol</th>
+    <th>Server Name</th>
+    <th>User Name</th>
+  </tr>
+</thead>  
+<tbody>
+{%-     for repo in data_to_template['response'] %}
+  <tr>
+    <td>{{ repo.name }}</td>
+    <td>{{ repo.password }}</td>
+    <td>{{ repo.path }}</td>
+    <td>{{ repo.protocol }}</td>
+    <td>{{ repo.serverName }}</td>
+    <td>{{ repo.userName }}</td>
+  </tr>
+{%-     endfor %}
+</tbody>
+</table>
 {%- elif "/api/v1/system-settings/proxy" in api %}
+<h1>Proxy</h1>
+<table id = "datatable">
+<thead>
+  <tr>
+    <th>Bypass Hosts</th>
+    <th>FQDN</th>
+    <th>Password</th>
+    <th>Password Required</th>
+    <th>Port</th>
+    <th>User Name</th>
+  </tr>
+</thead>  
+<tbody>
+  <tr>
+    <td>{{ data_to_template.response.bypassHosts }}</td>
+    <td>{{ data_to_template.response.fqdn }}</td>
+    <td>{{ data_to_template.response.password }}</td>
+    <td>{{ data_to_template.response.passwordRequired }}</td>
+    <td>{{ data_to_template.response.port }}</td>
+    <td>{{ data_to_template.response.userName }}</td>
+  </tr>
+</tbody>
+</table>
 {%- elif "/api/v1/system-settings/telemetry/transport-gateway" in api %}
+<h1>Transport Gateway</h1>
+<table id = "datatable">
+<thead>
+  <tr>
+    <th>Enable Transport Gateway</th>
+    <th>URL</th>
+  </tr>
+</thead>  
+<tbody>
+  <tr>
+    <td>{{ data_to_template.response.enableTransportGateway }}</td>
+    <td>{{ data_to_template.response.url }}</td>
+  </tr>
+</tbody>
+</table>
 {%- elif "/api/v1/trustsec/sgacl/nbarapp/" in api %}
 <h1>NBAR Applications</h1>
 <table id = "datatable">
@@ -1064,7 +2224,45 @@
 </tbody>
 </table>
 {%- elif "/api/v1/policy/device-admin/service-names" in api %}
+<h1>Service Names</h1>
+<table id = "datatable">
+<thead>
+  <tr>
+    <th>Name</th>
+    <th>ID</th>
+    <th>Is Local Authorization</th>
+    <th>Service Type</th>
+  </tr>
+</thead>  
+<tbody>
+{%-     for name in data_to_template %}
+  <tr>
+    <td>{{ name.name }}</td>
+    <td>{{ name.id }}</td>
+    <td>{{ name.isLocalAuthorization }}</td>
+    <td>{{ name.serviceType }}</td>
+  </tr>
+{%-     endfor %}
+</tbody>
+</table>
 {%- elif "/api/v1/policy/device-admin/shell-profiles" in api %}
+<h1>Shell Profiles</h1>
+<table id = "datatable">
+<thead>
+  <tr>
+    <th>Name</th>
+    <th>ID</th>
+  </tr>
+</thead>  
+<tbody>
+{%-     for profile in data_to_template %}
+  <tr>
+    <td>{{ profile.name }}</td>
+    <td>{{ profile.id }}</td>
+  </tr>
+{%-     endfor %}
+</tbody>
+</table>
 {%- elif "/api/v1/policy/network-access/authorization-profiles" in api %}
 <h1>Network Access Authorization Profiles</h1>
 <table id = "datatable">
@@ -1556,6 +2754,88 @@
     <td>{{ service.isLocalAuthorization }}</td>
   </tr>
 {%-         endfor %}
+</tbody>
+</table>
+{%- elif "/admin/API/mnt/Session/ActiveCount" in api %}
+<h1>Active Session Count</h1>
+<table id = "datatable">
+<thead>
+  <tr>
+    <th>Session Count</th>
+  </tr>
+</thead>  
+<tbody>
+  <tr>
+    <td>{{ data_to_template.sessionCount.count }}</td>
+  </tr>
+</tbody>
+</table>
+{%- elif "/admin/API/mnt/Session/PostureCount" in api %}
+<h1>Posture Count</h1>
+<table id = "datatable">
+<thead>
+  <tr>
+    <th>Session Count</th>
+  </tr>
+</thead>  
+<tbody>
+  <tr>
+    <td>{{ data_to_template.sessionCount.count }}</td>
+  </tr>
+</tbody>
+</table>
+{%- elif "/admin/API/mnt/Session/ProfilerCount" in api %}
+<h1>Profiler Count</h1>
+<table id = "datatable">
+<thead>
+  <tr>
+    <th>Session Count</th>
+  </tr>
+</thead>  
+<tbody>
+  <tr>
+    <td>{{ data_to_template.sessionCount.count }}</td>
+  </tr>
+</tbody>
+</table>
+{%- elif "/admin/API/mnt/Version" in api %}
+<h1>Version</h1>
+<table id = "datatable">
+<thead>
+  <tr>
+    <th>Name</th>
+    <th>Type of Node</th>
+    <th>Version</th>
+  </tr>
+</thead>  
+<tbody>
+  <tr>
+    <td>{{ data_to_template.product['@name'] }}</td>
+    <td>{{ data_to_template.product.type_of_node }}</td>
+    <td>{{ data_to_template.product.version }}</td>
+  </tr>
+</tbody>
+</table>
+{%- elif "/admin/API/mnt/FailureReasons" in api %}
+<h1>Failure Reasons</h1>
+<table id = "datatable">
+<thead>
+  <tr>
+    <th>ID</th>
+    <th>Cause</th>
+    <th>Code</th>
+    <th>Resolution</th>
+  </tr>
+</thead>  
+<tbody>
+{%-     for reason in data_to_template.failureReasonList.failureReason %}
+  <tr>
+    <td>{{ reason['@id'] }}</td>
+    <td>{{ reason.cause }}</td>
+    <td>{{ reason.code }}</td>
+    <td>{{ reason.resolution }}</td>
+  </tr>
+{%-     endfor %}
 </tbody>
 </table>
 {%- endif %}

@@ -6,6 +6,8 @@ Business Ready Documents for Cisco Identity Services Engine
 
 Active Directory
 
+Active Sessions
+
 Admin Users
 
 Allowed Protocols
@@ -31,6 +33,8 @@ Endpoint Groups
 Endpoints
 
 Eval Licenses
+
+Failure Reasons
 
 Hot Patches
 
@@ -102,6 +106,10 @@ Policy Sets
 
 Portals
 
+Posture Count
+
+Profiler Count
+
 Profilers
 
 Proxies
@@ -129,6 +137,8 @@ System Certificates
 Transport Gateways
 
 Trusted Certificates
+
+Version
 ## Installation
 
 ```console

@@ -1,32 +1,104 @@
 {%- if "/ers/config/allowedprotocols" in api %}
 # Allowed Protocols
 {%-     for result in data_to_template %}
-## Name: {{ result.AllowedProtocols.name }}
-### ID: {{ result.AllowedProtocols.id }}
+{%-         for hit in result %}
+## Name: {{ hit.AllowedProtocols.name }}
+### ID: {{ hit.AllowedProtocols.id }}
+### Description: {{ hit.AllowedProtocols.description }}
 ### Allow
-#### CHAP: {{ result.AllowedProtocols.allowChap }}
-#### EAP
-##### FAST: {{ result.AllowedProtocols.allowEapFast }}
-##### MD5: {{ result.AllowedProtocols.allowEapMd5 }}
-##### TLS: {{ result.AllowedProtocols.allowEapTls }}
-##### TTLS: {{ result.AllowedProtocols.allowEapTtls }}
-##### Preferred Protocol: {{ result.AllowedProtocols.allowPreferredEapProtocol }}
-##### Weak Ciphers: {{ result.AllowedProtocols.allowWeakCiphersForEap }}
-#### LEAP: {{ result.AllowedProtocols.allowLeap }}
+#### CHAP: {{ hit.AllowedProtocols.allowChap }}
+#### EAP FAST: {{ hit.AllowedProtocols.allowEapFast }}
+#### EAP MD5: {{ hit.AllowedProtocols.allowEapMd5 }}
+#### EAP TLS: {{ hit.AllowedProtocols.allowEapTls }}
+#### EAP TTLS: {{ hit.AllowedProtocols.allowEapTtls }}
+#### LEAP: {{ hit.AllowedProtocols.allowLeap }}
 #### MS CHAP
-##### v1: {{ result.AllowedProtocols.allowMsChapV1 }}
-##### v2: {{ result.AllowedProtocols.allowMsChapV2 }}
-#### PAP ASCII: {{ result.AllowedProtocols.allowPapAscii }}
-#### PEAP: {{ result.AllowedProtocols.allowPeap }}
-#### TEAP: {{ result.AllowedProtocols.allowTeap }}
-### Description: {{ result.AllowedProtocols.description }}
-### EAP TTLS L Bit: {{ result.AllowedProtocols.eapTlsLBit }}
-### Process Host Lookup: {{ result.AllowedProtocols.processHostLookup }}
-### Require Message Auth: {{ result.AllowedProtocols.requireMessageAuth }}
+##### V1: {{ hit.AllowedProtocols.allowMsChapV1 }}
+##### V2: {{ hit.AllowedProtocols.allowMsChapV2 }}
+### PAP ASCII: {{ hit.AllowedProtocols.allowPapAscii }}
+### PEAP: {{ hit.AllowedProtocols.allowPeap }}
+### Preferred EAP Protocol: {{ hit.AllowedProtocols.allowPreferredEapProtocol }}
+### TEAP: {{ hit.AllowedProtocols.allowTeap }}
+### Weak Ciphers For EAP: {{ hit.AllowedProtocols.allowWeakCiphersForEap }}
+    {%- if hit.AllowedProtocols.eapFast %}
+### EAP FAST
+{{ hit.AllowedProtocols.eapFast.allowEapFastEapGtc }}
+#### Allow
+##### GTC Password Change: {{ hit.AllowedProtocols.eapFast.allowEapFastEapGtcPwdChange }}
+##### GTC Password Change Retries: {{ hit.AllowedProtocols.eapFast.allowEapFastEapGtcPwdChangeRetries }}
+##### EAP MS CHAP V2: {{ hit.AllowedProtocols.eapFast.allowEapFastEapMsChapV2 }}
+##### EAP MS CHAP V2 Password Change: {{ hit.AllowedProtocols.eapFast.allowEapFastEapMsChapV2PwdChange }}
+##### EAP MS CHAP V2 Password Change Retries: {{ hit.AllowedProtocols.eapFast.allowEapFastEapMsChapV2PwdChangeRetries }}
+##### EAP TLS: {{ hit.AllowedProtocols.eapFast.allowEapFastEapTls }}
+##### EAP TLS Auth of Expired Certs: {{ hit.AllowedProtocols.eapFast.allowEapFastEapTlsAuthOfExpiredCerts }}
+#### Enable EAP Chaining: {{ hit.AllowedProtocols.eapFast.eapFastEnableEAPChaining }}
+#### Pacs
+##### Use: {{ hit.AllowedProtocols.eapFast.eapFastUsePacs }}
+##### Accept Client Cert: {{ hit.AllowedProtocols.eapFast.eapFastUsePacsAcceptClientCert }}
+##### Allow Anonymous Provisioning: {{ hit.AllowedProtocols.eapFast.eapFastUsePacsAllowAnonymProvisioning }}
+##### Allow Authentication Provisioning:  {{ hit.AllowedProtocols.eapFast.eapFastUsePacsAllowAuthenProvisioning }}
+##### Allow Machine Authentication: {{ hit.AllowedProtocols.eapFast.eapFastUsePacsAllowMachineAuthentication }}
+##### Authorization Pac TTL: {{ hit.AllowedProtocols.eapFast.eapFastUsePacsAuthorizationPacTtl }}
+##### Authorization Pac TTL Units: {{ hit.AllowedProtocols.eapFast.eapFastUsePacsAuthorizationPacTtlUnits }}
+##### Machine Pac TTL: {{ hit.AllowedProtocols.eapFast.eapFastUsePacsMachinePacTtl }}
+##### Machine Pac TTL Units: {{ hit.AllowedProtocols.eapFast.eapFastUsePacsMachinePacTtlUnits }}
+##### Server Returns: {{ hit.AllowedProtocols.eapFast.eapFastUsePacsServerReturns }}
+##### Stateless Session Resume: {{ hit.AllowedProtocols.eapFast.eapFastUsePacsStatelessSessionResume }}
+##### Tunnel Pac TTL: {{ hit.AllowedProtocols.eapFast.eapFastUsePacsTunnelPacTtl }}
+##### Tunnel Pac TTL Units: {{ hit.AllowedProtocols.eapFast.eapFastUsePacsTunnelPacTtlUnits }}
+##### Use Proactive Pac Update Percentage: {{ hit.AllowedProtocols.eapFast.eapFastUsePacsUseProactivePacUpdatePrecentage }}
+    {%- endif %}
+    {%- if hit.AllowedProtocols.eapTls %}
+### EAP TLS
+#### Allow Auth of Expired Certs: {{ hit.AllowedProtocols.eapTls.allowEapTlsAuthOfExpiredCerts }}
+#### Enable Stateless Session Resume: {{ hit.AllowedProtocols.eapTls.eapTlsEnableStatelessSessionResume }}
+    {%- endif %}
+### EAP TLS LBit: {{ hit.AllowedProtocols.eapTlsLBit }}
+    {%- if hit.AllowedProtocols.eapTtls %}
+### EAP TTLS
+#### CHAP: {{ hit.AllowedProtocols.eapTtls.eapTtlsChap }}
+#### EAP MD5: {{ hit.AllowedProtocols.eapTtls.eapTtlsEapMd5 }}
+#### EAP MS CHAP V2: {{ hit.AllowedProtocols.eapTtls.eapTtlsEapMsChapV2 }}
+#### EAP MS CHAP V2 Password Change: {{ hit.AllowedProtocols.eapTtls.eapTtlsEapMsChapV2PwdChange }}
+#### EAP MS CHAP V2 Password Change Retries: {{ hit.AllowedProtocols.eapTtls.eapTtlsEapMsChapV2PwdChangeRetries }}
+#### MS CHAP V1: {{ hit.AllowedProtocols.eapTtls.eapTtlsMsChapV1 }}
+#### MS CHAP V2: {{ hit.AllowedProtocols.eapTtls.eapTtlsMsChapV2 }}
+#### PAP ASCII: {{ hit.AllowedProtocols.eapTtls.eapTtlsPapAscii }}
+    {%- endif %}
+    {%- if hit.AllowedProtocols.peap %}
+### PEAP
+#### Allow
+##### EAP GTC: {{ hit.AllowedProtocols.peap.allowPeapEapGtc }}
+##### EAP GTC Password Change: {{ hit.AllowedProtocols.peap.allowPeapEapGtcPwdChange }}
+##### EAP GTC Password Change Retries {{ hit.AllowedProtocols.peap.allowPeapEapGtcPwdChangeRetries }}
+##### EAP MS CHAP V2: {{ hit.AllowedProtocols.peap.allowPeapEapMsChapV2 }}
+##### EAP MS CHAP V2 Password Change: {{ hit.AllowedProtocols.peap.allowPeapEapMsChapV2PwdChange }}
+##### EAP MS CHAP V2 Password Change Retries: {{ hit.AllowedProtocols.peap.allowPeapEapMsChapV2PwdChangeRetries }}
+##### EAP TLS: {{ hit.AllowedProtocols.peap.allowPeapEapTls }}
+##### EAP TLS Auth of Expired Certs: {{ hit.AllowedProtocols.peap.allowPeapEapTlsAuthOfExpiredCerts }}
+##### V0: {{ hit.AllowedProtocols.peap.allowPeapV0 }}
+#### Require Cryptobinding: {{ hit.AllowedProtocols.peap.requireCryptobinding }}
+    {%- endif %}
+### Process Host Lookup: {{ hit.AllowedProtocols.processHostLookup }}
+### Require Message Auth: {{ hit.AllowedProtocols.requireMessageAuth }}
+    {%- if hit.AllowedProtocols.teap %}
+### TEAP
+#### Accept Cleint Cert During Tunnel Est: {{ hit.AllowedProtocols.teap.acceptClientCertDuringTunnelEst }}
+#### Allow
+##### Downgrade Msk: {{ hit.AllowedProtocols.teap.allowDowngradeMsk }}
+##### EAP MS CHAP V2: {{ hit.AllowedProtocols.teap.allowTeapEapMsChapV2 }}
+##### EAP MS CHAP V2 Password Change: {{ hit.AllowedProtocols.teap.allowTeapEapMsChapV2PwdChange }}
+##### EAP MS CHAP V2 Password Change Retries: {{ hit.AllowedProtocols.teap.allowTeapEapMsChapV2PwdChangeRetries }}
+##### EAP TLS: {{ hit.AllowedProtocols.teap.allowTeapEapTls }}
+##### EAP TLS Auth of Expired Certs: {{ hit.AllowedProtocols.teap.allowTeapEapTlsAuthOfExpiredCerts }}
+#### EAP Chaining: {{ hit.AllowedProtocols.teap.enableEapChaining }}
+{%- endif %}
+{%-         endfor %}
 {%-     endfor %}
 {%- elif "/ers/config/adminuser" in api %}
 # Admin Users
-{%-     for result in data_to_template %}
+{%-     for hit in data_to_template %}
+{%-         for result in hit %}
 ## Name: {{ result.AdminUser.name }}
 ### Admin Groups: {{ result.AdminUser.adminGroups }}
 ### Change Password: {{ result.AdminUser.changePassword }}
@@ -37,17 +109,65 @@
 ### ID: {{ result.AdminUser.id }}
 ### Inactive Account Never Disabled: {{ result.AdminUser.inactiveAccountNeverDisabled }}
 ### Include System Alarms In Email: {{ result.AdminUser.includeSystemAlarmsInEmail }}
+{%-         endfor %}
 {%-     endfor %}
 {%- elif "/ers/config/activedirectory" in api %}
+# Active Directory
+{%-     for hit in data_to_template %}
+{%-         for directory in hit %}
+## Name: {{ directory.ERSActiveDirectory.name }}
+### ID: {{ directory.ERSActiveDirectory.id }}
+### Description: {{ directory.ERSActiveDirectory.description }}
+### Domain: {{ directory.ERSActiveDirectory.domain }}
+### Attributes: {{ directory.ERSActiveDirectory.adAttributes.attributes }}
+### AD Scope Names: {{ directory.ERSActiveDirectory.adScopesNames }}
+### AD Groups: {{ directory.ERSActiveDirectory.adgroups.groups }}
+### Aging Time: {{ directory.ERSActiveDirectory.advancedSettings.agingTime }}
+### Advanced Settings
+#### Auth Protection Type: {{ directory.ERSActiveDirectory.advancedSettings.authProtectionType }}
+#### Country: {{ directory.ERSActiveDirectory.advancedSettings.country }}
+#### Department: {{ directory.ERSActiveDirectory.advancedSettings.department }}
+#### Email: {{ directory.ERSActiveDirectory.advancedSettings.email }}
+#### Enable
+##### Callback For Dialin Client: {{ directory.ERSActiveDirectory.advancedSettings.enableCallbackForDialinClient }}
+##### Dialin Permission Check: {{ directory.ERSActiveDirectory.advancedSettings.enableDialinPermissionCheck }}
+##### Failed Auth Protection: {{ directory.ERSActiveDirectory.advancedSettings.enableFailedAuthProtection }}
+##### Machine Access: {{ directory.ERSActiveDirectory.advancedSettings.enableMachineAccess }}
+##### Machine Auth: {{ directory.ERSActiveDirectory.advancedSettings.enableMachineAuth }}
+##### Password Change: {{ directory.ERSActiveDirectory.advancedSettings.enablePassChange }}
+##### Rewrites: {{ directory.ERSActiveDirectory.advancedSettings.enableRewrites }}
+##### Domain Allowed List: {{ directory.ERSActiveDirectory.enableDomainAllowedList }}
+#### Failed Auth Threshold: {{ directory.ERSActiveDirectory.advancedSettings.failedAuthThreshold }}
+#### First Name: {{ directory.ERSActiveDirectory.advancedSettings.firstName }}
+#### Identity Not In AD Behaviour: {{ directory.ERSActiveDirectory.advancedSettings.identityNotInAdBehaviour }}
+#### Job Title: {{ directory.ERSActiveDirectory.advancedSettings.jobTitle }}
+#### Last Name: {{ directory.ERSActiveDirectory.advancedSettings.lastName }}
+#### Locality: {{ directory.ERSActiveDirectory.advancedSettings.locality }}
+#### Organizational Unity: {{ directory.ERSActiveDirectory.advancedSettings.organizationalUnit }}
+#### Plaintext Auth: {{ directory.ERSActiveDirectory.advancedSettings.plaintextAuth }}
+#### Schema: {{ directory.ERSActiveDirectory.advancedSettings.schema }}
+#### State Or Province: {{ directory.ERSActiveDirectory.advancedSettings.stateOrProvince }}
+#### Street Address: {{ directory.ERSActiveDirectory.advancedSettings.streetAddress }}
+#### Telephone: {{ directory.ERSActiveDirectory.advancedSettings.telephone }}
+#### Unreachable Domain Behaviour: {{ directory.ERSActiveDirectory.advancedSettings.unreachableDomainsBehaviour }}
+### Rewrite Rules
+{%-             for rule in directory.ERSActiveDirectory.advancedSettings.rewriteRules %}
+#### Row ID: {{ rule.rowId }}
+#### Match: {{ rule.rewriteMatch }}
+#### Result: {{ rule.rewriteResult }}
+{%-             endfor %}
+{%-         endfor %}
+{%-     endfor %}
 {%- elif "/ers/config/authorizationprofile" in api %}
 # Authorization Profiles
-{%-     for result in data_to_template %}
+{%-     for hit in data_to_template %}
+{%-         for result in hit %}
 ## Name: {{ result.AuthorizationProfile.name }}
 ### ID: {{ result.AuthorizationProfile.id }}
 ### Access Type: {{ result.AuthorizationProfile.accessType }}
-{%-         if result.AuthorizationProfile.advancedAttributes %}
+{%-             if result.AuthorizationProfile.advancedAttributes %}
 ### Advanced Attributes
-{%-             for attribute in result.AuthorizationProfile.advancedAttributes %}
+{%-                 for attribute in result.AuthorizationProfile.advancedAttributes %}
 #### Left Hand Side Dictionary Attributes:
 ##### Value Type: {{ attribute.leftHandSideDictionaryAttribue.AdvancedAttributeValueType }}
 ##### Name: {{ attribute.leftHandSideDictionaryAttribue.attributeName }}
@@ -57,8 +177,8 @@
 ##### Value: {{ attribute.rightHandSideAttribueValue.value | default("N/A") }}
 ##### Name: {{ attribute.rightHandSideAttribueValue.attributeName | default("N/A") }}
 ##### Dictionary Name: {{ attribute.rightHandSideAttribueValue.dictionaryName | default("N/A") }}
-{%-             endfor %}
-{%-          endif %}
+{%-                 endfor %}
+{%-              endif %}
 ### Agentless Posture: {{ result.AuthorizationProfile.agentlessPosture }}
 ### AuthZ Profile Type: {{ result.AuthorizationProfile.authzProfileType }}
 ### DACL NameL {{ result.AuthorizationProfile.daclName | default("N/A") }}
@@ -68,68 +188,98 @@
 ### Service Template: {{ result.AuthorizationProfile.serviceTemplate }}
 ### Track Movement: {{ result.AuthorizationProfile.trackMovement }}
 ### Voice Domain Permission: {{ result.AuthorizationProfile.voiceDomainPermission | default("N/A") }}
-{%-         if result.AuthorizationProfile.webRedirection %}
+{%-             if result.AuthorizationProfile.webRedirection %}
 ### Web Redirection:
 #### Type:{{ result.AuthorizationProfile.webRedirection.WebRedirectionType }}
 #### ACL: {{ result.AuthorizationProfile.webRedirection.acl }}
 #### Portal Name: {{ result.AuthorizationProfile.webRedirection.portalName }}
-{%-         endif %}
+{%-             endif %}
+{%-         endfor %}
 {%-     endfor %}
 {%- elif "/ers/config/downloadableacl" in api %}
 # Download ACL
-{%-     for dacl in data_to_template %}
+{%-     for hit  in data_to_template %}
+{%-         for dacl in hit %}
 ## Name: {{ dacl.DownloadableAcl.name }}
 ### ID: {{ dacl.DownloadableAcl.id }}
 ### DACL: {{ dacl.DownloadableAcl.dacl }}
 ### DACL Type: {{ dacl.DownloadableAcl.daclType }}
 ### Description: {{ dacl.DownloadableAcl.description }}
+{%-         endfor %}
 {%-     endfor %}
 {%- elif "/ers/config/endpoint" in api %}
 {%-     if  "/ers/config/endpointgroup" in api %}
 # Endpoint Groups
-{%-         for group in data_to_template %}
+{%-         for hit in data_to_template %}
+{%-             for group in hit %}
 ## {{ group.EndPointGroup.name }}
 ### ID: {{ group.EndPointGroup.id }}
 ### Description: {{ group.EndPointGroup.description }}
 ### System Defined: {{ group.EndPointGroup.systemDefined }}
+{%-             endfor %}
 {%-         endfor %}
 {%-     else %}
 {%-     endif %}
 {%- elif "/ers/config/identitygroup" in api %}
 # Identity Groups
-{%-     for group in data_to_template %}
+{%-     for hit in data_to_template %}
+{%-         for group in hit %}
 ## Name: {{ group.IdentityGroup.name }}
 ### ID: {{ group.IdentityGroup.id }}
 ### Description: {{ group.IdentityGroup.description }}
 ### Parent: {{ group.IdentityGroup.parent }}
 {%-         endfor %}
+{%-     endfor %}
 {%- elif "/ers/config/idstoresequence" in api %}
 # Identity Store Sequence
-{%-     for sequence in data_to_template %}
+{%-     for hit in data_to_template %}
+{%-         for sequence in hit %}
 ## Name: {{ sequence.IdStoreSequence.name }}
 ### ID: {{ sequence.IdStoreSequence.id }}
 ### Description: {{ sequence.IdStoreSequence.description }}
 ### Certificate Authentication Profile: {{ sequence.IdStoreSequence.certificateAuthenticationProfile }}
 ### Break On Store Fail: {{ sequence.IdStoreSequence.breakOnStoreFail }}
 ### Sequence Item
-{%-         for seqitem in sequence.IdStoreSequence['idSeqItem'] %}
+{%-             for seqitem in sequence.IdStoreSequence['idSeqItem'] %}
 #### ID Store: {{ seqitem.idstore }}
 #### Order: {{ seqitem.order }}
+{%-             endfor %}
 {%-         endfor %}
 {%-     endfor %}
 {%- elif "/ers/config/internaluser" in api %}
+# Internal Users
+{%-     for hit in data_to_template %}
+{%-         for user in hit %}
+## Name: {{ user['InternalUser'].name }}
+### ID: {{ user['InternalUser'].id }}
+### Change Password: {{ user['InternalUser'].changePassword }}
+### Custom Attributes: {{ user['InternalUser'].customAttributes }}
+### Description: {{ user['InternalUser'].description }}
+### Email: {{ user['InternalUser'].email }}
+### Enabled: {{ user['InternalUser'].enabled }}
+### Expiry Date Enabled: {{ user['InternalUser'].expiryDateEnabled }}
+### First Name: {{ user['InternalUser'].firstName }}
+### Last Name: {{ user['InternalUser'].lastName }}
+### Identity Groups: {{ user['InternalUser'].identityGroups }}
+### Password: {{ user['InternalUser'].password }}
+### Password ID Store: {{ user['InternalUser'].passwordIDStore }}
+{%-         endfor %}
+{%-     endfor %}
 {%- elif "/ers/config/networkdevice" in api %}
 {%-     if  "/ers/config/networkdevicegroup" in api %}
 # Network Device Groups
-{%-         for group in data_to_template %}
+{%-         for hit in data_to_template %}
+{%-             for group in hit %}
 ## Name: {{ group.NetworkDeviceGroup.name }}
 ### ID: {{ group.NetworkDeviceGroup.id }}
 ### Description: {{ group.NetworkDeviceGroup.description }}
 ### Other Name: {{ group.NetworkDeviceGroup.othername }}
+{%-             endfor %}
 {%-         endfor %}
 {%-     else %}
 # Network Devices
-{%-         for device in data_to_template %}
+{%-         for hit in data_to_template %}
+{%-             for device in hit %}
 ## Name: {{ device['NetworkDevice'].name }}
 ### ID: {{ device['NetworkDevice'].id }}
 ### Description: {{ device['NetworkDevice'].description }}
@@ -146,19 +296,21 @@
 #### Network Protocol: {{ device['NetworkDevice'].authenticationSettings.networkProtocol }}
 #### RADIUS Shared Secret {{ device['NetworkDevice'].authenticationSettings.radiusSharedSecret }}
 ### IP Addresses
-{%-             for ip in device['NetworkDevice']['NetworkDeviceIPList'] %}
+{%-                 for ip in device['NetworkDevice']['NetworkDeviceIPList'] %}
 #### IP Address: {{ ip.ipaddress }}
 #### Subnet Mask: {{ ip.mask }}
-{%-             endfor %}
+{%-                 endfor %}
 ### Network Device Groups
-{%-             for group in device['NetworkDevice']['NetworkDeviceGroupList'] %}
+{%-                 for group in device['NetworkDevice']['NetworkDeviceGroupList'] %}
 #### Group: {{ group }}
+{%-                 endfor %}
 {%-             endfor %}
 {%-         endfor %}
 {%-     endif %}
 {%- elif "/ers/config/node" in api %}
 # Nodes
-{%-     for node in data_to_template %}
+{%-     for hit in data_to_template %}
+{%-         for node in hit %}
 ## Name: {{ node['Node'].name }}
 ### ID: {{ node['Node'].id }}
 ### Display Name: {{ node['Node'].displayName }}
@@ -174,24 +326,396 @@
 ### IP Addresses
 #### SXP: {{ node['Node'].sxpIpAddress }}
 #### v4
-{%-         for v4 in node['Node'].ipAddresses %}
+{%-             for v4 in node['Node'].ipAddresses %}
 ##### {{ v4 }}
-{%-             if node['Node'].ipV6Addresses %}
+{%-                 if node['Node'].ipV6Addresses %}
 #### v6
-{%-                 for v6 in node['Node'].ipV6Addresses %}
+{%-                     for v6 in node['Node'].ipV6Addresses %}
 ##### {{ v6 }}
+{%-                     endfor %}
+{%-                 endif %}
+{%-             endfor %}
+{%-         endfor %}
+{%-     endfor %}
+{%- elif "/ers/config/portal" in api %}
+# Portals
+{%-     for hit in data_to_template %}
+{%-         for portal in hit %}
+## Name: {{ portal['ERSPortal'].name }}
+### ID: {{ portal['ERSPortal'].id }}
+### Description: {{ portal['ERSPortal'].description }}
+### Portal Type: {{ portal['ERSPortal'].portalType }}
+{%-             if portal['ERSPortal']['guestUserFieldList'] %}
+### Allow Sponsor To Change Own Password: {{ portal['ERSPortal'].allowSponsorToChangeOwnPassword }}</td>
+### Guest User Field List
+{%-                 for field in portal['ERSPortal']['guestUserFieldList'] %}
+#### Label Name: {{ field.labelName }}
+##### Required: {{ field.required }}
+##### Data Type: {{ field.dataType }}
+##### Custom Type: {{ field.customType }}
+##### Dictionary Label Key: {{ field.dictionaryLabelKey }}
 {%-                 endfor %}
 {%-             endif %}
 {%-         endfor %}
 {%-     endfor %}
-{%- elif "/ers/config/portal" in api %}
 {%- elif "/ers/config/profilerprofile" in api %}
+# Profiler Profiles
+{%-     for hit in data_to_template %}
+{%-         for profile in hit %}
+## Name: {{ profile.ProfilerProfile.name }}
+### ID: {{ profile.ProfilerProfile.id }}
+### Description: {{ profile.ProfilerProfile.description }}
+{%-         endfor %}
+{%-     endfor %}
 {%- elif "/ers/config/sgt" in api %}
+# SGTs
+{%-     for hit in data_to_template %}
+{%-         for sgt in hit %}
+## Name: {{ sgt.Sgt.name }}
+### ID: {{ sgt.Sgt.id }}
+### Description: {{ sgt.Sgt.description }}
+### Generation ID: {{ sgt.Sgt.generationId }}
+### Propogate To APIC: {{ sgt.Sgt.propogateToApic }}
+### Value: {{ sgt.Sgt.value }}
+{%-         endfor %}
+{%-     endfor %}
 {%- elif "/ers/config/sgacl" in api %}
+# SGT ACLs
+{%-     for hit in data_to_template %}
+{%-         for acl in hit %}
+## Name: {{ acl.Sgacl.name }}
+### ID: {{ acl.Sgacl.id }}
+### Description: {{ acl.Sgacl.description }}
+### ACL Content: {{ acl.Sgacl.aclcontent }}
+### Generation ID: {{ acl.Sgacl.generationId }}
+{%-         endfor %}
+{%-     endfor %}
 {%- elif "/ers/config/selfregportal" in api %}
+# Self Registration Portals
+{%-     for hit in data_to_template %}
+{%-         for portal in hit %}
+{%-             for social in portal.SelfRegPortal.settings.loginPageSettings.socialConfigs %}
+## Name: {{ portal.SelfRegPortal.name }}
+### ID: {{ portal.SelfRegPortal.id }}
+### Description: {{ portal.SelfRegPortal.description }}
+### Portal Test URL: {{ portal.SelfRegPortal.portalTestUrl }}
+### Portal Type: {{ portal.SelfRegPortal.portalType }}
+### Customizations
+#### Banner Title:{{ portal.SelfRegPortal.customizations.globalCustomizations.bannerTitle }}
+#### Contact Text: {{ portal.SelfRegPortal.customizations.globalCustomizations.contactText }}
+#### Footer Element: {{ portal.SelfRegPortal.customizations.globalCustomizations.footerElement }}
+#### Language: {{ portal.SelfRegPortal.customizations.language.viewLanguage }}
+#### Portal Theme
+##### ID: {{ portal.SelfRegPortal.customizations.portalTheme.id }}
+##### Name: {{ portal.SelfRegPortal.customizations.portalTheme.name }}
+### Settings
+#### AUP 
+#### Display Frequency: {{ portal.SelfRegPortal.settings.aupSettings.displayFrequency }}
+#### Include AUP: {{ portal.SelfRegPortal.settings.aupSettings.includeAup }}
+#### Require Scrolling: {{ portal.SelfRegPortal.settings.aupSettings.requireScrolling }}
+#### Auth Success
+##### Success Redirect: {{ portal.SelfRegPortal.settings.authSuccessSettings.successRedirect }}
+#### BYOD
+##### Registration
+###### Endpoint Identity Group ID: {{ portal.SelfRegPortal.settings.byodSettings.byodRegistrationSettings.endPointIdentityGroupId }}
+###### Show Device ID: {{ portal.SelfRegPortal.settings.byodSettings.byodRegistrationSettings.showDeviceID }}
+###### Success Redirect: {{ portal.SelfRegPortal.settings.byodSettings.byodRegistrationSuccessSettings.successRedirect }}
+##### Welcome
+###### AUP Display: {{ portal.SelfRegPortal.settings.byodSettings.byodWelcomeSettings.aupDisplay }}
+###### Enable BYOD: {{ portal.SelfRegPortal.settings.byodSettings.byodWelcomeSettings.enableBYOD }}
+###### Enable Guest Access: {{ portal.SelfRegPortal.settings.byodSettings.byodWelcomeSettings.enableGuestAccess }}
+###### Include AUP: {{ portal.SelfRegPortal.settings.byodSettings.byodWelcomeSettings.includeAup }}
+###### Require AUP Acceptance: {{ portal.SelfRegPortal.settings.byodSettings.byodWelcomeSettings.requireAupAcceptance }}
+###### Require MDM: {{ portal.SelfRegPortal.settings.byodSettings.byodWelcomeSettings.requireMDM }}
+###### Require Scrolling: {{ portal.SelfRegPortal.settings.byodSettings.byodWelcomeSettings.requireScrolling }}
+#### Guest Change Password
+##### Allow Change Password At First Login: {{ portal.SelfRegPortal.settings.guestChangePasswordSettings.allowChangePasswdAtFirstLogin }}
+#### Guest Device Registration
+##### Allow Guests To Register Devices: {{ portal.SelfRegPortal.settings.guestDeviceRegistrationSettings.allowGuestsToRegisterDevices }}
+##### Auto Register Guest Devices: {{ portal.SelfRegPortal.settings.guestDeviceRegistrationSettings.autoRegisterGuestDevices }}
+#### Login Page
+##### Allow Alternate Guest Portal: {{ portal.SelfRegPortal.settings.loginPageSettings.allowAlternateGuestPortal }}
+##### Allow Forgot Password: {{ portal.SelfRegPortal.settings.loginPageSettings.allowForgotPassword }}
+##### Allow Guest To Change Password: {{ portal.SelfRegPortal.settings.loginPageSettings.allowGuestToChangePassword }}
+##### Allow Guest To Create Accounts: {{ portal.SelfRegPortal.settings.loginPageSettings.allowGuestToCreateAccounts }}
+##### Include AUP: {{ portal.SelfRegPortal.settings.loginPageSettings.includeAup }}
+##### Max Failed Attempts Before Rate Limit: {{ portal.SelfRegPortal.settings.loginPageSettings.maxFailedAttemptsBeforeRateLimit }}
+##### Time Between Logins During Rate Limit:  {{ portal.SelfRegPortal.settings.loginPageSettings.timeBetweenLoginsDuringRateLimit }}
+##### Require Access Code: {{ portal.SelfRegPortal.settings.loginPageSettings.requireAccessCode }}
+#### Social Media
+##### Type: {{ social.socialMediaType }}
+##### Value: {{ social.socialMediaValue }}
+#### Portal
+##### Allowed Interfaces: {{ portal.SelfRegPortal.settings.portalSettings.allowedInterfaces }}
+##### Always Used Language: {{ portal.SelfRegPortal.settings.portalSettings.alwaysUsedLanguage }}
+##### Assigned Guest Type For Employee: {{ portal.SelfRegPortal.settings.portalSettings.assignedGuestTypeForEmployee }}
+##### Authentication Method: {{ portal.SelfRegPortal.settings.portalSettings.authenticationMethod }}
+##### Certificate Group Tag: {{ portal.SelfRegPortal.settings.portalSettings.certificateGroupTag }}
+##### Display Language: {{ portal.SelfRegPortal.settings.portalSettings.displayLang }}
+##### Fallback Language: {{ portal.SelfRegPortal.settings.portalSettings.fallbackLanguage }}
+##### HTTPS Port: {{ portal.SelfRegPortal.settings.portalSettings.httpsPort }}
+#### Post Login Banner
+##### Include Post Access Banner: {{ portal.SelfRegPortal.settings.postLoginBannerSettings.includePostAccessBanner }}
+#### Self Registration Page
+##### Account Validity Duration: {{ portal.SelfRegPortal.settings.selfRegPageSettings.accountValidityDuration }}
+##### Allow Grace Access: {{ portal.SelfRegPortal.settings.selfRegPageSettings.allowGraceAccess }}
+##### Approve Deny Links Time Units: {{ portal.SelfRegPortal.settings.selfRegPageSettings.approveDenyLinksTimeUnits }}
+##### Assign Guests To Guest Type: {{ portal.SelfRegPortal.settings.selfRegPageSettings.assignGuestsToGuestType }}
+##### Authenticate Sponsors Using Portal List: {{ portal.SelfRegPortal.settings.selfRegPageSettings.authenticateSponsorsUsingPortalList }}
+##### Auto Login 
+###### Self Wait: {{ portal.SelfRegPortal.settings.selfRegPageSettings.autoLoginSelfWait }}
+###### Time Period: {{ portal.SelfRegPortal.settings.selfRegPageSettings.autoLoginTimePeriod }}
+##### Credtial Notification Using
+###### Email: {{ portal.SelfRegPortal.settings.selfRegPageSettings.credentialNotificationUsingEmail }}
+###### SMS: {{ portal.SelfRegPortal.settings.selfRegPageSettings.credentialNotificationUsingSms }}
+##### Enable Guest Email
+###### Blacklist: {{ portal.SelfRegPortal.settings.selfRegPageSettings.enableGuestEmailBlacklist }}
+###### Whitelist: {{ portal.SelfRegPortal.settings.selfRegPageSettings.enableGuestEmailWhitelist }}
+##### Field Company
+###### Include: {{ portal.SelfRegPortal.settings.selfRegPageSettings.fieldCompany.include }}
+###### Required: {{ portal.SelfRegPortal.settings.selfRegPageSettings.fieldCompany.require }}
+##### Field Email Address
+###### Include: {{ portal.SelfRegPortal.settings.selfRegPageSettings.fieldEmailAddr.include }}
+###### Require: {{ portal.SelfRegPortal.settings.selfRegPageSettings.fieldEmailAddr.require }}
+##### Field First Name
+###### Include: {{ portal.SelfRegPortal.settings.selfRegPageSettings.fieldFirstName.include }}
+###### Require: {{ portal.SelfRegPortal.settings.selfRegPageSettings.fieldFirstName.require }}
+##### Field Last Name
+###### Include: {{ portal.SelfRegPortal.settings.selfRegPageSettings.fieldLastName.include }}
+###### Require: {{ portal.SelfRegPortal.settings.selfRegPageSettings.fieldLastName.require }}
+##### Field Location
+###### Include: {{ portal.SelfRegPortal.settings.selfRegPageSettings.fieldLocation.include }}
+###### Require: {{ portal.SelfRegPortal.settings.selfRegPageSettings.fieldLocation.require }}
+##### Field Person Being Visited
+###### Include: {{ portal.SelfRegPortal.settings.selfRegPageSettings.fieldPersonBeingVisited.include }}
+###### Require: {{ portal.SelfRegPortal.settings.selfRegPageSettings.fieldPersonBeingVisited.require }}
+##### Field Phone Number
+###### Include: {{ portal.SelfRegPortal.settings.selfRegPageSettings.fieldPhoneNo.include }}
+###### Require: {{ portal.SelfRegPortal.settings.selfRegPageSettings.fieldPhoneNo.require }}
+##### Field Reason For Visit
+###### Include: {{ portal.SelfRegPortal.settings.selfRegPageSettings.fieldReasonForVisit.include }}
+###### Require: {{ portal.SelfRegPortal.settings.selfRegPageSettings.fieldReasonForVisit.require }}
+##### Field SMS Provider
+###### Include: {{ portal.SelfRegPortal.settings.selfRegPageSettings.fieldSmsProvider.include }}
+###### Require: {{ portal.SelfRegPortal.settings.selfRegPageSettings.fieldSmsProvider.require }}
+##### Field User Name
+###### Include: {{ portal.SelfRegPortal.settings.selfRegPageSettings.fieldUserName.include }}
+###### Require: {{ portal.SelfRegPortal.settings.selfRegPageSettings.fieldUserName.require }}
+##### Grace Access
+###### Expire Interval: {{ portal.SelfRegPortal.settings.selfRegPageSettings.graceAccessExpireInterval }}
+###### Send Account Expiration: {{ portal.SelfRegPortal.settings.selfRegPageSettings.graceAccessSendAccountExpiration }}
+##### Guest Email Domains
+###### Blacklist: {{ portal.SelfRegPortal.settings.selfRegPageSettings.guestEmailBlacklistDomains }}
+###### Whitelist: {{ portal.SelfRegPortal.settings.selfRegPageSettings.guestEmailWhitelistDomains }}
+##### Include AUP: {{ portal.SelfRegPortal.settings.selfRegPageSettings.includeAup }}
+##### Post Registration Redirect: {{ portal.SelfRegPortal.settings.selfRegPageSettings.postRegistrationRedirect }}
+##### Require
+###### AUP Acceptance: {{ portal.SelfRegPortal.settings.selfRegPageSettings.requireAupAcceptance }}
+###### Guest Approval: {{ portal.SelfRegPortal.settings.selfRegPageSettings.requireGuestApproval }}
+###### Registation Code: {{ portal.SelfRegPortal.settings.selfRegPageSettings.requireRegistrationCode }}
+##### Selectable
+###### Locationas: {{ portal.SelfRegPortal.settings.selfRegPageSettings.selectableLocations }}
+###### SMS Providers: {{ portal.SelfRegPortal.settings.selfRegPageSettings.selectableSmsProviders }}
+##### Sponsor Portal List: {{ portal.SelfRegPortal.settings.selfRegPageSettings.sponsorPortalList }}
+#### Self Registation Success
+##### Allow Guest
+###### Login From Self Registration Success Page: {{ portal.SelfRegPortal.settings.selfRegSuccessSettings.allowGuestLoginFromSelfregSuccessPage }}
+###### Send Self Using Email: {{ portal.SelfRegPortal.settings.selfRegSuccessSettings.allowGuestSendSelfUsingEmail }}
+###### Send Self Using Print: {{ portal.SelfRegPortal.settings.selfRegSuccessSettings.allowGuestSendSelfUsingPrint }}
+###### Send Self Using SMS: {{ portal.SelfRegPortal.settings.selfRegSuccessSettings.allowGuestSendSelfUsingSms }}
+##### AUP On Page: {{ portal.SelfRegPortal.settings.selfRegSuccessSettings.aupOnPage }}
+##### Include
+###### AUP: {{ portal.SelfRegPortal.settings.selfRegSuccessSettings.includeAup }}
+###### Company: {{ portal.SelfRegPortal.settings.selfRegSuccessSettings.includeCompany }}
+###### Email Address: {{ portal.SelfRegPortal.settings.selfRegSuccessSettings.includeEmailAddr }}
+###### First Name: {{ portal.SelfRegPortal.settings.selfRegSuccessSettings.includeFirstName }}
+###### Last Name: {{ portal.SelfRegPortal.settings.selfRegSuccessSettings.includeLastName }}
+###### Location: {{ portal.SelfRegPortal.settings.selfRegSuccessSettings.includeLocation }}
+###### Password: {{ portal.SelfRegPortal.settings.selfRegSuccessSettings.includePassword }}
+###### Person Being Visited: {{ portal.SelfRegPortal.settings.selfRegSuccessSettings.includePersonBeingVisited }}
+###### Phone Number: {{ portal.SelfRegPortal.settings.selfRegSuccessSettings.includePhoneNo }}
+###### Reason For Visit: {{ portal.SelfRegPortal.settings.selfRegSuccessSettings.includeReasonForVisit }}
+###### SMS Provider: {{ portal.SelfRegPortal.settings.selfRegSuccessSettings.includeSmsProvider }}
+###### User Name: {{ portal.SelfRegPortal.settings.selfRegSuccessSettings.includeUserName }}
+##### Require AUP
+###### Acceptance: {{ portal.SelfRegPortal.settings.selfRegSuccessSettings.requireAupAcceptance }}
+###### Scrolling: {{ portal.SelfRegPortal.settings.selfRegSuccessSettings.requireAupScrolling }}
+#### Support Info
+##### Empty Field Display: {{ portal.SelfRegPortal.settings.supportInfoSettings.emptyFieldDisplay }}
+##### Include
+###### Browser User Agent: {{ portal.SelfRegPortal.settings.supportInfoSettings.includeBrowserUserAgent }}
+###### Failure Code: {{ portal.SelfRegPortal.settings.supportInfoSettings.includeFailureCode }}
+###### IP Address: {{ portal.SelfRegPortal.settings.supportInfoSettings.includeIpAddress }}
+###### MAC Address: {{ portal.SelfRegPortal.settings.supportInfoSettings.includeMacAddr }}
+###### Policy Server: {{ portal.SelfRegPortal.settings.supportInfoSettings.includePolicyServer }}
+###### Support Info Page: {{ portal.SelfRegPortal.settings.supportInfoSettings.includeSupportInfoPage }}
+{%-             endfor %}
+{%-         endfor %}
+{%-     endfor %}
 {%- elif "/ers/config/sponsorgroup" in api %}
+# Sponsor Groups
+{%-     for hit in data_to_template %}
+{%-         for group in hit %}
+## Name: {{ group.SponsorGroup.name }}
+### ID: {{ group.SponsorGroup.id }}
+### Description: {{ group.SponsorGroup.description  }}
+### Auto Notification: {{ group.SponsorGroup.autoNotification }}
+### Can
+#### Create Random Accounts: {{ group.SponsorGroup.createPermissions.canCreateRandomAccounts }}
+#### Import Multiple Accounts: {{ group.SponsorGroup.createPermissions.canImportMultipleAccounts }}
+#### Set Future Start Date: {{ group.SponsorGroup.createPermissions.canSetFutureStartDate }}
+#### Specify User Name Prefix: {{ group.SponsorGroup.createPermissions.canSpecifyUsernamePrefix }}
+#### Access Via REST: {{ group.SponsorGroup.otherPermissions.canAccessViaRest }}
+#### Approve Self Reg Guests: {{ group.SponsorGroup.otherPermissions.canApproveSelfregGuests }}
+#### Delete Guest Accounts: {{ group.SponsorGroup.otherPermissions.canDeleteGuestAccounts }}
+#### Extend Guest Accounts: {{ group.SponsorGroup.otherPermissions.canExtendGuestAccounts }}
+#### Reinstate Suspended Accounts: {{ group.SponsorGroup.otherPermissions.canReinstateSuspendedAccounts }}
+#### Reset Guest Passwords: {{ group.SponsorGroup.otherPermissions.canResetGuestPasswords }}
+#### Send SMS Notifications: {{ group.SponsorGroup.otherPermissions.canSendSmsNotifications }}
+#### Suspend Guest Accounts: {{ group.SponsorGroup.otherPermissions.canSuspendGuestAccounts }}
+#### Update Guest Contact Info: {{ group.SponsorGroup.otherPermissions.canUpdateGuestContactInfo }}
+#### View Guest Passwords: {{ group.SponsorGroup.otherPermissions.canViewGuestPasswords }}
+### Import Batch Size Limit: {{ group.SponsorGroup.createPermissions.importBatchSizeLimit }}
+### Random Batch Size Limit: {{ group.SponsorGroup.createPermissions.randomBatchSizeLimit }}
+### Start Date Future Limit Days: {{ group.SponsorGroup.createPermissions.startDateFutureLimitDays }}
+### Guest Types: {{ group.SponsorGroup.guestTypes }}
+### Is Default Group: {{ group.SponsorGroup.isDefaultGroup }}
+### Is Enabled: {{ group.SponsorGroup.isEnabled }}
+### Locations: {{ group.SponsorGroup.locations }}
+### Manage Permissions: {{ group.SponsorGroup.managePermission }}
+### Member Groups: {{ group.SponsorGroup.memberGroups }}
+### Limit Approval To Sponsors Guests: {{ group.SponsorGroup.otherPermissions.limitApprovalToSponsorsGuests }}
+### Require Suspension Reason: {{ group.SponsorGroup.otherPermissions.requireSuspensionReason }}
+{%-         endfor %}
+{%-     endfor %}
 {%- elif "/ers/config/sponsorportal" in api %}
+# Self Registration Portals
+{%-     for hit in data_to_template %}
+{%-         for portal in hit %}
+## Name: {{ portal.SponsorPortal.name }}
+### ID: {{ portal.SponsorPortal.id }}
+### Description: {{ portal.SponsorPortal.description }}
+### Portal Test URL: {{ portal.SponsorPortal.portalTestUrl }}
+### Portal Type: {{ portal.SponsorPortal.portalType }}
+### Customizations
+#### Banner Title:{{ portal.SponsorPortal.customizations.globalCustomizations.bannerTitle }}
+#### Contact Text: {{ portal.SponsorPortal.customizations.globalCustomizations.contactText }}
+#### Footer Element: {{ portal.SponsorPortal.customizations.globalCustomizations.footerElement }}
+#### Language: {{ portal.SponsorPortal.customizations.language.viewLanguage }}
+#### Portal Theme
+##### ID: {{ portal.SponsorPortal.customizations.portalTheme.id }}
+##### Name: {{ portal.SponsorPortal.customizations.portalTheme.name }}
+### Settings
+#### AUP 
+#### Display Frequency: {{ portal.SponsorPortal.settings.aupSettings.displayFrequency }}
+#### Include AUP: {{ portal.SponsorPortal.settings.aupSettings.includeAup }}
+#### Require Scrolling: {{ portal.SponsorPortal.settings.aupSettings.requireScrolling }}
+#### Login Page
+##### Include AUP: {{ portal.SponsorPortal.settings.loginPageSettings.includeAup }}
+##### Max Failed Attempts Before Rate Limit: {{ portal.SponsorPortal.settings.loginPageSettings.maxFailedAttemptsBeforeRateLimit }}
+##### Require AUP Scrolling: {{ portal.SponsorPortal.settings.loginPageSettings.requireAupScrolling }}
+##### Time Between Logins During Rate Limit:  {{ portal.SponsorPortal.settings.loginPageSettings.timeBetweenLoginsDuringRateLimit }}
+##### Social Media {{ portal.SponsorPortal.settings.loginPageSettings.socialConfigs }}
+#### Portal
+##### Allowed Interfaces: {{ portal.SponsorPortal.settings.portalSettings.allowedInterfaces }}
+##### Authentication Method: {{ portal.SponsorPortal.settings.portalSettings.authenticationMethod }}
+##### Available SSIDs: {{ portal.SponsorPortal.settings.portalSettings.authenticationMethod }}
+##### Certificate Group Tag: {{ portal.SponsorPortal.settings.portalSettings.certificateGroupTag }}
+##### Display Language: {{ portal.SponsorPortal.settings.portalSettings.displayLang }}
+##### Fallback Language: {{ portal.SponsorPortal.settings.portalSettings.fallbackLanguage }}
+##### HTTPS Port: {{ portal.SponsorPortal.settings.portalSettings.httpsPort }}
+##### Idle Timeout: {{ portal.SponsorPortal.settings.portalSettings.idleTimeout }}
+#### Post Login Banner
+##### Include Post Access Banner: {{ portal.SponsorPortal.settings.postLoginBannerSettings.includePostAccessBanner }}
+#### Support Info
+##### Empty Field Display: {{ portal.SponsorPortal.settings.supportInfoSettings.emptyFieldDisplay }}
+##### Include
+###### Browser User Agent: {{ portal.SponsorPortal.settings.supportInfoSettings.includeBrowserUserAgent }}
+###### Failure Code: {{ portal.SponsorPortal.settings.supportInfoSettings.includeFailureCode }}
+###### IP Address: {{ portal.SponsorPortal.settings.supportInfoSettings.includeIpAddress }}
+###### MAC Address: {{ portal.SponsorPortal.settings.supportInfoSettings.includeMacAddr }}
+###### Policy Server: {{ portal.SponsorPortal.settings.supportInfoSettings.includePolicyServer }}
+###### Support Info Page: {{ portal.SponsorPortal.settings.supportInfoSettings.includeSupportInfoPage }}
+{%-         endfor %}
+{%-     endfor %}
 {%- elif "/ers/config/sponsoredguestportal" in api %}
+# Sponsored Guest Portals
+{%-     for hit in data_to_template %}
+{%-         for portal in hit %}
+{%-             for social in portal.SponsoredGuestPortal.settings.loginPageSettings.socialConfigs %}
+## Name: {{ portal.SponsoredGuestPortal.name }}
+### ID: {{ portal.SponsoredGuestPortal.id }}
+### Description: {{ portal.SponsoredGuestPortal.description }}
+### Portal Test URL: {{ portal.SponsoredGuestPortal.portalTestUrl }}
+### Portal Type: {{ portal.SponsoredGuestPortal.portalType }}
+### Customizations
+#### Banner Title:{{ portal.SponsoredGuestPortal.customizations.globalCustomizations.bannerTitle }}
+#### Contact Text: {{ portal.SponsoredGuestPortal.customizations.globalCustomizations.contactText }}
+#### Footer Element: {{ portal.SponsoredGuestPortal.customizations.globalCustomizations.footerElement }}
+#### Language: {{ portal.SponsoredGuestPortal.customizations.language.viewLanguage }}
+#### Portal Theme
+##### ID: {{ portal.SponsoredGuestPortal.customizations.portalTheme.id }}
+##### Name: {{ portal.SponsoredGuestPortal.customizations.portalTheme.name }}
+### Settings
+#### AUP 
+#### Display Frequency: {{ portal.SponsoredGuestPortal.settings.aupSettings.displayFrequency }}
+#### Include AUP: {{ portal.SponsoredGuestPortal.settings.aupSettings.includeAup }}
+#### Require Scrolling: {{ portal.SponsoredGuestPortal.settings.aupSettings.requireScrolling }}
+#### Auth Success
+##### Success Redirect: {{ portal.SponsoredGuestPortal.settings.authSuccessSettings.successRedirect }}
+#### BYOD
+##### Registration
+###### Endpoint Identity Group ID: {{ portal.SponsoredGuestPortal.settings.byodSettings.byodRegistrationSettings.endPointIdentityGroupId }}
+###### Show Device ID: {{ portal.SponsoredGuestPortal.settings.byodSettings.byodRegistrationSettings.showDeviceID }}
+###### Success Redirect: {{ portal.SponsoredGuestPortal.settings.byodSettings.byodRegistrationSuccessSettings.successRedirect }}
+##### Welcome
+###### AUP Display: {{ portal.SponsoredGuestPortal.settings.byodSettings.byodWelcomeSettings.aupDisplay }}
+###### Enable BYOD: {{ portal.SponsoredGuestPortal.settings.byodSettings.byodWelcomeSettings.enableBYOD }}
+###### Enable Guest Access: {{ portal.SponsoredGuestPortal.settings.byodSettings.byodWelcomeSettings.enableGuestAccess }}
+###### Include AUP: {{ portal.SponsoredGuestPortal.settings.byodSettings.byodWelcomeSettings.includeAup }}
+###### Require AUP Acceptance: {{ portal.SponsoredGuestPortal.settings.byodSettings.byodWelcomeSettings.requireAupAcceptance }}
+###### Require MDM: {{ portal.SponsoredGuestPortal.settings.byodSettings.byodWelcomeSettings.requireMDM }}
+###### Require Scrolling: {{ portal.SponsoredGuestPortal.settings.byodSettings.byodWelcomeSettings.requireScrolling }}
+#### Guest Change Password
+##### Allow Change Password At First Login: {{ portal.SponsoredGuestPortal.settings.guestChangePasswordSettings.allowChangePasswdAtFirstLogin }}
+#### Guest Device Registration
+##### Allow Guests To Register Devices: {{ portal.SponsoredGuestPortal.settings.guestDeviceRegistrationSettings.allowGuestsToRegisterDevices }}
+##### Auto Register Guest Devices: {{ portal.SponsoredGuestPortal.settings.guestDeviceRegistrationSettings.autoRegisterGuestDevices }}
+#### Login Page
+##### Allow Alternate Guest Portal: {{ portal.SponsoredGuestPortal.settings.loginPageSettings.allowAlternateGuestPortal }}
+##### Allow Forgot Password: {{ portal.SponsoredGuestPortal.settings.loginPageSettings.allowForgotPassword }}
+##### Allow Guest To Change Password: {{ portal.SponsoredGuestPortal.settings.loginPageSettings.allowGuestToChangePassword }}
+##### Allow Guest To Create Accounts: {{ portal.SponsoredGuestPortal.settings.loginPageSettings.allowGuestToCreateAccounts }}
+##### Include AUP: {{ portal.SponsoredGuestPortal.settings.loginPageSettings.includeAup }}
+##### Max Failed Attempts Before Rate Limit: {{ portal.SponsoredGuestPortal.settings.loginPageSettings.maxFailedAttemptsBeforeRateLimit }}
+##### Time Between Logins During Rate Limit:  {{ portal.SponsoredGuestPortal.settings.loginPageSettings.timeBetweenLoginsDuringRateLimit }}
+##### Require Access Code: {{ portal.SponsoredGuestPortal.settings.loginPageSettings.requireAccessCode }}
+#### Social Media
+##### Type: {{ social.socialMediaType }}
+##### Value: {{ social.socialMediaValue }}
+#### Portal
+##### Allowed Interfaces: {{ portal.SponsoredGuestPortal.settings.portalSettings.allowedInterfaces }}
+##### Always Used Language: {{ portal.SponsoredGuestPortal.settings.portalSettings.alwaysUsedLanguage }}
+##### Assigned Guest Type For Employee: {{ portal.SponsoredGuestPortal.settings.portalSettings.assignedGuestTypeForEmployee }}
+##### Authentication Method: {{ portal.SponsoredGuestPortal.settings.portalSettings.authenticationMethod }}
+##### Certificate Group Tag: {{ portal.SponsoredGuestPortal.settings.portalSettings.certificateGroupTag }}
+##### Display Language: {{ portal.SponsoredGuestPortal.settings.portalSettings.displayLang }}
+##### Fallback Language: {{ portal.SponsoredGuestPortal.settings.portalSettings.fallbackLanguage }}
+##### HTTPS Port: {{ portal.SponsoredGuestPortal.settings.portalSettings.httpsPort }}
+#### Post Login Banner
+##### Include Post Access Banner: {{ portal.SponsoredGuestPortal.settings.postLoginBannerSettings.includePostAccessBanner }}
+#### Support Info
+##### Empty Field Display: {{ portal.SponsoredGuestPortal.settings.supportInfoSettings.emptyFieldDisplay }}
+##### Include
+###### Browser User Agent: {{ portal.SponsoredGuestPortal.settings.supportInfoSettings.includeBrowserUserAgent }}
+###### Failure Code: {{ portal.SponsoredGuestPortal.settings.supportInfoSettings.includeFailureCode }}
+###### IP Address: {{ portal.SponsoredGuestPortal.settings.supportInfoSettings.includeIpAddress }}
+###### MAC Address: {{ portal.SponsoredGuestPortal.settings.supportInfoSettings.includeMacAddr }}
+###### Policy Server: {{ portal.SponsoredGuestPortal.settings.supportInfoSettings.includePolicyServer }}
+###### Support Info Page: {{ portal.SponsoredGuestPortal.settings.supportInfoSettings.includeSupportInfoPage }}
+{%-             endfor %}
+{%-         endfor %}
+{%-     endfor %}
 {%- elif "/api/v1/backup-restore/config/last-backup-status" in api %}
 # Last Backup Status
 ## Name: {{ data_to_template.response.name }}
@@ -225,7 +749,65 @@
 {%-         endfor %}
 {%-     endif %}
 {%- elif "/api/v1/certs/system-certificate" in api %}
+# System Certificates
+{%-     for cert in data_to_template %}
+## Friendly Name: {{ cert.response.friendlyName }}
+### ID: {{ cert.response.id }}
+### Expiration Date: {{ cert.response.expirationDate }}
+### Group Tag: {{ cert.response.groupTag }}
+### Issued
+#### By: {{ cert.response.issuedBy }}
+#### To: {{ cert.response.issuedTo }}
+### Key Size: {{ cert.response.keySize }}
+### Portal Using The Tag: {{ cert.response.portalsUsingTheTag }}
+### Self Signed: {{ cert.response.selfSigned }}
+### Serial Number Decimal Format: {{ cert.response.serialNumberDecimalFormat }}
+### SHA256 Fingerprint: {{ cert.response.sha256Fingerprint }}
+### Signature Algorithm: {{ cert.response.signatureAlgorithm }}
+### Used By: {{ cert.response.usedBy }}
+### Valid From: {{ cert.response.validFrom }}
+{%-         endfor %}
 {%- elif "/api/v1/certs/trusted-certificate" in api %}
+# Trusted Certificates
+{%-     for cert in data_to_template %}
+## Friendly Name: {{ cert.response.friendlyName }}
+### ID: {{ cert.response.id }}
+### Description: {{ cert.response.description }}
+### Authenticate Before CRL Received: {{ cert.response.authenticateBeforeCRLReceived }}
+### Automatic CRL
+#### Update: {{ cert.response.automaticCRLUpdate }}
+#### Update Period: {{ cert.response.automaticCRLUpdatePeriod }}
+#### Update Units: {{ cert.response.automaticCRLUpdateUnits }}
+### CRL
+#### Distribution URL: {{ cert.response.crlDistributionUrl }}
+#### Download Failure Retries: {{ cert.response.crlDownloadFailureRetries }}
+#### Download Failure Retries Units: {{ cert.response.crlDownloadFailureRetriesUnits }}
+#### Download: {{ cert.response.downloadCRL }}
+### Enable OSCP Validation: {{ cert.response.enableOCSPValidation }}
+### Enable Server Identity Check: {{ cert.response.enableServerIdentityCheck }}
+### Expiration Date: {{ cert.response.expirationDate }}
+### Ignore CRL Expiration: {{ cert.response.ignoreCRLExpiration }}
+### Internal CA: {{ cert.response.internalCA }}
+### Is Referred In Policy: {{ cert.response.isReferredInPolicy }}
+### Issued
+#### By: {{ cert.response.issuedBy }}
+#### To: {{ cert.response.issuedTo }}
+### Key Size: {{ cert.response.keySize }}
+### Non Automatic CRL Update
+#### Period: {{ cert.response.nonAutomaticCRLUpdatePeriod }}
+#### Units: {{ cert.response.nonAutomaticCRLUpdateUnits }}
+### Reject If
+#### No Status From OSCP: {{ cert.response.rejectIfNoStatusFromOCSP }}
+#### Unreachable From OSCP: {{ cert.response.rejectIfUnreachableFromOCSP }}
+### Selected OCSP Service: {{ cert.response.selectedOCSPService }}
+### Serial Number Decimal Format: {{ cert.response.serialNumberDecimalFormat }}
+### SHA256 Fingerprint: {{ cert.response.sha256Fingerprint }}
+### Signature Algorithm: {{ cert.response.signatureAlgorithm }}
+### Status: {{ cert.response.status }}
+### Subject: {{ cert.response.subject }}
+### Trusted For: {{ cert.response.trustedFor }}
+### Valid From: {{ cert.response.validFrom }}
+{%-         endfor %}
 {%- elif "/api/v1/deployment/node" in api %}
 # Deployment Nodes
 {%-     for node in data_to_template['response'] %}
@@ -334,8 +916,27 @@
 ### Install Date: {{ patch.installDate }}
 {%-     endfor %}
 {%- elif "/api/v1/repository" in api %}
+# Repositories
+{%-     for repo in data_to_template['response'] %}
+## Name: {{ repo.name }}
+### Password: {{ repo.password }}
+### Path: {{ repo.path }}
+### Protocol: {{ repo.protocol }}
+### Server Name: {{ repo.serverName }}
+### User Name: {{ repo.userName }}
+{%-     endfor %}
 {%- elif "/api/v1/system-settings/proxy" in api %}
+# Proxy
+## Bypass Hosts: {{ data_to_template.response.bypassHosts }}
+## FQDN: {{ data_to_template.response.fqdn }}
+## Password: {{ data_to_template.response.password }}
+### Required: {{ data_to_template.response.passwordRequired }}
+## Port: {{ data_to_template.response.port }}
+## User Name: {{ data_to_template.response.userName }}
 {%- elif "/api/v1/system-settings/telemetry/transport-gateway" in api %}
+# Transport Gateway
+## Enable Transport Gateway: {{ data_to_template.response.enableTransportGateway }}
+## URL: {{ data_to_template.response.url }}
 {%- elif "/api/v1/trustsec/sgacl/nbarapp/" in api %}
 # NBAR Applications
 {%-     for app in data_to_template['response'] %}
@@ -449,7 +1050,19 @@
 ### State: {{ set.response.state }}
 {%-     endfor %}
 {%- elif "/api/v1/policy/device-admin/service-names" in api %}
+# Service Names
+{%-     for name in data_to_template %}
+## Name: {{ name.name }}
+### ID: {{ name.id }}
+### Is Local Authorization: {{ name.isLocalAuthorization }}
+### Service Type: {{ name.serviceType }}
+{%-     endfor %}
 {%- elif "/api/v1/policy/device-admin/shell-profiles" in api %}
+# Shell Profiles
+{%-     for profile in data_to_template %}
+## Name: {{ profile.name }}
+### ID: {{ profile.id }}
+{%-     endfor %}
 {%- elif "/api/v1/policy/network-access/authorization-profiles" in api %}
 # Network Access Authorization Profiles
 {%-     for profile in data_to_template %}
@@ -691,4 +1304,26 @@
 ### Service Type: {{ service.serviceType }}
 ### Is Local Authorization: {{ service.isLocalAuthorization }}
 {%-         endfor %}
+{%- elif "/admin/API/mnt/Session/ActiveCount" in api %}
+# Active Sessions
+## Session Count: {{ data_to_template.sessionCount.count }}
+{%- elif "/admin/API/mnt/Session/PostureCount" in api %}
+# Posture Count
+## Session Count: {{ data_to_template.sessionCount.count }}
+{%- elif "/admin/API/mnt/Session/ProfilerCount" in api %}
+# Profiler Count
+## Session Count: {{ data_to_template.sessionCount.count }}
+{%- elif "/admin/API/mnt/Version" in api %}
+# Version
+## Name: {{ data_to_template.product['@name'] }}
+### Type of Node: {{ data_to_template.product.type_of_node }}
+### Version: {{ data_to_template.product.version }}
+{%- elif "/admin/API/mnt/FailureReasons" in api %}
+# Failure Reasons
+{%-     for reason in data_to_template.failureReasonList.failureReason %}
+## ID: {{ reason['@id'] }}
+### Cause: {{ reason.cause }}
+### Code: {{ reason.code }}
+### Resolution: {{ reason.resolution }}
+{%-     endfor %}
 {%- endif %}

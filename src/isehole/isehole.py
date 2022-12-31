@@ -3,6 +3,8 @@ import json
 import aiohttp
 import asyncio
 import aiofiles
+from throttler import Throttler
+import xmltodict
 import rich_click as click
 import yaml
 import urllib3
@@ -19,13 +21,14 @@ class ISEHole():
         self.ise = url
         self.username = username
         self.password = password
-
+        self.throttler = Throttler(25)
     def isehole(self):
         self.make_directories()
         asyncio.run(self.main())
 
     def make_directories(self):
         folder_list = ["Active Directory",
+                       "Active Sessions",
                        "Admin Users",
                        "Allowed Protocols",
                        "Authentication Dictionaries",
@@ -39,6 +42,7 @@ class ISEHole():
                        "Endpoint Groups",
                        "Endpoints",
                        "Eval Licenses",
+                       "Failure Reasons",
                        "Hot Patches",
                        "Identity Groups",
                        "Identity Store Sequences",
@@ -74,6 +78,8 @@ class ISEHole():
                        "Policy Set Dictionary",
                        "Policy Sets",
                        "Portals",
+                       "Posture Count",
+                       "Profiler Count",
                        "Profilers",
                        "Proxies",
                        "Repositories",
@@ -88,6 +94,7 @@ class ISEHole():
                        "System Certificates",
                        "Transport Gateways",
                        "Trusted Certificates",
+                       "Version"
         ]
         current_directory = os.getcwd()
         for folder in folder_list:
@@ -106,21 +113,21 @@ class ISEHole():
 
     def ise_api_list(self):
         self.nohttpurl = self.ise.replace("https://","")
-        self.list = ["/ers/config/allowedprotocols?size=100",
+        self.list = ["/ers/config/endpoint?size=100",
+                    "/ers/config/identitygroup?size=100",
+                    "/ers/config/idstoresequence?size=100",
+                    "/ers/config/profilerprofile?size=100",
+                    "/ers/config/internaluser?size=100",                    
+                    "/ers/config/allowedprotocols?size=100",
                     "/ers/config/adminuser?size=100",
                     "/ers/config/activedirectory?size=100",
                     "/ers/config/authorizationprofile?size=100",
                     "/ers/config/downloadableacl?size=100",
-                    "/ers/config/endpoint?size=100",
                     "/ers/config/endpointgroup?size=100",
-                    #"/ers/config/identitygroup?size=100",
-                    "/ers/config/idstoresequence?size=100",
-                    #"/ers/config/internaluser?size=100",
                     "/ers/config/networkdevice?size=100",
                     "/ers/config/networkdevicegroup?size=100",
                     "/ers/config/node?size=100",
                     "/ers/config/portal?size=100",
-                    #"/ers/config/profilerprofile?size=100",
                     "/ers/config/sgt?size=100",
                     "/ers/config/sgacl?size=100",
                     "/ers/config/selfregportal?size=100",
@@ -169,6 +176,11 @@ class ISEHole():
                     "/api/v1/policy/network-access/policy-set",
                     "/api/v1/policy/network-access/security-groups",
                     "/api/v1/policy/network-access/service-names",
+                    "/admin/API/mnt/Session/ActiveCount",
+                    "/admin/API/mnt/Session/PostureCount",
+                    "/admin/API/mnt/Session/ProfilerCount",
+                    "/admin/API/mnt/Version",
+                    "/admin/API/mnt/FailureReasons"
     ]
         return self.list
 
@@ -189,36 +201,32 @@ class ISEHole():
                     print(next_page)
             return all_page_results
 
-    async def get_ers_details(self, response_list):
+    async def get_ers_details(self, api_url):
         headers = {
             'Accept': 'application/json',
             'Content-Type': 'application/json',
         }        
-        async with aiohttp.ClientSession() as session:
-            details_list = []
-            for result in response_list:
-                for href in result['SearchResult']['resources']:  
-                    async with session.get(f"{href['link']['href']}",headers=headers, auth=aiohttp.BasicAuth(self.username, self.password), verify_ssl=False) as resp:
-                        self.api_count += 1
-                        response_dict = await resp.json()
-                        print(href['link']['href'])
-                        details_list.append(response_dict)
+        async with aiohttp.ClientSession(trust_env=True) as session:
+            details_list = [] 
+            async with self.throttler,session.get(f"{api_url['link']['href']}",headers=headers, auth=aiohttp.BasicAuth(self.username, self.password), verify_ssl=False) as resp:
+                self.api_count += 1
+                response_dict = await resp.json()
+                print(api_url['link']['href'])
+                details_list.append(response_dict)
             return details_list
 
-    async def get_open_details(self, response_list):
+    async def get_open_details(self, api_url):
         headers = {
             'Accept': 'application/json',
             'Content-Type': 'application/json',
         }        
         async with aiohttp.ClientSession() as session:
             details_list = []
-            for result in response_list:
-                for href in result['response']:  
-                    async with session.get(f"{href['link']['href']}",headers=headers, auth=aiohttp.BasicAuth(self.username, self.password), verify_ssl=False) as resp:
-                        self.api_count += 1
-                        response_dict = await resp.json()
-                        print(href['link']['href'])
-                        details_list.append(response_dict)
+            async with session.get(f"{api_url['link']['href']}",headers=headers, auth=aiohttp.BasicAuth(self.username, self.password), verify_ssl=False) as resp:
+                self.api_count += 1
+                response_dict = await resp.json()
+                print(api_url['link']['href'])
+                details_list.append(response_dict)
             return details_list
 
     async def get_api(self, api_url):
@@ -227,30 +235,34 @@ class ISEHole():
             'Content-Type': 'application/json',
         }
         async with aiohttp.ClientSession() as session:
-            async with session.get(f"{self.ise}{api_url}",headers=headers, auth=aiohttp.BasicAuth(self.username, self.password), verify_ssl=False) as resp:
-                self.api_count += 1 
-                response_list = []
-                details_list = []
-                self.first_response_dict = await resp.json()
-                if 'SearchResult' in json.dumps(self.first_response_dict):
-                    if 'nextPage' in json.dumps(self.first_response_dict):
-                        response_dict = await asyncio.gather(self.get_pages(self.first_response_dict))
-                        response_list.append(response_dict)
-                        response_list = response_list[0][0]
+            if 'mnt' in api_url:
+                async with session.get(f"{self.ise}{api_url}", auth=aiohttp.BasicAuth(self.username, self.password), verify_ssl=False) as resp:
+                    self.api_count += 1
+                    self.first_response_dict = await resp.text()
+                    response_list = xmltodict.parse(self.first_response_dict)
+                    return (api_url,response_list)                    
+            else:
+                async with session.get(f"{self.ise}{api_url}",headers=headers, auth=aiohttp.BasicAuth(self.username, self.password), verify_ssl=False) as resp:
+                    self.api_count += 1 
+                    response_list = []
+                    self.first_response_dict = await resp.json()
+                    if 'SearchResult' in json.dumps(self.first_response_dict):
+                        if 'nextPage' in json.dumps(self.first_response_dict):
+                            response_dict = await asyncio.gather(self.get_pages(self.first_response_dict))
+                            response_list.append(response_dict)
+                            response_list = response_list[0][0]
+                        else:
+                            response_list.append(self.first_response_dict)
+                        detail_dict = await asyncio.gather(*(self.get_ers_details(api_url) for result in response_list for api_url in result['SearchResult']['resources']))
+                        response_list=detail_dict
                     else:
                         response_list.append(self.first_response_dict)
-                    detail_dict = await asyncio.gather(self.get_ers_details(response_list))
-                    details_list.append(detail_dict)
-                    response_list=details_list[0][0]
-                else:
-                    response_list.append(self.first_response_dict)
-                    if 'href' in json.dumps(self.first_response_dict):
-                        detail_dict = await asyncio.gather(self.get_open_details(response_list))
-                        details_list.append(detail_dict)
-                        response_list=details_list[0]
-                    response_list = response_list[0]
-                print(f"{api_url} Status Code {resp.status}")
-                return (api_url,response_list)
+                        if 'href' in json.dumps(self.first_response_dict):
+                            detail_dict = await asyncio.gather(*(self.get_open_details(api_url) for result in response_list for api_url in result['response']))
+                            response_list=detail_dict
+                        response_list = response_list[0]
+                    print(f"{api_url} Status Code {resp.status}")
+                    return (api_url,response_list)
 
     async def main(self):
         self.api_count = 0
@@ -514,6 +526,26 @@ class ISEHole():
                 async with aiofiles.open('Network Access Service Names/JSON/Network Access Service Names.json', mode='w') as f:
                     await f.write(json.dumps(payload, indent=4, sort_keys=True))
 
+            if "/admin/API/mnt/Session/ActiveCount" in api:
+                async with aiofiles.open('Active Sessions/JSON/Active Sessions.json', mode='w') as f:
+                    await f.write(json.dumps(payload, indent=4, sort_keys=True))
+
+            if "/admin/API/mnt/Session/PostureCount" in api:
+                async with aiofiles.open('Posture Count/JSON/Posture Count.json', mode='w') as f:
+                    await f.write(json.dumps(payload, indent=4, sort_keys=True))
+
+            if "/admin/API/mnt/Session/ProfilerCount" in api:
+                async with aiofiles.open('Profiler Count/JSON/Profiler Count.json', mode='w') as f:
+                    await f.write(json.dumps(payload, indent=4, sort_keys=True))
+
+            if "/admin/API/mnt/Version" in api:
+                async with aiofiles.open('Version/JSON/Version.json', mode='w') as f:
+                    await f.write(json.dumps(payload, indent=4, sort_keys=True))
+
+            if "/admin/API/mnt/FailureReasons" in api:
+                async with aiofiles.open('Failure Reasons/JSON/Failure Reasons.json', mode='w') as f:
+                    await f.write(json.dumps(payload, indent=4, sort_keys=True))
+
     async def yaml_file(self, parsed_json):
         for api, payload in json.loads(parsed_json):
             clean_yaml = yaml.dump(payload, default_flow_style=False)
@@ -768,6 +800,26 @@ class ISEHole():
 
             if "/api/v1/policy/network-access/service-names" in api:
                 async with aiofiles.open('Network Access Service Names/YAML/Network Access Service Names.yaml', mode='w') as f:
+                    await f.write(clean_yaml)
+
+            if "/admin/API/mnt/Session/ActiveCount" in api:
+                async with aiofiles.open('Active Sessions/YAML/Active Sessions.yaml', mode='w') as f:
+                    await f.write(clean_yaml)
+
+            if "/admin/API/mnt/Session/PostureCount" in api:
+                async with aiofiles.open('Posture Count/YAML/Posture Count.yaml', mode='w') as f:
+                    await f.write(clean_yaml)
+
+            if "/admin/API/mnt/Session/ProfilerCount" in api:
+                async with aiofiles.open('Profiler Count/YAML/Profiler Count.yaml', mode='w') as f:
+                    await f.write(clean_yaml)
+
+            if "/admin/API/mnt/Version" in api:
+                async with aiofiles.open('Version/YAML/Version.yaml', mode='w') as f:
+                    await f.write(clean_yaml)
+
+            if "/admin/API/mnt/FailureReasons" in api:
+                async with aiofiles.open('Failure Reasons/YAML/Failure Reasons.yaml', mode='w') as f:
                     await f.write(clean_yaml)
 
     async def csv_file(self, parsed_json):
@@ -1030,6 +1082,26 @@ class ISEHole():
                 async with aiofiles.open('Network Access Service Names/CSV/Network Access Service Names.csv', mode='w') as f:
                     await f.write(csv_output)
 
+            if "/admin/API/mnt/Session/ActiveCount" in api:
+                async with aiofiles.open('Active Sessions/CSV/Active Sessions.csv', mode='w') as f:
+                    await f.write(csv_output)
+
+            if "/admin/API/mnt/Session/PostureCount" in api:
+                async with aiofiles.open('Posture Count/CSV/Posture Count.csv', mode='w') as f:
+                    await f.write(csv_output)
+
+            if "/admin/API/mnt/Session/ProfilerCount" in api:
+                async with aiofiles.open('Profiler Count/CSV/Profiler Count.csv', mode='w') as f:
+                    await f.write(csv_output)
+
+            if "/admin/API/mnt/Version" in api:
+                async with aiofiles.open('Version/CSV/Version.csv', mode='w') as f:
+                    await f.write(csv_output)
+
+            if "/admin/API/mnt/FailureReasons" in api:
+                async with aiofiles.open('Failure Reasons/CSV/Failure Reasons.csv', mode='w') as f:
+                    await f.write(csv_output)
+
     async def markdown_file(self, parsed_json):
         template_dir = Path(__file__).resolve().parent
         env = Environment(loader=FileSystemLoader(str(template_dir)), enable_async=True)
@@ -1274,7 +1346,6 @@ class ISEHole():
                     async with aiofiles.open('Network Access Dictionaries/Markdown/Network Access Dictionaries.md', mode='w') as f:
                         await f.write(markdown_output)
 
-
             if "/api/v1/policy/network-access/identity-stores" in api:
                 async with aiofiles.open('Network Access Identity Stores/Markdown/Network Access Identity Stores.md', mode='w') as f:
                     await f.write(markdown_output)
@@ -1291,6 +1362,25 @@ class ISEHole():
                 async with aiofiles.open('Network Access Service Names/Markdown/Network Access Service Names.md', mode='w') as f:
                     await f.write(markdown_output)
 
+            if "/admin/API/mnt/Session/ActiveCount" in api:
+                async with aiofiles.open('Active Sessions/Markdown/Active Sessions.md', mode='w') as f:
+                    await f.write(markdown_output)
+
+            if "/admin/API/mnt/Session/PostureCount" in api:
+                async with aiofiles.open('Posture Count/Markdown/Posture Count.md', mode='w') as f:
+                    await f.write(markdown_output)
+
+            if "/admin/API/mnt/Session/ProfilerCount" in api:
+                async with aiofiles.open('Profiler Count/Markdown/Profiler Count.md', mode='w') as f:
+                    await f.write(markdown_output)
+
+            if "/admin/API/mnt/Version" in api:
+                async with aiofiles.open('Version/Markdown/Version.md', mode='w') as f:
+                    await f.write(markdown_output)
+
+            if "/admin/API/mnt/FailureReasons" in api:
+                async with aiofiles.open('Failure Reasons/Markdown/Failure Reasons.md', mode='w') as f:
+                    await f.write(markdown_output)
 
     async def html_file(self, parsed_json):
         template_dir = Path(__file__).resolve().parent
@@ -1552,6 +1642,25 @@ class ISEHole():
                 async with aiofiles.open('Network Access Service Names/HTML/Network Access Service Names.html', mode='w') as f:
                     await f.write(html_output)
 
+            if "/admin/API/mnt/Session/ActiveCount" in api:
+                async with aiofiles.open('Active Sessions/HTML/Active Sessions.html', mode='w') as f:
+                    await f.write(html_output)
+
+            if "/admin/API/mnt/Session/PostureCount" in api:
+                async with aiofiles.open('Posture Count/HTML/Posture Count.html', mode='w') as f:
+                    await f.write(html_output)
+
+            if "/admin/API/mnt/Session/ProfilerCount" in api:
+                async with aiofiles.open('Profiler Count/HTML/Profiler Count.html', mode='w') as f:
+                    await f.write(html_output)
+
+            if "/admin/API/mnt/Version" in api:
+                async with aiofiles.open('Version/HTML/Version.html', mode='w') as f:
+                    await f.write(html_output)
+
+            if "/admin/API/mnt/FailureReasons" in api:
+                async with aiofiles.open('Failure Reasons/HTML/Failure Reasons.html', mode='w') as f:
+                    await f.write(html_output)
 
     async def mindmap_file(self, parsed_json):
         template_dir = Path(__file__).resolve().parent
@@ -1811,6 +1920,26 @@ class ISEHole():
 
             if "/api/v1/policy/network-access/service-names" in api:
                 async with aiofiles.open('Network Access Service Names/Mindmap/Network Access Service Names.md', mode='w') as f:
+                    await f.write(mindmap_output)
+
+            if "/admin/API/mnt/Session/ActiveCount" in api:
+                async with aiofiles.open('Active Sessions/Mindmap/Active Sessions.md', mode='w') as f:
+                    await f.write(mindmap_output)
+
+            if "/admin/API/mnt/Session/PostureCount" in api:
+                async with aiofiles.open('Posture Count/Mindmap/Posture Count.md', mode='w') as f:
+                    await f.write(mindmap_output)
+
+            if "/admin/API/mnt/Session/ProfilerCount" in api:
+                async with aiofiles.open('Profiler Count/Mindmap/Profiler Count.md', mode='w') as f:
+                    await f.write(mindmap_output)
+
+            if "/admin/API/mnt/Session/ActiveCount" in api:
+                async with aiofiles.open('Version/Mindmap/Version.md', mode='w') as f:
+                    await f.write(mindmap_output)
+
+            if "/admin/API/mnt/Session/FailureReasons" in api:
+                async with aiofiles.open('Failure Reasons/Mindmap/Failure Reasons.md', mode='w') as f:
                     await f.write(mindmap_output)
 
     async def all_files(self, parsed_json):
