@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "isehole"
-version = "0.1.0"
+version = "0.1.1"
 description = "Business ready documents from Cisco Identity Services Engine"
 authors = ["John Capobianco <ptcapo@gmail.com>"]
 packages = [{ include = "isehole", from = "src"}]
