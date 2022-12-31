@@ -250,19 +250,19 @@
 # Internal Users
 {%-     for hit in data_to_template %}
 {%-         for user in hit %}
-## Name: {{ user['InternalUser'].name }}
-### ID: {{ user['InternalUser'].id }}
-### Change Password: {{ user['InternalUser'].changePassword }}
-### Custom Attributes: {{ user['InternalUser'].customAttributes }}
-### Description: {{ user['InternalUser'].description }}
-### Email: {{ user['InternalUser'].email }}
-### Enabled: {{ user['InternalUser'].enabled }}
-### Expiry Date Enabled: {{ user['InternalUser'].expiryDateEnabled }}
-### First Name: {{ user['InternalUser'].firstName }}
-### Last Name: {{ user['InternalUser'].lastName }}
-### Identity Groups: {{ user['InternalUser'].identityGroups }}
-### Password: {{ user['InternalUser'].password }}
-### Password ID Store: {{ user['InternalUser'].passwordIDStore }}
+## Name: {{ user.InternalUser.name }}
+### ID: {{ user.InternalUser.id }}
+### Change Password: {{ user.InternalUser.changePassword }}
+### Custom Attributes: {{ user.InternalUser.customAttributes }}
+### Description: {{ user.InternalUser.description }}
+### Email: {{ user.InternalUser.email }}
+### Enabled: {{ user.InternalUser.enabled }}
+### Expiry Date Enabled: {{ user.InternalUser.expiryDateEnabled }}
+### First Name: {{ user.InternalUser.firstName }}
+### Last Name: {{ user.InternalUser.lastName }}
+### Identity Groups: {{ user.InternalUser.identityGroups }}
+### Password: {{ user.InternalUser.password }}
+### Password ID Store: {{ user.InternalUser.passwordIDStore }}
 {%-         endfor %}
 {%-     endfor %}
 {%- elif "/ers/config/networkdevice" in api %}

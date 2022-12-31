@@ -579,19 +579,19 @@
 {%-     for hit  in data_to_template %}
 {%-         for user in hit %}
   <tr>
-    <td>{{ user['InternalUser'].name }}</td>
-    <td>{{ user['InternalUser'].id }}</td>
-    <td>{{ user['InternalUser'].changePassword }}</td>
-    <td>{{ user['InternalUser'].customAttributes }}</td>
-    <td>{{ user['InternalUser'].description }}</td>
-    <td>{{ user['InternalUser'].email }}</td>
-    <td>{{ user['InternalUser'].enabled }}</td>
-    <td>{{ user['InternalUser'].expiryDateEnabled }}</td>
-    <td>{{ user['InternalUser'].firstName }}</td>
-    <td>{{ user['InternalUser'].lastName }}</td>
-    <td>{{ user['InternalUser'].identityGroups }}</td>
-    <td>{{ user['InternalUser'].password }}</td>
-    <td>{{ user['InternalUser'].passwordIDStore }}</td>
+    <td>{{ user.InternalUser.name }}</td>
+    <td>{{ user.InternalUser.id }}</td>
+    <td>{{ user.InternalUser.changePassword }}</td>
+    <td>{{ user.InternalUser.customAttributes }}</td>
+    <td>{{ user.InternalUser.description }}</td>
+    <td>{{ user.InternalUser.email }}</td>
+    <td>{{ user.InternalUser.enabled }}</td>
+    <td>{{ user.InternalUser.expiryDateEnabled }}</td>
+    <td>{{ user.InternalUser.firstName }}</td>
+    <td>{{ user.InternalUser.lastName }}</td>
+    <td>{{ user.InternalUser.identityGroups }}</td>
+    <td>{{ user.InternalUser.password }}</td>
+    <td>{{ user.InternalUser.passwordIDStore }}</td>
   </tr>
 {%-         endfor %}
 {%-     endfor %}

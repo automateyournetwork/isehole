@@ -63,7 +63,7 @@
 {%- elif "/ers/config/internaluser" in api %}Name,ID,Change Password,Custom Attributes,Description,Email,Enabled,Expiry Date Enabled,First Name,Last Name,Identity Groups,Password,Password ID Store
 {%-     for hit in data_to_template %}
 {%-         for user in hit %}
-{{ user['InternalUser'].name }},{{ user['InternalUser'].id }},{{ user['InternalUser'].changePassword }},{{ user['InternalUser'].customAttributes }},{{ user['InternalUser'].description }},{{ user['InternalUser'].email }},{{ user['InternalUser'].enabled }},{{ user['InternalUser'].expiryDateEnabled }},{{ user['InternalUser'].firstName }},{{ user['InternalUser'].lastName }},{{ user['InternalUser'].identityGroups }},{{ user['InternalUser'].password }},{{ user['InternalUser'].passwordIDStore }}
+{{ user.InternalUser.name }},{{ user.InternalUser.id }},{{ user.InternalUser.changePassword }},{{ user.InternalUser.customAttributes }},{{ user.InternalUser.description }},{{ user.InternalUser.email }},{{ user.InternalUser.enabled }},{{ user.InternalUser.expiryDateEnabled }},{{ user.InternalUser.firstName }},{{ user.InternalUser.lastName }},{{ user.InternalUser.identityGroups }},{{ user.InternalUser.password }},{{ user.InternalUser.passwordIDStore }}
 {%-         endfor %}
 {%-     endfor %}
 {%- elif "/ers/config/networkdevice" in api %}
