@@ -24,7 +24,7 @@ class ISEHole:
         self.throttler: Throttler = Throttler(25)
         self.no_https_url: str = url.replace("https://", "")
         self.api_count: int = 0
-        self.first_response_dict: dict = None
+        self.first_response_dict: dict
         self.headers = {
             "Accept": "application/json",
             "Content-Type": "application/json",
